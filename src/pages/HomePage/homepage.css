@@ -1,0 +1,88 @@
+/* Base styles for the carousel container */
+.home-carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full height for large screens */
+  overflow: hidden; /* Hide overflow to avoid scrollbars */
+}
+
+/* Ensure images fill the container and adjust according to the screen size */
+.home-carousel .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+/* Adjust height for medium and small screens */
+@media (max-width: 992px) {
+  .home-carousel {
+    height: 75vh; /* Reduced height for medium screens */
+  }
+  .home-carousel .carousel-item img {
+    height: 75vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-carousel {
+    height: 50vh; /* Further reduced height for small screens */
+  }
+  .home-carousel .carousel-item img {
+    height: 50vh;
+  }
+}
+
+/* Ensure the images are zoomed or cropped appropriately for smaller screens */
+@media (max-width: 992px) {
+  .home-carousel .carousel-item img {
+    object-fit: cover; /* Cover container while maintaining aspect ratio */
+  }
+}
+
+@media (max-width: 768px) {
+  .home-carousel .carousel-item img {
+    object-fit: cover; /* Ensure images cover the container */
+  }
+}
+
+/* Styling for carousel captions */
+.home-carousel .carousel-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.home-carousel .carousel-caption h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-carousel .carousel-caption p {
+  font-size: 1.25rem;
+}
+
+/* Optional: styling for carousel indicators */
+.home-carousel .carousel-indicators [data-bs-target] {
+  background-color: rgba(255, 255, 255, 0.5); /* Light indicators */
+}
+
+.home-carousel .carousel-indicators .active {
+  background-color: #fff; /* Highlighted indicator */
+}
+
+/* Optional: styling for carousel controls */
+.home-carousel .carousel-control-prev,
+.home-carousel .carousel-control-next {
+  filter: invert(1); /* Optional: make controls visible on dark backgrounds */
+}
+
+.home-carousel .carousel-control-prev-icon,
+.home-carousel .carousel-control-next-icon {
+  filter: invert(1); /* Optional: make icons visible on dark backgrounds */
+}
