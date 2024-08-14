@@ -1,7 +1,7 @@
 import { Carousel } from "react-bootstrap";
-import "./homepage.css";
+import "./hero.css";
 
-function HomePage() {
+function Hero() {
   return (
     <>
       <Carousel
@@ -151,4 +151,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Hero;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Col, Row, Card, Button, Modal, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import Service from "../../service/ImageService";
+import Service from "../../../service/ImageService";
 const myService = new Service();
 
 import axios from "axios";
@@ -63,7 +63,7 @@ function Services() {
   };
 
   return (
-    <Container>
+    <Container className="px-4">
       <h1 className="text-center">Services</h1>
       <Row xs={1} md={2} lg ={3} xxl ={4} className="g-4">
         {/* {console.log(services)} */}
