@@ -3,19 +3,6 @@ import { NavLink } from "react-router-dom";
 
 export default function Dashboard() {
 
-  const getLocation = () => {
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(showPosition)
-    } else{
-      console.log("update youur browser");
-    }
-  }
-
-  const showPosition  = (position) => {
-    console.log(position.coords.latitude, position.coords.longitude);
-    
-  }
-
   return (
     <main>
       <div className="container px-4">
@@ -51,9 +38,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="card mb-4">
-          <button className="btn btn-primary" onClick={() => getLocation()}>Get Location</button>
-        </div>
       </div>
     </main>
   );

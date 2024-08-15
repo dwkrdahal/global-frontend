@@ -1,12 +1,11 @@
 import "@fortawesome/fontawesome-free/js/all.js";
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const TopNavbar = () => {
   useEffect(() => {
     const sidebarToggle = document.body.querySelector("#sidebarToggle");
     if (sidebarToggle) {
-
       //remember toogle state while refreshing
       if (localStorage.getItem("sb|sidebar-toggle") === "true") {
         document.body.classList.toggle("sb-sidenav-toggled");
@@ -23,6 +22,8 @@ const TopNavbar = () => {
     }
   });
 
+  const navigate = useNavigate();
+
   return (
     <>
       <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -38,21 +39,17 @@ const TopNavbar = () => {
           <i className="fas fa-bars"></i>
         </button>
 
-        <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-          <div className="input-group">
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+          <div class="input-group">
             <input
-              className="form-control"
+              class="form-control"
               type="text"
               placeholder="Search for..."
               aria-label="Search for..."
               aria-describedby="btnNavbarSearch"
             />
-            <button
-              className="btn btn-primary"
-              id="btnNavbarSearch"
-              type="button"
-            >
-              <i className="fas fa-search"></i>
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+              <i class="fas fa-search"></i>
             </button>
           </div>
         </form>
@@ -74,22 +71,28 @@ const TopNavbar = () => {
               aria-labelledby="navbarDropdown"
             >
               <li>
-                <a className="dropdown-item" to="#!">
-                  Settings
-                </a>
+                <NavLink className="dropdown-item" to="/">
+                  Home
+                </NavLink>
               </li>
               <li>
-                <a className="dropdown-item" to="#!">
-                  Activity Log
-                </a>
+                <NavLink className="dropdown-item" to="/admin/me">
+                  Profile
+                </NavLink>
               </li>
               <li>
                 <hr className="dropdown-divider" />
               </li>
               <li>
-                <a className="dropdown-item" to="#!">
+                <button
+                  className="dropdown-item"
+                  onClick={(e) => {
+                    localStorage.removeItem("user_token");
+                    navigate("/login");
+                  }}
+                >
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </li>

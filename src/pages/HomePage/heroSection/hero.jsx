@@ -7,14 +7,14 @@ function Hero() {
       <Carousel
         data-bs-theme="dark"
         interval={2000} // Auto transition every 2 seconds
-        controls={true} // Remove left/right controls for simplicity
+        controls={true} // left/right controls for simplicity
         indicators={true} // Show indicators for navigating slides
         className="home-carousel"
       >
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="images/picture1.jpg"
+            src="images/picture3.jpg"
             alt="First slide"
             style={{ height: "100vh", objectFit: "cover" }} // Full height for large screens
           />
