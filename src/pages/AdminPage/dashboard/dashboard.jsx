@@ -1,18 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { PageTitle } from "../../../components/admin";
 
 export default function Dashboard() {
 
   return (
     <main>
       <div className="container px-4">
-        <h1 className="mt-4">Static Navigation</h1>
-        <ol className="breadcrumb mb-4">
-          <li className="breadcrumb-item">
-            <NavLink to="/admin">Dashboard</NavLink>
-          </li>
-          <li className="breadcrumb-item active">Static Navigation</li>
-        </ol>
+        <PageTitle
+        title="Diwar Estate Admin Dashboard"
+        breadCrumbs={[    ]}
+      />
         <div className="card mb-4">
           <div className="card-body">
             <p className="mb-0">

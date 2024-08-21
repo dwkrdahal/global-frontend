@@ -2,32 +2,19 @@ import { useEffect, useState } from "react";
 import { Table, Container, Button} from "react-bootstrap";
 import { toast } from "react-toastify";
 import Service from "../../../service/ImageService";
-import { NavLink } from "react-router-dom";
 const myService = new Service();
 
 import Swal from "sweetalert2";
+import { PageTitle } from "../../../components/admin";
+import { NavLink } from "react-router-dom";
 
-export default function viewTeam() {
+export default function ListTeam() {
   const token = localStorage.getItem("user_token");
 
-  const URL = "http://localhost:3000";
+  const URL = import.meta.env.VITE_APP_URL;
   const teamURL = URL + "/team";
 
   const [teams, setTeams] = useState([]);
-  const [team, setTeam] = useState({
-    name: "",
-    position: "",
-    bio: "",
-    email: "",
-    phone: "",
-    avatar: null,
-    cover: null,
-    socialLinks: {
-      linkedin: "",
-      facebook: "",
-      instagram: "",
-    },
-  });
 
   //fetch team while opening page
   useEffect(() => {
@@ -86,10 +73,10 @@ export default function viewTeam() {
         },
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (data.status) {
-        setTeam(data.result);
+        setTeams(data.result);
       }
     } catch (error) {
       console.log(error);
@@ -97,14 +84,15 @@ export default function viewTeam() {
   };
 
   return (
-    <Container className="px-4">
-      <h1 className="mt-4">Team Profile</h1>
-      <ol className="breadcrumb mb-4">
-          <li className="breadcrumb-item">
-            <NavLink className="breadcrumb-item" to="/admin">Dashboard</NavLink>
-          </li>
-          <li className="breadcrumb-item">Team</li>
-        </ol>
+    <>
+      <PageTitle
+        title="List Team Page"
+        breadCrumbs={[
+          { name: "Teams", path: "/admin/team" },
+          { name: "List Team" },
+        ]}
+        link={{ to: "/admin/team/create", label: "Create Team", icon: "fas fa-paper-plane" }}
+      />
  
       {/* table */}
       <section id="table" className="card mb-4">
@@ -181,12 +169,12 @@ export default function viewTeam() {
                   </td>
 
                   <td>
-                    <Button
-                      className="btn-primary"
-                      onClick={() => editOne(user._id)}
+                    <NavLink
+                    to={"/admin/team/"+user._id}
+                      className="btn btn-primary"
                     >
                       Edit
-                    </Button>
+                    </NavLink>
                     <Button
                       className="btn-danger"
                       onClick={() => deleteOne(user._id)}
@@ -199,9 +187,9 @@ export default function viewTeam() {
             </tbody>
           </Table>
         ) : (
-          <h3>No teams found</h3>
+          <h3 className="text-center">No Data Found</h3>
         )}
       </section>
-    </Container>
+    </>
   );
 }

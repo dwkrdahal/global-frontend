@@ -1,45 +1,41 @@
-import { useState } from "react";
-import { Container, Button, Col, Form, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { NavLink } from "react-router-dom";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import Service from "../../../service/ImageService";
+const myService = new Service();
 
-function AddTeams() {
-  const URL = "http://localhost:3000";
-  const teamURL = URL + "/team";
-
+export default function TeamFormComponent({ onHandleSubmit, data }) {
   const [team, setTeam] = useState({
-    name: "",
-    position: "",
-    bio: "",
-    email: "",
-    phone: "",
-    avatar: null,
-    cover: null,
-    socialLinks: {
-      linkedin: "",
-      facebook: "",
-      instagram: "",
-    },
+    avatar: data?.avatar || null,
+    cover: data?.cover || null,
   });
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [coverPreview, setCoverPreview] = useState(null);
 
-  let avatarPreview = null;
-  let coverPreview = null;
+  if (team.avatar) {
+    const avatarURL = myService.getRelativePath(team.avatar.url);
+  }
+
+  useEffect(() => {
+    if (data) {
+      setTeam(data);
+    }
+  }, [data]);
 
   const handleChange = (e) => {
     let { name, value, files } = e.target;
-
-    // console.log(files);
 
     if (name === "avatar") {
       setTeam({
         ...team,
         avatar: files[0],
       });
+      setAvatarPreview(URL.createObjectURL(files[0]));
     } else if (name === "cover") {
       setTeam({
         ...team,
         cover: files[0],
       });
+      setCoverPreview(URL.createObjectURL(files[0]));
     } else if (name in team.socialLinks) {
       setTeam({
         ...team,
@@ -56,51 +52,43 @@ function AddTeams() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // while removing image from preview
+  const handleRemove = (type) => {
+    if (type == "avatar") {
 
-    try {
-      const formData = new FormData();
-      formData.append("name", team?.name);
-      formData.append("position", team?.position);
-      formData.append("bio", team?.bio);
-      formData.append("phone", team?.phone);
-      formData.append("email", team?.email);
-      formData.append("avatar", team?.avatar);
-      formData.append("cover", team?.cover);
-      formData.append("socialLinks.facebook", team?.socialLinks?.facebook);
-      formData.append("socialLinks.instagram", team?.socialLinks?.instagram);
-      formData.append("socialLinks.linkedin", team?.socialLinks?.linkedin);
-
-      const response = await fetch(teamURL, {
-        method: "POST",
-        body: formData,
+      setAvatarPreview(null);
+      setTeam({
+        ...team,
+        avatar: null,
       });
+    }
 
-      const data = await response.json();
-
-      if (data.status) {
-        toast.success(data.msg);
-      } else {
-        toast.error(data.msg);
-      }
-    } catch (error) {
-      console.log(error);
+    if (type == "cover") {
+      setCoverPreview(null);
+      setTeam({
+        ...team,
+        cover: null,
+      });
     }
   };
 
+  // Clean up object URLs when component unmounts or previews change
+  useEffect(() => {
+    return () => {
+      if (avatarPreview) URL.revokeObjectURL(avatarPreview);
+      if (coverPreview) URL.revokeObjectURL(coverPreview);
+    };
+  }, [team.avatar, team.cover]);
+
+  // handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    onHandleSubmit(team);
+  };
+
   return (
-    <Container className="px-4">
-      <h1 className="mt-4">Add Team Member</h1>
-      <ol className="breadcrumb mb-4">
-        <li className="breadcrumb-item">
-          <NavLink className="breadcrumb-item" to="/admin">Dashboard</NavLink>
-        </li>
-        <li className="breadcrumb-item active">
-          <NavLink className="breadcrumb-item" to="/admin/team">Team</NavLink>
-        </li>
-        <li className="breadcrumb-item">add</li>
-      </ol>
+    <>
       <Form onSubmit={handleSubmit} className="mb-3" id="#form">
         <Row>
           <Form.Group
@@ -116,7 +104,7 @@ function AddTeams() {
               name="name"
               placeholder="Enter name"
               required
-              value={team?.name}
+              defaultValue={team?.name}
               onChange={handleChange}
             />
           </Form.Group>
@@ -134,7 +122,7 @@ function AddTeams() {
               name="email"
               placeholder="Enter email"
               required
-              value={team?.email}
+              defaultValue={team?.email}
               onChange={handleChange}
             />
           </Form.Group>
@@ -153,7 +141,7 @@ function AddTeams() {
               type="text"
               name="bio"
               required
-              value={team?.bio}
+              defaultValue={team?.bio}
               placeholder="BIO"
               onChange={handleChange}
             />
@@ -173,7 +161,7 @@ function AddTeams() {
               type="text"
               name="position"
               placeholder="position"
-              value={team?.position}
+              defaultValue={team?.position}
               onChange={handleChange}
             />
           </Form.Group>
@@ -191,7 +179,7 @@ function AddTeams() {
               name="phone"
               placeholder="Enter phone"
               required
-              value={team?.phone}
+              defaultValue={team?.phone}
               onChange={handleChange}
             />
           </Form.Group>
@@ -209,9 +197,9 @@ function AddTeams() {
             <Form.Control
               type="text"
               name="linkedin"
-              placeholder="Enter linkedin"
+              placeholder="linkedin link"
               required
-              value={team?.socialLinks?.linkedin}
+              defaultValue={team?.socialLinks?.linkedin}
               onChange={handleChange}
             />
           </Form.Group>
@@ -227,9 +215,9 @@ function AddTeams() {
             <Form.Control
               type="text"
               name="facebook"
-              placeholder="Enter facebook"
+              placeholder="facebook link"
               required
-              value={team?.socialLinks?.facebook}
+              defaultValue={team?.socialLinks?.facebook}
               onChange={handleChange}
             />
           </Form.Group>
@@ -245,9 +233,9 @@ function AddTeams() {
             <Form.Control
               type="text"
               name="instagram"
-              placeholder="Enter instagram"
+              placeholder="instagram link"
               required
-              value={team?.socialLinks?.instagram}
+              defaultValue={team?.socialLinks?.instagram}
               onChange={handleChange}
             />
           </Form.Group>
@@ -264,19 +252,6 @@ function AddTeams() {
             <Form.Label>Avatar</Form.Label>
             <Form.Control type="file" name="avatar" onChange={handleChange} />
           </Form.Group>
-
-          <Col className="md-6">
-            {/* {console.log( team.avatar)} */}
-            {avatarPreview ? (
-              <img
-                className="img img-fluid"
-                src={URL.createObjectURL(team.avatar)}
-              ></img>
-            ) : (
-              <p> thumbnail </p>
-            )}
-          </Col>
-
           <Form.Group
             controlId="formFile02"
             className="mb-3"
@@ -287,16 +262,58 @@ function AddTeams() {
             <Form.Label>Cover</Form.Label>
             <Form.Control type="file" name="cover" onChange={handleChange} />
           </Form.Group>
+        </Row>
+
+        <Row>
+          <Col className="md-6">
+            {avatarPreview || team?.avatar?.url ? (
+              <div className="position-relative">
+                <img
+                  className="img img-fluid"
+                  src={
+                    avatarPreview
+                      ? avatarPreview
+                      : myService.getRelativePath(team?.avatar?.url)
+                  }
+                  alt="Avatar Preview"
+                  height="500px"
+                />
+                <Button
+                  variant="danger"
+                  className="position-absolute top-0 end-0 m-2"
+                  onClick={() => handleRemove("avatar")}
+                >
+                  <i className="fa fa-trash"></i>
+                </Button>
+              </div>
+            ) : (
+              !team.avatar && <p>No Avatar Selected</p>
+            )}
+          </Col>
 
           <Col className="md-6">
-            {/* {console.log( coverPreview)} */}
-            {coverPreview ? (
-              <img
-                className="img img-fluid"
-                src={URL.createObjectURL(coverPreview)}
-              ></img>
+            {coverPreview || team?.cover?.url ? (
+              <div className="position-relative">
+                <img
+                  className="img img-fluid"
+                  src={
+                    coverPreview
+                      ? coverPreview
+                      : myService.getRelativePath(team?.cover?.url)
+                  }
+                  alt="Cover Preview"
+                  height="500px"
+                />
+                <Button
+                  variant="danger"
+                  className="position-absolute top-0 end-0 m-2"
+                  onClick={() => handleRemove("cover")}
+                >
+                  <i className="fa fa-trash"></i>
+                </Button>
+              </div>
             ) : (
-              <p>thumbnail</p>
+              !team.cover && <p>No Cover Selected</p>
             )}
           </Col>
         </Row>
@@ -305,8 +322,6 @@ function AddTeams() {
           Submit
         </Button>
       </Form>
-    </Container>
+    </>
   );
 }
-
-export default AddTeams;

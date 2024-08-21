@@ -14,8 +14,14 @@ function LoginPage() {
   const URL = "http://localhost:3000";
   const LoginURL = URL + "/auth/login";
 
-  const storeTokenInLS = (token) => {
+  const storeItemInLS = (token, loggedInUser) => {   
     localStorage.setItem("user_token", token);
+    localStorage.setItem("user", JSON.stringify({
+      id: loggedInUser?._id,
+      name: loggedInUser?.profile?.fullName,
+      email: loggedInUser?.email,
+      role: loggedInUser?.role
+    }))
   }
 
   const handleChange = (e) => {
@@ -43,12 +49,22 @@ function LoginPage() {
 
       const response_data = await response.json();
       const msg = await response_data.msg;
-      let token = await response_data.token;
+      const token = await response_data.token;
+      const loggedInUser = await response_data.result;
 
       if (response_data.status) {
         toast.success(msg);
-        storeTokenInLS(token);
-        navigate('/admin')
+        storeItemInLS(token, loggedInUser);
+
+        if(loggedInUser.role == 'admin'){
+          navigate('/admin')
+        }else if(loggedInUser.role == 'customer'){
+          navigate('/customer')
+        } else if (loggedInUser.role == 'project_manager'){
+          navigate('/project-manager')
+        } else{
+          navigate('/')
+        }
         
       } else {
         // console.log("failure",response_data);
@@ -56,7 +72,7 @@ function LoginPage() {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Invalid credentialls");
+      toast.error("Error: while login");
     }
   };
 

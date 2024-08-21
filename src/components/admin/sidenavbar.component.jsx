@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 const SideNavbar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
       <nav
@@ -180,7 +182,7 @@ const SideNavbar = () => {
                 <NavLink className="nav-link" to="/admin/team">
                   View Teams
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="/admin/team/create">
                   Add Teams
                 </NavLink>
               </nav>
@@ -220,11 +222,10 @@ const SideNavbar = () => {
               </nav>
             </div>
 
-            {/* SERVICES */}
-
+            {/* PROJECTS */}
             <NavLink
               className="nav-link collapsed"
-              to="/admin/service"
+              to="/admin/project"
               data-bs-toggle="collapse"
               data-bs-target="#collapseProjects"
               aria-expanded="false"
@@ -245,14 +246,14 @@ const SideNavbar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
+                <NavLink className="nav-link" to="/admin/project">
                   View Projects
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="/admin/project/create">
                   Add Projects
                 </NavLink>
 
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="/admin/project/category">
                   <div className="sb-nav-link-icon">
                     <i className="fas fa-tags"></i>
                   </div>
@@ -521,7 +522,7 @@ const SideNavbar = () => {
 
         <div className="sb-sidenav-footer">
           <div className="small">Logged in as:</div>
-          Start Bootstrap
+          {user ? user.name : "Loading..."}
         </div>
       </nav>
     </>

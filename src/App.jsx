@@ -1,30 +1,61 @@
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+
 //react-toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 //layout
-import {AdminLayout, HomeLayout} from "./layout";
+import { AdminLayout, HomeLayout, Customerlayout } from "./layout";
 
 //pages
-import {Hero} from "./pages/HomePage";
-import {LoginPage, RegisterPage} from "./pages/auth";
-import {Dashboard, Services, AddTeam, ViewTeam, Users, Tables } from "./pages/AdminPage";
+import { Hero } from "./pages/HomePage";
+import { LoginPage, RegisterPage } from "./pages/auth";
+import { Dashboard, Users, Tables } from "./pages/AdminPage";
+import { Services } from "./pages/AdminPage/services";
+import {
+  CreateTeam,
+  ListTeam,
+  TeamPage,
+  EditTeam,
+} from "./pages/AdminPage/teams";
+import {
+  ProjectPage,
+  ListProject,
+  ProjectDetail,
+  CreateProject,
+} from "./pages/AdminPage/projects";
 import ErrorPage from "./pages/ErrorPage";
 
 // css
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-function PrivateRoutes({ component }) {
-  let token = localStorage.getItem("user_token");
-  
-  //TODO: login check
-  let isLoggedIn = !!token;
+function AdminPrivateRoutes({ component: Component }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
-  return isLoggedIn ? component : <Navigate to="/login" />;
+  useEffect(() => {
+    //TODO: role check
+    if (!user || user?.role != "admin") {
+      navigate("/");
+    }
+  }, [user, navigate]);
+  return user?.role == "admin" ? <Component /> : null;
 }
+
+function CustomerPrivateRoutes({ component: Component }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  useEffect(() => {
+    //TODO: role check
+    if (!user || user?.role != "customer") {
+      navigate("/");
+    }
+  }, [user]);
+  user?.role == "customer" ? <Component /> : null;
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -38,14 +69,39 @@ function App() {
 
         <Route
           path="/admin"
-          element={<PrivateRoutes component={<AdminLayout />}></PrivateRoutes>}
+          element={
+            <AdminPrivateRoutes component={AdminLayout}></AdminPrivateRoutes>
+          }
         >
           <Route index element={<Dashboard />} />
           <Route path="user" element={<Users />} />
-          <Route path="team" element={<ViewTeam/>} />
-          <Route path="team/add" element={<AddTeam/>} />
+          {/* TEAM PAGE */}
+          <Route path="team" element={<TeamPage />}>
+            <Route index element={<ListTeam />} />
+            <Route path="create" element={<CreateTeam />} />
+            <Route path=":id" element={<EditTeam />} />
+          </Route>
+
+          {/* PROJECT PAGE */}
+          <Route path="project" element={<ProjectPage />}>
+            <Route index element={<ListProject />} />
+            <Route path="create" element={<CreateProject />} />
+            <Route path=":id" element={<ProjectDetail />} />
+          </Route>
+
           <Route path="service" element={<Services />} />
           <Route path="table" element={<Tables />} />
+        </Route>
+
+        <Route
+          path="/customer"
+          element={
+            <CustomerPrivateRoutes
+              component={Customerlayout}
+            ></CustomerPrivateRoutes>
+          }
+        >
+          <Route index element={<Dashboard />} />
         </Route>
 
         <Route path="*" element={<ErrorPage />} />
