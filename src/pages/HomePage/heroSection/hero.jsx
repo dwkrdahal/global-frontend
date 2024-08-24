@@ -1,152 +1,95 @@
-import { Carousel } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import { Button } from "../../../components";
 import "./hero.css";
+import ScrollAnimation from "react-animate-on-scroll";
 
-function Hero() {
+function Hero({ backgroundImage }) {
+  const isVideo =
+    backgroundImage.endsWith(".mp4") || backgroundImage.endsWith(".webm");
+
   return (
     <>
-      <Carousel
-        data-bs-theme="dark"
-        interval={2000} // Auto transition every 2 seconds
-        controls={true} // left/right controls for simplicity
-        indicators={true} // Show indicators for navigating slides
-        className="home-carousel"
-      >
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture3.jpg"
-            alt="First slide"
-            style={{ height: "100vh", objectFit: "cover" }} // Full height for large screens
+      <div className="hero">
+        {isVideo ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="hero-background"
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              zIndex: -1,
+            }}
+          >
+            <source src={backgroundImage} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <div
+            className="hero-background"
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: -1,
+            }}
           />
-          <Carousel.Caption>
-            <h3>First Project</h3>
-            <p>Beautifully designed homes with modern architecture.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        )}
+        <div className="hero-overlay" />
+        <Container className="hero-content">
+          <Row className="justify-content-start">
+            <Col xs={12} md={8} lg={6}>
+              <ScrollAnimation
+                animateIn="slideInDown"
+                animateOut="slideOut"
+                duration={4}
+                delay={600}
+              >
+                <h1 className="hero-heading">Building Your Dreams</h1>
+              </ScrollAnimation>
 
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture2.jpg"
-            alt="Second slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption>
-            <h3>Second Project</h3>
-            <p>Creating spaces that inspire and elevate lifestyles.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+              <ScrollAnimation
+                animateIn="slideInDown"
+                animateOut="slideOut"
+                duration={4}
+                delay={600}
+              >
+                <p>
+                  We provide top-notch services to help you achieve your goals.
+                  Our team is dedicated to delivering quality and excellence.
+                </p>
+              </ScrollAnimation>
 
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture3.jpg"
-            alt="Third slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption>
-            <h3>Third Project</h3>
-            <p>Innovative architecture that stands the test of time.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-
-      
-      <Carousel
-        data-bs-theme="dark"
-        interval={2000} // Auto transition every 2 seconds
-        controls={true} // Remove left/right controls for simplicity
-        indicators={true} // Show indicators for navigating slides
-        className="home-carousel"
-      >
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture1.jpg"
-            alt="First slide"
-            style={{ height: "100vh", objectFit: "cover" }} // Full height for large screens
-          />
-          <Carousel.Caption>
-            <h3>First Project</h3>
-            <p>Beautifully designed homes with modern architecture.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture2.jpg"
-            alt="Second slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption>
-            <h3>Second Project</h3>
-            <p>Creating spaces that inspire and elevate lifestyles.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture3.jpg"
-            alt="Third slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption>
-            <h3>Third Project</h3>
-            <p>Innovative architecture that stands the test of time.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-
-      
-      <Carousel
-        data-bs-theme="dark"
-        interval={2000} // Auto transition every 2 seconds
-        controls={true} // Remove left/right controls for simplicity
-        indicators={true} // Show indicators for navigating slides
-        className="home-carousel"
-      >
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture1.jpg"
-            alt="First slide"
-            style={{ height: "100vh", objectFit: "cover" }} // Full height for large screens
-          />
-          <Carousel.Caption>
-            <h3>First Project</h3>
-            <p>Beautifully designed homes with modern architecture.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture2.jpg"
-            alt="Second slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption>
-            <h3>Second Project</h3>
-            <p>Creating spaces that inspire and elevate lifestyles.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="images/picture3.jpg"
-            alt="Third slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption>
-            <h3>Third Project</h3>
-            <p>Innovative architecture that stands the test of time.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-
+              <div className="button-container">
+                <ScrollAnimation
+                  animateIn="bounceIn"
+                  animateOut="slideOut"
+                  duration={4}
+                  delay={900}
+                >
+                  <Button primary size="md">
+                    Learn More
+                  </Button>
+                  <Button className="button ms-2" secondary size="md">
+                    Get Started
+                  </Button>
+                </ScrollAnimation>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 }

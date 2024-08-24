@@ -1,0 +1,44 @@
+/* Slick Slider Dots */
+.slick-dots {
+  z-index: 1;
+  position: absolute;
+  bottom: 60px; /* Position the dots inside the image */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: auto;
+}
+
+.slick-dots li button:before {
+  font-size: 14px; /* Increase dot size */
+  color: #f37021  /* Dot color */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #0069a5; /* Active dot color */
+}
+
+/* Slick Slider Arrows */
+.slick-prev, .slick-next {
+  z-index: 1; /* Make sure arrows are above the image */
+  top: 50%; /* Center the arrows vertically */
+  width: 40px; /* Increase arrow size */
+  height: 40px;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for visibility */
+  border-radius: 50%;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 20px; /* Increase arrow icon size */
+  color: white; /* Arrow color */
+}
+
+/* Custom arrow positioning */
+.slick-prev {
+  left: 10px; /* Position left arrow inside image */
+}
+
+.slick-next {
+  right: 10px; /* Position right arrow inside image */
+}

@@ -1,0 +1,46 @@
+.logo-slider {
+  padding: 40px 0;
+  background-color: #fff;
+}
+
+.logo-slider p {
+  margin-bottom: 20px;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center; /* Centers the image vertically */
+  justify-content: center; /* Centers the image horizontally */
+  padding: 10px;
+  height: 120px; /* Adjust height as needed */
+  text-align: center;
+}
+
+.logo-item img {
+  max-width: 80%;
+  max-height: 100%; /* Ensures the image doesn’t overflow */
+  transition: transform 0.3s ease;
+  filter: grayscale(100%); /* Optional: make logos grayscale */
+  object-fit: contain; /* Ensures logos maintain their aspect ratio while being centered */
+}
+
+.logo-item img:hover {
+  transform: scale(1.1);
+  filter: none; 
+  cursor: pointer;
+}
+
+.slick-prev,
+.slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px;
+  color: #333;
+}
+
+

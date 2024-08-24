@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { AdminLayout, HomeLayout, Customerlayout } from "./layout";
 
 //pages
-import { Hero } from "./pages/HomePage";
 import { LoginPage, RegisterPage } from "./pages/auth";
 import { Dashboard, Users, Tables } from "./pages/AdminPage";
 import { Services } from "./pages/AdminPage/services";
@@ -30,6 +29,7 @@ import ErrorPage from "./pages/ErrorPage";
 // css
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import HomePage from "./pages/HomePage/home.page";
 
 function AdminPrivateRoutes({ component: Component }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -62,7 +62,7 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<HomeLayout />}>
-          <Route index element={<Hero />} />
+          <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
