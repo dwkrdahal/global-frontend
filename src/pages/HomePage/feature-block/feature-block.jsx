@@ -41,7 +41,7 @@ const FeatureBlock = () => {
           {features
             .slice(0, showMore ? features.length : 4)
             .map((service, index) => (
-              <Col key={index} md={6} lg={4} className="mb-4">
+              <Col key={index} md={5} lg={4} className="mb-4">
                 <div className="overlap-features">
                   <FeatureCard
                     icon={service.icon}

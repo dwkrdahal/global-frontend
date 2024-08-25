@@ -8,18 +8,25 @@
   font-weight: bold;
   letter-spacing: 1px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .section-title {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .section-description {
   font-size: 1rem;
   color: #666;
   margin-bottom: 40px;
+  padding-right: 40px;
+}
+
+.testimonial-content {
+  padding-right: 40px;
 }
 
 .testimonial-card {
@@ -27,19 +34,19 @@
   border: none;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 .testimonial-image-wrapper {
   margin-bottom: 20px;
-  text-align: center;
-  content: justify;
+  display: flex;
+  justify-content: center;
+
 }
 
 .testimonial-image {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #ff7f00;
@@ -49,6 +56,7 @@
   font-size: 1rem;
   color: #666;
   margin-bottom: 20px;
+  padding: 10px 10px;
 }
 
 .testimonial-name {
@@ -60,4 +68,36 @@
 .testimonial-position {
   font-size: 0.9rem;
   color: #999;
+}
+
+.testimonial-image-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.testimonial-side-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media (min-width: 992px) {
+  .testimonial-image-column {
+    height: auto;
+    margin-left: -10px; /* Adjust the gap to make the image close to the testimonial box */
+  }
+
+  .testimonial-side-image {
+    height: 100%;
+  }
+}
+
+@media (max-width: 991px) {
+  .testimonial-image-column {
+    display: none;
+  }
+
 }

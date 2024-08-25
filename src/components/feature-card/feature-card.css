@@ -1,5 +1,4 @@
 .feature-card {
-  position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background-color: #ffffff;
@@ -25,9 +24,6 @@
 }
 
 .feature-card-icon {
-  position: absolute;
-  top: 10px;
-  text-align: center;
   color: #f37021;
   font-size: 4rem;
 }
@@ -66,6 +62,7 @@
     text-align: center;
   }
   .feature-card-icon{
+    text-align: center;
     left: 43%;
   }
   .feature-description {

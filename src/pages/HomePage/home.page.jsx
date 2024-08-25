@@ -6,6 +6,10 @@ import FeatureBlock from "./feature-block/feature-block";
 import FeaturesSection from "../../components/features/features";
 import LogoSlider from "../../components/logo-slider/logo-slider";
 import Testimonials from "./testimonials/testimonials";
+import TeamSection from "./team-section/team-section";
+import OurProjects from "./project/project-section";
+import ContactPage from "./contact/contact-section";
+import Footer from "../../components/common/footer/footer";
 
 
 function HomePage() {
@@ -19,15 +23,29 @@ function HomePage() {
       <div id="services">
         <Services/>
       </div>
-      <div id="features">
-        <FeaturesSection />
+      <div id="projects">
+        <OurProjects/>
       </div>
+      
       <div id="testimonials">
         <Testimonials/>
       </div>
+      <div id="features">
+        <FeaturesSection />
+      </div>
+      
+      <div id="team">
+        <TeamSection />
+      </div>
+
       <div id="logo-slider">
         <LogoSlider />
       </div>
+
+      <div id="contact">
+        <ContactPage />
+      </div>
+      
     </div>
   );
 }
