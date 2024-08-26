@@ -121,9 +121,6 @@ function Projects() {
                     <Card.Text className="location">
                       {project.location}
                     </Card.Text>
-                    <Button primary>
-                      View Project
-                    </Button>
                   </Card.Body>
                 </div>
               </Card>

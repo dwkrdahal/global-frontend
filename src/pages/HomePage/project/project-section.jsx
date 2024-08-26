@@ -10,14 +10,14 @@ const OurProjects = () => {
         <Row className="text-center mb-4">
           <Col>
             <p>PROJECTS</p>
-            <h2>Some of our Best Projects</h2>
+            <h2>Featured Projects</h2>
           </Col>
         </Row>
 
         <Projects />
         
         <div className="text-center mt-4">
-          <Button variant="outline-primary" href="/all-projects">
+          <Button variant="outline-primary" href="/project">
             View All Projects
           </Button>
         </div>

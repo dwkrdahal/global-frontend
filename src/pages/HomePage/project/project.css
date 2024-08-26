@@ -47,6 +47,7 @@
   height: 400px;
   opacity: 1;
   transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: brightness(70%);
 }
 
 .project-card.fade-out {
@@ -83,6 +84,7 @@
 
 .project-card:hover .overlay {
   opacity: 1;
+  cursor: pointer;
 }
 
 .text {
@@ -97,20 +99,6 @@
 
 .location {
   font-size: 18px;
-}
-
-.view-project-btn {
-  margin-top: 10px;
-  color: white;
-  background-color: #007bff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.view-project-btn:hover {
-  background-color: #0056b3;
 }
 
 @media (max-width: 992px) {
@@ -147,8 +135,5 @@
 @media (max-width: 768px) {
   .project-title {
     font-size: 2rem;
-  }
-  .project-page-hero {
-    height: 20vh;
   }
 }

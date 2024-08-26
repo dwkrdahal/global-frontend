@@ -43,7 +43,7 @@ const AboutUs = ({Image}) => {
                 execution.
               </p>
               <Button primary size="sm" onClick={handleClick} >
-                More About
+                More About Us
               </Button>
             </div>
           </Col>

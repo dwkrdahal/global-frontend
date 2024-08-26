@@ -4,14 +4,70 @@ import "./services.css";
 import { Button, ServiceCard } from "../../../components";
 
 const services = [
-  { icon: "fas fa-pencil-ruler", title: "Design", description: "Transforming visions into exquisite designs with precision and creativity.", link: "#" },
-  { icon: "fas fa-hammer", title: "Build", description: "Turning detailed plans into high-quality, on-time constructions.", link: "#" },
-  { icon: "fas fa-tools", title: "Renovate", description: "Revitalizing spaces with thoughtful renovations that blend style and function.", link: "#" },
-  { icon: "fas fa-cogs", title: "Consult", description: "Providing expert advice and solutions tailored to your unique needs.", link: "#" },
-  { icon: "fas fa-shield-alt", title: "Secure", description: "Ensuring safety and security through advanced technologies and practices.", link: "#" },
-  { icon: "fas fa-lightbulb", title: "Innovate", description: "Driving innovation with cutting-edge solutions and creative approaches.", link: "#" },
-  { icon: "fas fa-rocket", title: "Launch", description: "Launching projects with seamless execution and precision.", link: "#" },
-]
+  {
+    icon: "fas fa-drafting-compass",
+    title: "Architectural Design",
+    description: "Blending traditional and modern styles to create functional and aesthetically pleasing designs for homes, offices, and public spaces in Nepal.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-hard-hat",
+    title: "Construction Management",
+    description: "Expert management of construction projects, ensuring timely delivery, budget adherence, and compliance with local regulations across Nepal.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-recycle",
+    title: "Sustainable Renovations",
+    description: "Eco-friendly renovation services that enhance energy efficiency and reduce environmental impact, using sustainable materials and practices.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-comments",
+    title: "Project Consultation",
+    description: "Tailored advice and planning to navigate construction and design challenges, including feasibility studies, cost estimation, and regulatory compliance.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-lock",
+    title: "Building Security",
+    description: "Advanced security solutions, including surveillance and access control systems, to ensure your property’s safety and meet local security standards.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-lightbulb",
+    title: "Innovative Solutions",
+    description: "Cutting-edge technologies and creative approaches to address unique challenges and enhance the functionality and appeal of your projects.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-check-circle",
+    title: "Project Delivery",
+    description: "Seamless execution of projects from planning to completion, ensuring high-quality results and adherence to local standards.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-building",
+    title: "Infrastructure Development",
+    description: "Design and construction of essential infrastructure, including roads and bridges, to support community development and enhance connectivity.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-home",
+    title: "Residential Projects",
+    description: "Custom home designs and construction management to create living spaces that reflect personal style and meet practical needs.",
+    link: "#"
+  },
+  {
+    icon: "fas fa-city",
+    title: "Commercial Developments",
+    description: "Services for developing office buildings, retail spaces, and hospitality projects, focusing on functionality, aesthetics, and business needs.",
+    link: "#"
+  }
+];
+
+
+
 
 const OurServices = () => {
   const [showMore, setShowMore] = useState(false);
@@ -25,15 +81,10 @@ const OurServices = () => {
   return (
     <section className="our-services">
       <Container>
-        <Row className="text-center mb-4">
-          <Col>
-            <p>Our Services</p>
-            <h2>Advance Construction Services with Cutting-Edge Technology</h2>
-          </Col>
-        </Row>
+
         <Row className="justify-content-center">
           {visibleServices.map((service, index) => (
-            <Col key={index} md={6} lg={4} className="mb-4">
+            <Col key={index} md={6} lg={4} xl={4} className="mb-4">
               <ServiceCard
                 icon={service.icon}
                 title={service.title}

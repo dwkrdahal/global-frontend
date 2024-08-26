@@ -1,6 +1,13 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaViber,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
 import "./footer.css";
 
 const Footer = () => {
@@ -26,16 +33,36 @@ const Footer = () => {
             </div>
 
             <div className="footer-social-icons">
-              <a target="_blank" href="https://facebook.com">
+              <a
+                target="_blank"
+                href="https://facebook.com/globalconstructionofficial"
+              >
                 <FaFacebook />
               </a>
-              <a target="_blank" href="https://instagram.com">
+              <a
+                target="_blank"
+                href="https://instagram.com/globalconstruction_group"
+              >
                 <FaInstagram />
               </a>
-              <a target="_blank" href="https://twitter.com">
-                <FaTwitter />
+              <a
+                href="https://wa.me/9779851154436"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp />
               </a>
-              <a target="_blank" href="https://youtube.com">
+              <a
+                href="viber://chat?number=%2B977015908145"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaViber />
+              </a>
+              <a
+                target="_blank"
+                href="https://www.youtube.com/@GlobalConstruction1"
+              >
                 <FaYoutube />
               </a>
             </div>

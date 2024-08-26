@@ -10,42 +10,37 @@ import TeamSection from "./team-section/team-section";
 import OurProjects from "./project/project-section";
 import ContactPage from "./contact/contact-section";
 import Footer from "../../components/common/footer/footer";
-
+import ServiceSection from "./services/services-section";
 
 function HomePage() {
   return (
     <div className="">
       <HeroSlider />
-      <FeatureBlock/>
+      <FeatureBlock />
+
       <div id="about-us">
         <AboutUs Image={"images/picture3.jpg"} />
       </div>
-      <div id="services">
-        <Services/>
-      </div>
+       
       <div id="projects">
-        <OurProjects/>
-      </div>
-      
-      <div id="testimonials">
-        <Testimonials/>
-      </div>
-      <div id="features">
-        <FeaturesSection />
-      </div>
-      
-      <div id="team">
-        <TeamSection />
+        <OurProjects />
       </div>
 
       <div id="logo-slider">
         <LogoSlider />
       </div>
 
+      <div id="testimonials">
+        <Testimonials />
+      </div>
+
+      <div id="features">
+        <FeaturesSection />
+      </div>
+
       <div id="contact">
         <ContactPage />
       </div>
-      
     </div>
   );
 }

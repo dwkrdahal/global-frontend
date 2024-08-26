@@ -8,12 +8,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 // Sample logos (replace with your actual logo images)
 const logos = [
-  { src: "/images/logos/logo1.png", alt: "Company 1" },
-  { src: "/images/logos/logo2.png", alt: "Company 2" },
-  { src: "/images/logos/logo3.jpg", alt: "Company 3" },
-  { src: "/images/logos/logo4.jpg", alt: "Company 4" },
-  { src: "/images/logos/logo5.png", alt: "Company 5" },
-  { src: "/images/logos/logo6.png", alt: "Company 6" },
+  { src: "/images/logos/logo1.png", name: "Company 1" },
+  { src: "/images/logos/logo2.png", name: "Company 2" },
+  { src: "/images/logos/logo3.jpg", name: "Company 3" },
+  { src: "/images/logos/logo4.jpg", name: "Company 4" },
+  { src: "/images/logos/logo5.png", name: "Company 5" },
+  { src: "/images/logos/logo6.png", name: "Company 6" },
 ];
 
 const LogoSlider = () => {
@@ -52,11 +52,12 @@ const LogoSlider = () => {
   return (
     <section className="logo-slider">
       <Container>
-      <p className="text-center">WE HAVE ALREADY WORKED WITH</p>
+        <p className="text-center">We are proud working with</p>
         <Slider {...settings}>
           {logos.map((logo, index) => (
             <div key={index} className="logo-item">
-              <img src={logo.src} alt={logo.alt} className="img-fluid" />
+              <img src={logo.src} alt={logo.name} className="img-fluid" />
+              <div className="tooltip">{logo.name}</div>
             </div>
           ))}
         </Slider>

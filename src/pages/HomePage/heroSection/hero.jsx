@@ -3,7 +3,7 @@ import { Button } from "../../../components";
 import "./hero.css";
 import ScrollAnimation from "react-animate-on-scroll";
 
-function Hero({ backgroundImage }) {
+function Hero({ backgroundImage, title, subtitle }) {
   const isVideo =
     backgroundImage.endsWith(".mp4") || backgroundImage.endsWith(".webm");
 
@@ -44,6 +44,7 @@ function Hero({ backgroundImage }) {
               width: "100%",
               height: "100%",
               zIndex: -1,
+              filter: "brightness(90%)"
             }}
           />
         )}
@@ -57,7 +58,9 @@ function Hero({ backgroundImage }) {
                 duration={4}
                 delay={600}
               >
-                <h1 className="hero-heading">Building Your Dreams</h1>
+                <h1 className="hero-heading">
+                  {title}
+                </h1>
               </ScrollAnimation>
 
               <ScrollAnimation
@@ -67,8 +70,7 @@ function Hero({ backgroundImage }) {
                 delay={600}
               >
                 <p>
-                  We provide top-notch services to help you achieve your goals.
-                  Our team is dedicated to delivering quality and excellence.
+                  {subtitle}
                 </p>
               </ScrollAnimation>
 

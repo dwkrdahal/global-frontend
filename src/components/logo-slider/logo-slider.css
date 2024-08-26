@@ -5,23 +5,26 @@
 
 .logo-slider p {
   margin-bottom: 20px;
+  font-size: 1.2rem;
 }
 
 .logo-item {
   display: flex;
-  align-items: center; /* Centers the image vertically */
-  justify-content: center; /* Centers the image horizontally */
+  align-items: center; 
+  justify-content: center; 
   padding: 10px;
-  height: 120px; /* Adjust height as needed */
+  height: 120px;
   text-align: center;
+  position: relative; 
 }
 
 .logo-item img {
+  padding-left: 20px;
   max-width: 80%;
-  max-height: 100%; /* Ensures the image doesn’t overflow */
+  max-height: 100%; 
   transition: transform 0.3s ease;
-  filter: grayscale(100%); /* Optional: make logos grayscale */
-  object-fit: contain; /* Ensures logos maintain their aspect ratio while being centered */
+  filter: grayscale(100%); 
+  object-fit: contain; 
 }
 
 .logo-item img:hover {
@@ -30,11 +33,36 @@
   cursor: pointer;
 }
 
+.logo-item .tooltip {
+  display: none;
+  position: absolute;
+  bottom: 125%; /* Position above the logo item */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  text-align: center;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-item:hover .tooltip {
+  display: block;
+  opacity: 10; /* Ensure the tooltip is fully visible */
+}
+
 .slick-prev,
 .slick-next {
   width: 40px;
   height: 40px;
   z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: background color for better visibility */
+  border-radius: 50%;
 }
 
 .slick-prev:before,
@@ -43,4 +71,10 @@
   color: #333;
 }
 
+.slick-prev {
+  left: 10px;
+}
 
+.slick-next {
+  right: 10px;
+}
