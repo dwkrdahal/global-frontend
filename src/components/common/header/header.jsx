@@ -4,6 +4,8 @@ import { NavHashLink } from "react-router-hash-link";
 import { FaFacebook, FaInstagram, FaPhone } from "react-icons/fa";
 
 import "./header.css"; // Import your CSS for custom styles
+import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [expanded, setExpanded] = useState(false);
@@ -29,8 +31,10 @@ const Header = () => {
       onToggle={() => setExpanded(!expanded)}
     >
       <Container>
-        <Navbar.Brand href="/" className="d-flex align-items-center">
+        <Navbar.Brand className="d-flex align-items-center">
+          <Link to={"/"}>
           <img src="/images/global-logo.png" height={"50px"} alt="logo" />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse
@@ -38,18 +42,18 @@ const Header = () => {
           className={`navbar-collapse ${expanded ? "show" : ""}`}
         >
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-            <NavHashLink className="nav-link" smooth to="/about-us">
+            <NavLink className="nav-link" smooth to="/about-us">
               About
-            </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="project">
+            </NavLink>
+            <NavLink className="nav-link" smooth to="project">
               Projects
-            </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="/services">
+            </NavLink>
+            <NavLink className="nav-link" smooth to="/services">
               Services
-            </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="/blogs">
+            </NavLink>
+            <NavLink className="nav-link" smooth to="/blogs">
               Blogs
-            </NavHashLink>
+            </NavLink>
             <NavHashLink className="nav-link" smooth to="/#contact">
               Contact Us
             </NavHashLink>

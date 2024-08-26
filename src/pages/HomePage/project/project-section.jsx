@@ -1,9 +1,9 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "./project.css"; // Ensure this file contains the CSS for styling
 import Projects from "./projects";
+import { Link } from "react-router-dom";
 
 const OurProjects = () => {
-  
   return (
     <section id="our-projects">
       <Container>
@@ -15,10 +15,10 @@ const OurProjects = () => {
         </Row>
 
         <Projects />
-        
+
         <div className="text-center mt-4">
-          <Button variant="outline-primary" href="/project">
-            View All Projects
+          <Button variant="outline-primary">
+            <Link to="/project">View All Projects</Link>
           </Button>
         </div>
       </Container>
