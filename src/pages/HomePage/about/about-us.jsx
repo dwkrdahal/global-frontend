@@ -1,9 +1,15 @@
-import React from "react";
+import {useNavigate} from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import "./about-us.css";
 import { Button } from "../../../components";
 
 const AboutUs = ({Image}) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/about-us")
+  }
+
   return (
     <section className="about-us">
       <Container>
@@ -36,7 +42,7 @@ const AboutUs = ({Image}) => {
                 through innovative design, meticulous planning, and exceptional
                 execution.
               </p>
-              <Button primary size="sm">
+              <Button primary size="sm" onClick={handleClick} >
                 More About
               </Button>
             </div>

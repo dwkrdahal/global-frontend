@@ -126,3 +126,29 @@
     max-width: 100%;
   }
 }
+
+.project-page-container {
+  margin: 0; /* Adjust based on your navbar height */
+  background-color: #fff;
+  
+  width: 100%;
+  min-height: 900px;
+}
+
+.project-title {
+  font-size: 3rem;
+  font-weight: bold;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-title {
+    font-size: 2rem;
+  }
+  .project-page-hero {
+    height: 20vh;
+  }
+}

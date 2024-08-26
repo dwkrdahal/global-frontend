@@ -25,6 +25,7 @@ function Hero({ backgroundImage }) {
               top: 0,
               left: 0,
               zIndex: -1,
+              filter: "brightness(90%)"
             }}
           >
             <source src={backgroundImage} type="video/mp4" />
@@ -78,12 +79,6 @@ function Hero({ backgroundImage }) {
                   duration={4}
                   delay={900}
                 >
-                  <Button primary size="md">
-                    Learn More
-                  </Button>
-                  <Button className="button ms-2" secondary size="md">
-                    Get Started
-                  </Button>
                 </ScrollAnimation>
               </div>
             </Col>

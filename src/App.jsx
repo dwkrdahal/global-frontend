@@ -29,7 +29,7 @@ import ErrorPage from "./pages/ErrorPage";
 // css
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import HomePage from "./pages/HomePage/home.page";
+import { HomePage, Project, AboutUsPage } from "./pages/HomePage";
 
 function AdminPrivateRoutes({ component: Component }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -65,6 +65,8 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="project" element={<Project />} />
+          <Route path="about-us" element={<AboutUsPage />} />
         </Route>
 
         <Route

@@ -38,19 +38,16 @@ const Header = () => {
           className={`navbar-collapse ${expanded ? "show" : ""}`}
         >
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-            <NavHashLink className="nav-link" smooth to="/admin">
-              Admin
-            </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="#about-us">
+            <NavHashLink className="nav-link" smooth to="/#about-us">
               About
             </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="#projects">
+            <NavHashLink className="nav-link" smooth to="project">
               Projects
             </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="#services">
+            <NavHashLink className="nav-link" smooth to="/#services">
               Services
             </NavHashLink>
-            <NavHashLink className="nav-link" smooth to="#contact">
+            <NavHashLink className="nav-link" smooth to="/#contact">
               Contact Us
             </NavHashLink>
           </Nav>

@@ -1,0 +1,54 @@
+.breadcrumb-wrapper {
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 0;
+  position: relative;
+}
+
+.breadcrumb-container {
+  background: transparent;
+  padding-top: 90px;  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.breadcrumb-divider {
+  font-size: 1.2rem;
+  margin: 0 10px;
+  color: #ccc; /* Divider color */
+}
+
+.breadcrumb-container .breadcrumb-item a {
+  color: #f57c00;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb-container .breadcrumb-item.active {
+  color: #080480;
+  font-weight: bold;
+}
+
+/* Hover Effect */
+.breadcrumb-container .breadcrumb-item a:hover {
+  color: #e65c00;
+}
+
+/* Customizing Breadcrumb Item Spacing */
+.breadcrumb-container .breadcrumb-item + .breadcrumb-item {
+  margin-left: 0;
+}
+
+/* Adding a subtle bottom border */
+.breadcrumb-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background-color: #f57c00;
+  opacity: 0.5;
+}

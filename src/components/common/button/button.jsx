@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import "./button.css"
+import { NavHashLink } from 'react-router-hash-link';
 const Button = ({
   children,
   type,
@@ -29,6 +30,7 @@ const Button = ({
   if (className) {
     buttonClass += ` ${className}`;
   }
+
 
 
   return (
