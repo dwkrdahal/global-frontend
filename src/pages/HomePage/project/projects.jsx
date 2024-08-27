@@ -109,7 +109,7 @@ function Projects() {
                 fadeOut ? "fade-out" : "fade-in"
               }`}
             >
-              <Link to="detail">
+              <Link to="/project/detail">
               <Card className="project-card">
                 <Card.Img
                   variant="top"

@@ -10,7 +10,7 @@ const project = {
   architectureStyle: "Modern",
   projectType: "Architecture",
   buildingType: "Residential",
-  description: "A modern residential building with eco-friendly features.",
+  description: "Modern Design",
   projectStatus: "in-progress",
   location: {
     address: "123 Street Name",
@@ -85,9 +85,7 @@ function ProjectDescription() {
   return (
     <>
       <BreadCrumb args="Project Description"></BreadCrumb>
-      <Container
-        className="project-description-container m-5"
-      >
+      <Container className="project-description-container m-5">
         {/* Project Header */}
         <Row>
           <Col md={8} className="project-header">
@@ -133,62 +131,96 @@ function ProjectDescription() {
         {/* Project Description and Details */}
         <Row>
           <Col md={8} className="project-details">
-            <p>{project.description}</p>
-
             <p>
-              Coordinates: {project.location.coordinates.latitude},{" "}
-              {project.location.coordinates.longitude}
+              The "Global Project" exemplifies modern residential architecture
+              with an emphasis on sustainability and efficiency. Designed with
+              cutting-edge eco-friendly technologies, this project features a
+              striking modern design that seamlessly blends functionality with
+              aesthetics. The building's innovative use of materials and
+              incorporation of green technologies, such as solar panels and
+              rainwater harvesting systems, not only contribute to its
+              environmental sustainability but also enhance its energy
+              efficiency.
             </p>
 
-            <h2>Site Area</h2>
             <p>
-              {project.siteArea.value} {project.siteArea.unit}
+              Located in the heart of Kathmandu, this project occupies a
+              spacious 2000 sqft site and boasts a built-up area of 1500 sqft.
+              The building's sleek design is complemented by its
+              well-thought-out layout, which maximizes natural light and
+              provides a comfortable living environment. With its completion
+              slated for the end of 2024, the "Global Project" is set to become
+              a benchmark for modern residential architecture in the region,
+              reflecting both the cutting-edge design of its architects and the
+              high standards of contemporary construction practices.
             </p>
 
-            <h2>Buildup Area</h2>
-            <p>
-              {project.builtUpArea.value} {project.builtUpArea.unit}
-            </p>
+            <Col md={8}>
+              {/* Card for Materials & Features */}
+              <Card className="my-4 shadow-sm center">
+                <Card.Body>
+                  <Card.Title className="text-center">
+                    Materials & Features
+                  </Card.Title>
+                  <Card.Text>
+                    <strong>Materials Used</strong>
+                    <ul>
+                      {project.materialsUsed.map((material, index) => (
+                        <li key={index}>{material}</li>
+                      ))}
+                    </ul>
 
-            <h2>Materials Used</h2>
-            <ul>
-              {project.materialsUsed.map((material, index) => (
-                <li key={index}>{material}</li>
-              ))}
-            </ul>
-
-            <h2>Features</h2>
-            <ul>
-              {project.features.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
+                    <strong>Features</strong>
+                    <ul>
+                      {project.features.map((feature, index) => (
+                        <li key={index}>{feature}</li>
+                      ))}
+                    </ul>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
           </Col>
 
           {/* Sidebar: Client and Architect Details */}
           <Col md={4} className="project-sidebar">
+            <Card className="my-4 shadow-sm">
+              <Card.Body>
+                <Card.Text>
+                  <p>
+                    <strong>Site Area :</strong> {project.siteArea.value}{" "}
+                    {project.siteArea.unit}
+                  </p>
+
+                  <p>
+                    <strong>Built-Up Area: </strong> {project.builtUpArea.value}{" "}
+                    {project.builtUpArea.unit}
+                  </p>
+                </Card.Text>
+              </Card.Body>
+            </Card>
             <Card className="mb-4 p-3 shadow-sm">
               <Card.Body>
-                <Card.Title>Client</Card.Title>
+                <Card.Title className="text-center">Client</Card.Title>
                 <Card.Text>
-                  <strong>Name:</strong> {project.client.name}
+                  <strong> {project.client.name}</strong>
                 </Card.Text>
                 <Card.Text>
-                  <strong>Email:</strong>{" "}
-                  <a href={`mailto:${project.client.contact.email}`}>
-                    {project.client.contact.email}
-                  </a>
+                  <strong>
+                    <a href={`mailto:${project.client.contact.email}`}>
+                      {project.client.contact.email}
+                    </a>
+                  </strong>
                 </Card.Text>
                 <Card.Text>
-                  <strong>Phone:</strong>{" "}
-                  {project.client.contact.phone.join(", ")}
+                  <strong>{project.client.contact.phone.join(", ")}</strong>
                 </Card.Text>
               </Card.Body>
             </Card>
 
             <Card className="mb-4 p-3 shadow-sm">
               <Card.Body>
-                <Card.Title>Design Architect</Card.Title>
+                <Card.Title className="text-center"> Designer</Card.Title>
                 <Card.Text>
                   <strong>Name:</strong> {project.designArchitect.name}
                 </Card.Text>
