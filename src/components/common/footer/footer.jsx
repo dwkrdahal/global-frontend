@@ -76,7 +76,7 @@ const Footer = () => {
           <p className="developed-by">
             Design & Developed by: <br />
             <a href="https://dahaldiwakar.com.np">
-              <img src="images/favicon.png" alt="Developed By Logo" />
+              <img src="images/favicon.png" alt="Diwakar Dahal" />
             </a>
           </p>
         </div>

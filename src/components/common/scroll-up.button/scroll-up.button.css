@@ -1,0 +1,34 @@
+.scroll-up-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #0077c8;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0.8;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+.scroll-up-button:hover {
+  opacity: 1;
+  background-color: #005fa3;
+}
+
+.scroll-up-button:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .scroll-up-button {
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 18px;
+  }
+}

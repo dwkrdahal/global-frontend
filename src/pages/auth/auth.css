@@ -1,0 +1,82 @@
+/* LoginForm.css */
+.login-container {
+  padding: 40px 0;
+  background-color: rgb(50, 40, 27);
+}
+
+.login-image img {
+  max-width: 100%;
+  border-radius: 5px;
+  height: 420px;
+}
+
+.login-form {
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 921px){
+  .login-image{
+    height: 450px;
+  }
+}
+/* Responsive Styling */
+@media (max-width: 767px) {
+  .login-form {
+    padding: 20px;
+  }
+  
+  .login-image {
+    display: none;
+  }
+
+  .login-container {
+    padding: 20px 0;
+  }
+}
+
+
+/* RegistrationForm.css */
+.registration-container {
+  padding: 20px;
+  max-width: 800px;
+}
+
+.registration-form {
+  background-color: #f9f9f9;
+  margin: 30px;
+  padding: 40px;
+}
+
+.form-input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.submit-button {
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .registration-container {
+    padding: 10px;
+  }
+
+  .registration-form {
+    padding: 20px;
+  }
+
+  .submit-button {
+    font-size: 16px;
+    padding: 8px;
+  }
+}

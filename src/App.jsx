@@ -18,12 +18,14 @@ import {
   TeamPage,
   EditTeam,
 } from "./pages/AdminPage/teams";
+
 import {
   ProjectPage,
   ListProject,
   ProjectDetail,
   CreateProject,
 } from "./pages/AdminPage/projects";
+
 import ErrorPage from "./pages/ErrorPage";
 
 // css
@@ -35,7 +37,10 @@ import {
   AboutUsPage,
   BlogPage,
   ServicePage,
+  ContactPage,
+  ProjectDescription
 } from "./pages/HomePage";
+import { ScrollUpButton } from "./components";
 
 function AdminPrivateRoutes({ component: Component }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -66,6 +71,8 @@ function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
+      <ScrollUpButton />
+
       <Routes>
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<HomePage />} />
@@ -75,6 +82,8 @@ function App() {
           <Route path="about-us" element={<AboutUsPage />} />
           <Route path="services" element={<ServicePage />} />
           <Route path="blogs" element={<BlogPage />} />
+          <Route path="contact-us" element={<ContactPage />} />
+          <Route path="project/detail" element={<ProjectDescription />} />
         </Route>
 
         <Route

@@ -54,9 +54,12 @@ const Header = () => {
             <NavLink className="nav-link" smooth to="/blogs">
               Blogs
             </NavLink>
-            <NavHashLink className="nav-link" smooth to="/#contact">
+            <NavHashLink className="nav-link" smooth to="/contact-us">
               Contact Us
             </NavHashLink>
+            <NavLink className="nav-link" smooth to="/login">
+              Log In
+            </NavLink>
           </Nav>
           <div className="social-icons-container">
             <Nav.Link

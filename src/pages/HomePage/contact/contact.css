@@ -4,9 +4,6 @@
   background-color: #f8f9fa; /* Light background color */
 }
 
-.section-header {
-  margin-bottom: 40px;
-}
 
 .section-header p {
   font-size: 1rem;
@@ -82,3 +79,63 @@
     margin-bottom: 20px;
   }
 }
+
+/* Background for the entire contact page */
+.contact-page-container {
+  background: linear-gradient(135deg, #f0f4f8, #cce0ff);
+  padding: 50px 0;
+}
+
+/* Styling for the contact details box */
+.contact-details-box h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.contact-details-box .card {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+}
+
+.contact-details-box .card-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+.contact-details-box .card-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* General styling for the contact form section */
+.contact-form h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .contact-page-container {
+    padding: 30px 0;
+  }
+
+  .contact-details-box,
+  .contact-form {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-page-container {
+    padding: 20px 0;
+  }
+
+  .contact-details-box h3,
+  .contact-form h3 {
+    font-size: 20px;
+  }
+}
+

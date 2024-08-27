@@ -1,16 +1,12 @@
 import React from "react";
 import HeroSlider from "./heroSection/hero-slider";
 import AboutUs from "./about/about-us";
-import Services from "./services/services";
 import FeatureBlock from "./feature-block/feature-block";
 import FeaturesSection from "../../components/features/features";
 import LogoSlider from "../../components/logo-slider/logo-slider";
 import Testimonials from "./testimonials/testimonials";
-import TeamSection from "./team-section/team-section";
 import OurProjects from "./project/project-section";
 import ContactPage from "./contact/contact-section";
-import Footer from "../../components/common/footer/footer";
-import ServiceSection from "./services/services-section";
 
 function HomePage() {
   return (
@@ -41,6 +37,7 @@ function HomePage() {
       <div id="contact">
         <ContactPage />
       </div>
+
     </div>
   );
 }

@@ -137,3 +137,25 @@
     font-size: 2rem;
   }
 }
+
+.project-description-container {
+  background-color: #f9f9f9;
+  padding: 2rem;
+}
+
+.project-description-container .project-sidebar {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.project-description-container .project-carousel .carousel-item img {
+  height: 500px;
+  object-fit: cover;
+}
+
+.project-description-container .project-carousel .carousel-caption h5 {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+}

@@ -17,9 +17,11 @@ const OurProjects = () => {
         <Projects />
 
         <div className="text-center mt-4">
-          <Button variant="outline-primary">
-            <Link to="/project">View All Projects</Link>
+        <Link to="/project">
+          <Button variant="info">
+            View All Projects
           </Button>
+          </Link>
         </div>
       </Container>
     </section>

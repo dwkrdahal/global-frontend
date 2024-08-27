@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./project.css"; // Ensure this file contains the CSS for styling
 import { Card, Col, Nav, Row } from 'react-bootstrap';
 import { Button } from '../../../components';
+import { Link } from 'react-router-dom';
 
 
 const projects = [
@@ -108,6 +109,7 @@ function Projects() {
                 fadeOut ? "fade-out" : "fade-in"
               }`}
             >
+              <Link to="detail">
               <Card className="project-card">
                 <Card.Img
                   variant="top"
@@ -123,7 +125,8 @@ function Projects() {
                     </Card.Text>
                   </Card.Body>
                 </div>
-              </Card>
+              </Card></Link>
+              
             </Col>
           ))}
         </Row>
