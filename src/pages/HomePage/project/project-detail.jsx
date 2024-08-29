@@ -85,7 +85,7 @@ function ProjectDescription() {
   return (
     <>
       <BreadCrumb args="Project Description"></BreadCrumb>
-      <Container className="project-description-container m-5">
+      <Container className="project-section project-description-container">
         {/* Project Header */}
         <Row>
           <Col md={8} className="project-header">
