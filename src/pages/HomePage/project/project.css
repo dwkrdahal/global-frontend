@@ -2,6 +2,8 @@
 {
   background-color: #fff;
   margin: 0;
+  margin-left: 50px;
+  margin-top: 20px;
 }
 
 #our-projects {
@@ -118,7 +120,6 @@
   .project-card {
     flex: 0 0 100%;
     max-width: 100%;
-    padding: 12px;
   }
 }
 
@@ -128,6 +129,9 @@
   
   width: 100%;
   min-height: 900px;
+
+  padding: 50px;
+
 }
 
 .project-title {
