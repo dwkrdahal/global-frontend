@@ -7,6 +7,16 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   const [team, setTeam] = useState({
     avatar: data?.avatar || null,
     cover: data?.cover || null,
+    name: "",
+    email: "",
+    bio: "",
+    position: "",
+    phone: "",
+    socialLinks: {
+      facebook: "",
+      instagram: "",
+      linkedin: ""
+    }
   });
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [coverPreview, setCoverPreview] = useState(null);
@@ -23,6 +33,8 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
 
   const handleChange = (e) => {
     let { name, value, files } = e.target;
+    console.log(name ,"", value);
+    
 
     if (name === "avatar") {
       setTeam({
@@ -36,7 +48,7 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
         cover: files[0],
       });
       setCoverPreview(URL.createObjectURL(files[0]));
-    } else if (name in team.socialLinks) {
+    } else if (team.socialLinks && name in team.socialLinks) {
       setTeam({
         ...team,
         socialLinks: {
@@ -55,7 +67,6 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   // while removing image from preview
   const handleRemove = (type) => {
     if (type == "avatar") {
-
       setAvatarPreview(null);
       setTeam({
         ...team,
@@ -82,6 +93,8 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
 
   // handle submit
   const handleSubmit = async (e) => {
+    console.log(team);
+    
     e.preventDefault();
 
     onHandleSubmit(team);

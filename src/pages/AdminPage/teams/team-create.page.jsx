@@ -32,14 +32,14 @@ function CreateTeam() {
 
       if (data.status) {
         toast.success(data.msg);
-        navigate('/admin/team')
+        navigate("/admin/team");
       } else {
         toast.error(data.msg);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -52,10 +52,7 @@ function CreateTeam() {
         link={{ to: "/admin/team", label: "List Team", icon: "fas fa-eye" }}
       />
 
-        <TeamFormComponent
-          onHandleSubmit={addTeam}  
-        />
-      
+      <TeamFormComponent onHandleSubmit={addTeam} />
     </>
   );
 }
