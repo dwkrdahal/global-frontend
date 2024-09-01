@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Container, Button} from "react-bootstrap";
+import { Table, Container, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Service from "../../../service/ImageService";
 const myService = new Service();
@@ -64,7 +64,7 @@ export default function ListTeam() {
       top: document.querySelector("#form"),
       behavior: "smooth",
     });
-    
+
     try {
       const response = await fetch(`${URL}/team/${id}`, {
         method: "GET",
@@ -91,9 +91,13 @@ export default function ListTeam() {
           { name: "Teams", path: "/admin/team" },
           { name: "List Team" },
         ]}
-        link={{ to: "/admin/team/create", label: "Create Team", icon: "fas fa-paper-plane" }}
+        link={{
+          to: "/admin/team/create",
+          label: "Create Team",
+          icon: "fas fa-paper-plane",
+        }}
       />
- 
+
       {/* table */}
       <section id="table" className="card mb-4">
         {teams && teams.length > 0 ? (
@@ -104,19 +108,15 @@ export default function ListTeam() {
                 <th rowSpan={2}>Name</th>
                 <th rowSpan={2}>Email</th>
                 <th rowSpan={2}>Position</th>
-                <th rowSpan={2}>Bio</th>
                 <th rowSpan={2}>Phone</th>
-                <th colSpan={3}>Social Media</th>
                 <th colSpan={1}>Avatar</th>
                 <th colSpan={1}>Cover</th>
+                <th rowSpan={2}>Display</th>
                 <th rowSpan={2}>Action</th>
               </tr>
               <tr>
-                <th>Instagram</th>
-                <th>Facebook</th>
-                <th>Linkedin</th>
-                <th>img</th>
-                <th>url</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -126,11 +126,7 @@ export default function ListTeam() {
                   <td>{user?.name}</td>
                   <td>{user?.email}</td>
                   <td>{user?.position}</td>
-                  <td>{user?.bio}</td>
                   <td>{user?.phone}</td>
-                  <td>{user?.socialLinks?.instagram}</td>
-                  <td>{user?.socialLinks?.facebook}</td>
-                  <td>{user?.socialLinks?.linkedin}</td>
                   <td>
                     <img
                       src={myService.getRelativePath(user?.avatar?.url)}
@@ -167,10 +163,10 @@ export default function ListTeam() {
                       }}
                     />
                   </td>
-
+                  <td>{user?.display}</td>
                   <td>
                     <NavLink
-                    to={"/admin/team/"+user._id}
+                      to={"/admin/team/" + user._id}
                       className="btn btn-primary"
                     >
                       Edit

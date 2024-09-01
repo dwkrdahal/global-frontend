@@ -19,6 +19,7 @@ function CreateTeam() {
       formData.append("email", team?.email);
       formData.append("avatar", team?.avatar);
       formData.append("cover", team?.cover);
+      formData.append("display", team?.display);
       formData.append("socialLinks.facebook", team?.socialLinks?.facebook);
       formData.append("socialLinks.instagram", team?.socialLinks?.instagram);
       formData.append("socialLinks.linkedin", team?.socialLinks?.linkedin);
@@ -31,15 +32,16 @@ function CreateTeam() {
       const data = await response.json();
 
       if (data.status) {
+        // console.log("from db",data);
         toast.success(data.msg);
-        navigate('/admin/team')
+        navigate("/admin/team");
       } else {
         toast.error(data.msg);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -52,10 +54,7 @@ function CreateTeam() {
         link={{ to: "/admin/team", label: "List Team", icon: "fas fa-eye" }}
       />
 
-        <TeamFormComponent
-          onHandleSubmit={addTeam}  
-        />
-      
+      <TeamFormComponent onHandleSubmit={addTeam} />
     </>
   );
 }

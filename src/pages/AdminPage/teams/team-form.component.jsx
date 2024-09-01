@@ -7,6 +7,12 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   const [team, setTeam] = useState({
     avatar: data?.avatar || null,
     cover: data?.cover || null,
+    socialLinks: {
+      facebook: "",
+      instagram: "",
+      linkedin: "",
+    },
+    display: "",
   });
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [coverPreview, setCoverPreview] = useState(null);
@@ -22,8 +28,7 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   }, [data]);
 
   const handleChange = (e) => {
-    let { name, value, files } = e.target;
-
+    let { name, value, files } = e.target;    
     if (name === "avatar") {
       setTeam({
         ...team,
@@ -55,7 +60,6 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   // while removing image from preview
   const handleRemove = (type) => {
     if (type == "avatar") {
-
       setAvatarPreview(null);
       setTeam({
         ...team,
@@ -83,7 +87,8 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   // handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // console.log(team);
+    
     onHandleSubmit(team);
   };
 
@@ -132,8 +137,8 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
           <Form.Group
             className="mb-3"
             as={Col}
-            xs={12}
-            md={12}
+            md={9}
+            sm={12}
             controlId="formGridBio"
           >
             <Form.Label>Bio *</Form.Label>
@@ -143,6 +148,25 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
               required
               defaultValue={team?.bio}
               placeholder="BIO"
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group
+            className="mb-3"
+            as={Col}
+            md={3}
+            sm={12}
+            controlId="formGridBio"
+          >
+            <Form.Label>Display Position *</Form.Label>
+            <Form.Control
+              type="number"
+              name="display"
+              min={0}
+              required
+              defaultValue={team?.display}
+              placeholder="card position"
               onChange={handleChange}
             />
           </Form.Group>

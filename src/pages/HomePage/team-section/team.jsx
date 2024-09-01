@@ -1,52 +1,58 @@
 import { Col, Row } from "react-bootstrap";
-import { FaPhone } from "react-icons/fa";
 import "./team.css";
+import { useEffect, useState } from "react";
+import Service from "../../../service/ImageService";
+const myService = new Service();
 
-const teamMembers = [
-  {
-    name: "Bibek Khadka",
-    position: "Chairman / CEO",
-    image: "/images/team2.jpg",
-  },
-  // {
-  //   name: "Alisha Basnet Khadka",
-  //   position: "Account Head",
-  //   image: "/images/team7.jpg",
-  // },
-  { name: "Diwakar Dahal", position: "Managing Director", image: "/images/team1.jpg" },
-  {
-    name: "Ishwor Budhathokii",
-    position: "Procurement Head",
-    image: "/images/team3.jpg",
-  },
-  {
-    name: "Binod Khadka",
-    position: "Project Manager",
-    image: "/images/team4.jpg",
-  },
-  {
-    name: "Rupesh Limbu",
-    position: "Structural Engineer",
-    image: "/images/team5.jpg",
-  },
-  {
-    name: "Rajesh Khadka",
-    position: "Site Manager",
-    image: "/images/team6.jpg",
-  },
-];
+const URL = import.meta.env.VITE_APP_URL;
+const teamURL = URL + "/team";
 
 function Team() {
+  useEffect(() => {
+    fetchTeam();
+  }, []);
+  const [teams, setTeams] = useState([]);
+
+  const fetchTeam = async () => {
+    try {
+      const response = await fetch(teamURL, {
+        method: "GET",
+      });
+
+      const data = await response.json();
+      if (data.status) {
+        // Filter out items where 'display' is 0
+        const filteredTeams = data.result.filter((team) => team.display !== 0);
+
+        // Sort the remaining items based on the 'display' field
+        const sortedTeams = filteredTeams.sort((a, b) => {
+          if (a.display < b.display) {
+            return -1;
+          }
+          if (a.display > b.display) {
+            return 1;
+          }
+          return 0;
+        });
+
+        // Set the sorted data to the state
+        setTeams(sortedTeams);
+      }
+    } catch (error) {
+      Toast.error("Network Error!");
+    }
+  };
+
   return (
     <>
       <section className="team-section">
         <Row>
-          {teamMembers.map((member, index) => (
+          {teams.map((member, index) => (
             <Col key={index} md={6} lg={4} className="mb-4">
               <div className="team-card">
                 <div className="team-image-wrapper">
                   <img
-                    src={member.image}
+                    src={myService.getRelativePath(member?.avatar?.url)}
                     alt={member.name}
                     className="team-image"
                   />

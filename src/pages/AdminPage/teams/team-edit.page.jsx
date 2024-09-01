@@ -22,6 +22,7 @@ function EditTeam() {
       formData.append("bio", team?.bio);
       formData.append("phone", team?.phone);
       formData.append("email", team?.email);
+      formData.append("display", team?.display);
 
       // Check if avatar or cover is null, if so, send a flag or omit them
       if (team.avatar) {
