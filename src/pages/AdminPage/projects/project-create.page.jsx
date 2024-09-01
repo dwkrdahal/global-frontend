@@ -12,6 +12,8 @@ export default function CreateProject() {
         ]}
         link={{ to: "/admin/project", label: "List Project", icon: "fas fa-eye" }}
       />
+
+      {/* TODO Project page */}
     </>
   )
 }

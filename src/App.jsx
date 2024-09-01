@@ -38,7 +38,7 @@ import {
   BlogPage,
   ServicePage,
   ContactPage,
-  ProjectDescription
+  ProjectDescription,
 } from "./pages/HomePage";
 import { ScrollUpButton } from "./components";
 
@@ -74,6 +74,7 @@ function App() {
       <ScrollUpButton />
 
       <Routes>
+        {/* HOME LAYOUT */}
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
@@ -86,6 +87,7 @@ function App() {
           <Route path="project/detail" element={<ProjectDescription />} />
         </Route>
 
+        {/* ADMIN LAYOUT  */}
         <Route
           path="/admin"
           element={
@@ -94,24 +96,31 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="user" element={<Users />} />
-          {/* TEAM PAGE */}
+
+          {/* About Page */}
+          {/* TODO */}
+
+          {/* Team Page */}
           <Route path="team" element={<TeamPage />}>
             <Route index element={<ListTeam />} />
             <Route path="create" element={<CreateTeam />} />
             <Route path=":id" element={<EditTeam />} />
           </Route>
 
-          {/* PROJECT PAGE */}
+          {/* Project Page */}
           <Route path="project" element={<ProjectPage />}>
             <Route index element={<ListProject />} />
             <Route path="create" element={<CreateProject />} />
             <Route path=":id" element={<ProjectDetail />} />
           </Route>
 
+
+
           <Route path="service" element={<Services />} />
           <Route path="table" element={<Tables />} />
         </Route>
 
+        {/* CUSTOMER LAYOUT */}
         <Route
           path="/customer"
           element={
@@ -123,6 +132,7 @@ function App() {
           <Route index element={<Dashboard />} />
         </Route>
 
+        {/* 404 Error Page */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
