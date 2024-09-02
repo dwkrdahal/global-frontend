@@ -1,4 +1,4 @@
-import { Button, Table, Modal, Form } from "react-bootstrap";
+import { Button, Table, Modal, Form, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
@@ -46,7 +46,7 @@ const FeaturePage = () => {
       if (data.status) {
         fetchFeatures();
         setShowModal(false);
-        toast.success("Success!")
+        toast.success("Success!");
       } else {
         toast.error(data.msg);
       }
@@ -81,7 +81,7 @@ const FeaturePage = () => {
 
   const handleAdd = () => {
     console.log("i reached here");
-    
+
     setCurrentFeature(null);
     setShowModal(true);
   };
@@ -119,8 +119,8 @@ const FeaturePage = () => {
                 <th>#</th>
                 <th>Title</th>
                 <th>Count</th>
-                <th>Unit</th>
                 <th>+</th>
+                <th>Unit</th>
                 <th>Active</th>
                 <th>Rank</th>
                 <th>Actions</th>
@@ -132,8 +132,8 @@ const FeaturePage = () => {
                   <td>{i + 1}</td>
                   <td>{feature?.title}</td>
                   <td>{feature?.number}</td>
-                  <td>{feature?.unit}</td>
                   <td>{feature?.addPlus ? "+" : ""}</td>
+                  <td>{feature?.unit}</td>{" "}
                   <td>{feature?.isActive ? "Yes" : "No"}</td>
                   <td>{feature?.rank}</td>
                   <td className="d-flex justify-content-center">
@@ -167,61 +167,75 @@ const FeaturePage = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                name="title"
-                value={currentFeature?.title || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="number">
-              <Form.Label>Count</Form.Label>
-              <Form.Control
-                type="number"
-                name="number"
-                value={currentFeature?.number || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="unit">
-              <Form.Label>Unit</Form.Label>
-              <Form.Control
-                type="text"
-                name="unit"
-                value={currentFeature?.unit || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="addPlus">
-              <Form.Check
-                type="checkbox"
-                name="addPlus"
-                label="Add + sign"
-                checked={currentFeature?.addPlus || false}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="isActive">
-              <Form.Check
-                type="checkbox"
-                name="isActive"
-                label="Active"
-                checked={currentFeature?.isActive || false}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="rank">
-              <Form.Label>Rank</Form.Label>
-              <Form.Control
-                type="number"
-                name="rank"
-                min="0"
-                value={currentFeature?.rank || ""}
-                onChange={handleChange}
-              />
-            </Form.Group>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="title">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="title"
+                  value={currentFeature?.title || ""}
+                  onChange={handleChange}
+                  placeholder="Enter title"
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="unit">
+                <Form.Label>Unit</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="unit"
+                  value={currentFeature?.unit || ""}
+                  onChange={handleChange}
+                  placeholder="Enter unit"
+                />
+              </Form.Group>
+            </Row>
+
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="number">
+                <Form.Label>Number</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="number"
+                  value={currentFeature?.number || ""}
+                  onChange={handleChange}
+                  placeholder="Count Ends"
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="rank">
+                <Form.Label>Rank</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="rank"
+                  min="0"
+                  value={currentFeature?.rank || ""}
+                  onChange={handleChange}
+                  placeholder="Enter rank"
+                />
+              </Form.Group>
+            </Row>
+
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="addPlus">
+                <Form.Check
+                  type="checkbox"
+                  name="addPlus"
+                  label="Add + sign"
+                  checked={currentFeature?.addPlus || false}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="isActive">
+                <Form.Check
+                  type="checkbox"
+                  name="isActive"
+                  label="Active"
+                  checked={currentFeature?.isActive || false}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
