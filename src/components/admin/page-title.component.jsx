@@ -1,18 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink, useLocation } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const PageTitle = ({ title, breadCrumbs=[], link }) => {
   const location = useLocation();
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center">
+         <div className="d-flex justify-content-between align-items-center">
         <h1 className="mt-4">{title}</h1>
         {link && (
-          <NavLink to={link.to} className="btn btn-sm btn-info p-2">
-            <i className={link.icon}></i> &nbsp; {link.label}
-          </NavLink>
+          <>
+            {link.onClick ? (
+              <Button
+                variant="info"
+                size="sm"
+                onClick={link.onClick}
+                className="d-flex align-items-center"
+              >
+                {link.icon && <i className={`${link.icon} me-2`}></i>}
+                {link.label}
+              </Button>
+            ) : (
+              <NavLink to={link.to} className="btn btn-sm btn-info d-flex align-items-center">
+                {link.icon && <i className={`${link.icon} me-2`}></i>}
+                {link.label}
+              </NavLink>
+            )}
+          </>
         )}
       </div>
       <ol className="breadcrumb mb-4">

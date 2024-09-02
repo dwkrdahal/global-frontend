@@ -41,6 +41,7 @@ import {
   ProjectDescription,
 } from "./pages/HomePage";
 import { ScrollUpButton } from "./components";
+import { AboutPage, FeaturePage } from "./pages/AdminPage/about";
 
 function AdminPrivateRoutes({ component: Component }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -114,6 +115,10 @@ function App() {
             <Route path=":id" element={<ProjectDetail />} />
           </Route>
 
+          {/* About Page */}
+          <Route path="about" element={<AboutPage/>}>
+            <Route path="feature" element={<FeaturePage/>} ></Route>
+          </Route>
 
 
           <Route path="service" element={<Services />} />

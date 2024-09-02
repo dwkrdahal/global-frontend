@@ -188,6 +188,40 @@ const SideNavbar = () => {
               </nav>
             </div>
 
+            {/* ABOUT */}
+
+            <NavLink
+              className="nav-link collapsed"
+              to="/admin/about"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseAbout"
+              aria-expanded="false"
+              aria-controls="collapseAbout"
+            >
+              <div className="sb-nav-link-icon">
+                <i className="fas fa-users"></i>
+              </div>
+              About
+              <div className="sb-sidenav-collapse-arrow">
+                <i className="fas fa-angle-down"></i>
+              </div>
+            </NavLink>
+            <div
+              className="collapse"
+              id="collapseAbout"
+              aria-labelledby="headingOne"
+              data-bs-parent="#sidenavAccordion"
+            >
+              <nav className="sb-sidenav-menu-nested nav">
+                <NavLink className="nav-link" to="/admin/about/feature">
+                  Features
+                </NavLink>
+                <NavLink className="nav-link" to="/admin/about/create">
+                  Add Items
+                </NavLink>
+              </nav>
+            </div>
+
             {/* SERVICES */}
 
             <NavLink

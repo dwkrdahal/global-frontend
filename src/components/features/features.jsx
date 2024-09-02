@@ -1,38 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import "./features.css";
 
-const features = [
-  { count: 30000, label: "Sites" },
-  { count: 17000, label: "Workers" },
-  { count: 22000, label: "Resources" },
-  { count: 50000, label: "Clients" },
-];
+const URL = import.meta.env.VITE_APP_URL;
+const featureURL = URL + "/feature";
 
 const FeatureCounters = () => {
-  // Set up Intersection Observer to detect when the section is in view
+  const [features, setFeatures] = useState([]);
   const { ref, inView } = useInView({
-    triggerOnce: true, // Only trigger once when in view
-    threshold: 0.2, // Trigger when 20% of the section is in view
+    triggerOnce: true,
+    threshold: 0.2,
   });
+
+  // Function to fetch and process feature data from API
+  const fetchFeatures = async () => {
+    try {
+      const response = await fetch(`${URL}/feature`);
+      const data = await response.json();
+      
+      // Filter, sort, and map the features based on your requirements
+      const processedFeatures = data.result
+        .filter(feature => feature.isActive) // Only include active features
+        .sort((a, b) => a.rank - b.rank) // Sort by rank in ascending order
+
+      setFeatures(processedFeatures);
+    } catch (error) {
+      console.error("Failed to fetch feature data", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFeatures();
+  }, []);
 
   return (
     <section ref={ref} className="feature-counters">
-      <Container >
+      <Container>
         <Row className="justify-content-center">
-          <p className="text-center">WE PROUDLY FEATURES</p>
+          <p className="text-center">WE PROUDLY FEATURE</p>
           {features.map((feature, index) => (
             <Col key={index} md={3} sm={6} xs={12} className="text-center mb-3">
               <div className="counter-item">
+              <p>{feature.title}</p>
                 <h2>
                   {inView && (
-                    <CountUp end={feature.count} duration={3} separator="," />
+                    <CountUp end={feature.number} duration={3} separator="," />
                   )}
-                  +
+                  {feature.addPlus && "+"}
+                  <p>{feature?.unit ? feature.unit : " "}</p>
                 </h2>
-                <p>{feature.label}</p>
+                
+                
               </div>
             </Col>
           ))}

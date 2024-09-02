@@ -2,7 +2,6 @@ import { BreadCrumb, FeatureCard, FeatureCounters } from "../../../components";
 import { Container, Row, Col } from "react-bootstrap";
 import "./about-us.css";
 import TeamSection from "../team-section/team-section";
-import FeatureBlock from "../feature-block/feature-block";
 
 const AboutUsPage = () => {
   return (
