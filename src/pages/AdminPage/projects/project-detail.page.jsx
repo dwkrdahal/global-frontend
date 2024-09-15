@@ -14,8 +14,14 @@ import {
 import "./project.css";
 
 import Service from "../../../service/ImageService";
-import { InformationComponent, LocationComponent } from "./project.component";
 const myService = new Service();
+import {
+  ClientComponent,
+  ImageManagementComponent,
+  InformationComponent,
+  TimelineComponent,
+} from "./project.component";
+
 
 export default function ProjectDetail() {
   const [project, setProject] = useState(null);
@@ -106,104 +112,27 @@ export default function ProjectDetail() {
             {/* Project Information */}
             <InformationComponent
               project={project}
-              projectURL = {projectURL}
-              token = {token}
-            />
-
-            {/* Location Details */}
-            <LocationComponent
-              project={project}
-              projectURL = {projectURL}
+              projectURL={projectURL}
+              token={token}
             />
 
             {/* Client Information */}
-            <Card className="project-detail-card mb-4">
-              <Card.Header as="h5" className="section-title">
-                Client Information
-              </Card.Header>
-              <Card.Body>
-                <Form.Group controlId="clientName">
-                  <Form.Label>
-                    <strong>Client Name</strong>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    defaultValue={project.client?.name || ""}
-                    readOnly={!isEditing}
-                    disabled={!isEditing}
-                  />
-                  
-                </Form.Group>
-                <Row>
-                  <Col>
-                <Form.Group controlId="clientContact">
-                  <Form.Label>
-                    <strong>Email</strong>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    defaultValue={project.client?.contact?.email || ""}
-                    readOnly={!isEditing}
-                    disabled={!isEditing}
-                  />
-                </Form.Group>
-                </Col>
-                <Col>
-                <Form.Group controlId="clientContact">
-                  <Form.Label>
-                    <strong>Phone</strong>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    defaultValue={project.client?.contact?.phone[0] || ""}
-                    readOnly={!isEditing}
-                    disabled={!isEditing}
-                  />
-                </Form.Group>
-                </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-            
-
-            {/* Sustainability Features */}
-            <Card className="project-detail-card mb-4">
-              <Card.Header as="h5" className="section-title">
-                Sustainability Features
-              </Card.Header>
-              <Card.Body>
-                <ul>
-                  {project.sustainabilityFeatures?.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
+            <ClientComponent
+              project={project}
+              projectURL={projectURL}
+              token={token}
+            />
           </Col>
 
-          {/* Creator Information */}
+          {/* Project Images */}
           <Col lg={4}>
-            <Card className="project-detail-card mb-4">
-              <Card.Header as="h5" className="section-title">
-                Project Images
-              </Card.Header>
-              <Card.Body>
-                <Carousel>
-                  {project.images?.map((image, index) => (
-                    <Carousel.Item key={index}>
-                      <img
-                        className="d-block w-100"
-                        src={myService.getRelativePath(image.url)}
-                        alt={`Slide ${index}`}
-                      />
-                      <Carousel.Caption>
-                        <p>{image.caption}</p>
-                      </Carousel.Caption>
-                    </Carousel.Item>
-                  ))}
-                </Carousel>
-              </Card.Body>
-            </Card>
+            
+            {/* Project Timeline */}
+            <TimelineComponent
+              project={project}
+              projectURL={projectURL}
+              token={token}
+            />
 
             {/* Created By Section */}
             <Card className="project-detail-card mb-4">
@@ -213,12 +142,12 @@ export default function ProjectDetail() {
               <Card.Body className="d-flex align-items-center">
                 <i className="fas fa-user-circle fa-2x me-3"></i>
                 <div>
-                  <strong>{project.createdBy?.name || "John Doe"}</strong>
-                  <p className="mb-0 text-muted">Project Manager</p>
+                  <strong>{project.createdBy?.name || "Designer"}</strong>
+                  <p className="mb-0 text-muted">Architect</p>
                 </div>
               </Card.Body>
             </Card>
-            
+
             {/* Timestamps */}
             <Card className="project-detail-card mb-4">
               <Card.Header as="h5" className="section-title">
@@ -235,103 +164,17 @@ export default function ProjectDetail() {
                 </p>
               </Card.Body>
             </Card>
-            {/* Project Timeline */}
-            <Card className="project-detail-card mb-4">
-              <Card.Header as="h5" className="section-title">
-                Project Timeline
-              </Card.Header>
-              <Card.Body>
-                <Row>
-                  <Col>
-                    <Form.Group controlId="yearStart">
-                      <Form.Label>
-                        <strong>Start Date</strong>
-                      </Form.Label>
-                      <Form.Control
-                        type="date"
-                        defaultValue={
-                          project.year?.start
-                            ? project.year.start.split("T")[0]
-                            : ""
-                        }
-                        readOnly={!isEditing}
-                        disabled={!isEditing}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="yearExpected">
-                      <Form.Label>
-                        <strong>Expected Completion Date</strong>
-                      </Form.Label>
-                      <Form.Control
-                        type="date"
-                        defaultValue={
-                          project.year?.expected
-                            ? project.year.expected.split("T")[0]
-                            : ""
-                        }
-                        readOnly={!isEditing}
-                        disabled={!isEditing}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="yearCompletion">
-                      <Form.Label>
-                        <strong>Completion Date</strong>
-                      </Form.Label>
-                      <Form.Control
-                        type="date"
-                        defaultValue={
-                          project.year?.completion
-                            ? project.year.completion.split("T")[0]
-                            : ""
-                        }
-                        readOnly={!isEditing}
-                        disabled={!isEditing}
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
           </Col>
         </Row>
 
-         {/* Full-width Main Image */}
-         <div className="project-main-image mb-4">
-          {/* {project.images[0] && (
-            <img
-              src={myService.getRelativePath(project.images[0].url)}
-              alt={project.images[0].caption || "Project Image"}
-              className="img-fluid w-100"
+        {/* Full-width Main Image */}
+        
+        <ImageManagementComponent
+              project={project}
+              projectURL={projectURL}
+              token={token}
             />
-          )} */}
-          <Card className="project-detail-card mb-4">
-          <Card.Header as="h5" className="section-title">
-                Images
-              </Card.Header>
-              <Card.Body>
-                <Carousel>
-                  {project.images?.map((image, index) => (
-                    <Carousel.Item key={index}>
-                      <img
-                        className="d-block w-100"
-                        height="auto"
-                        width="auto"
-                        src={myService.getRelativePath(image.url)}
-                        alt={`Slide ${index}`}
-                      />
-                      <Carousel.Caption>
-                        <p>{image.caption}</p>
-                      </Carousel.Caption>
-                    </Carousel.Item>
-                  ))}
-                </Carousel>
-              </Card.Body>
-            </Card>
-        </div>
+  
       </Container>
     </>
   );

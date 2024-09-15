@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import DOMPurify from "dompurify";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function InformationComponent({ project, projectURL, token }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -100,7 +103,6 @@ export default function InformationComponent({ project, projectURL, token }) {
 
         if (data.status) {
           setInformation(data.result);
-          // toast.success("Refreshed");
           setOriginalInformation(data.result);
         } else {
           toast.error(data.msg);
@@ -114,8 +116,7 @@ export default function InformationComponent({ project, projectURL, token }) {
     }
   };
 
-  const handleSave = async (e) => {
-    console.log(information);
+  const handleSave = async () => {
     try {
       const result = await fetch(projectURL, {
         method: "PATCH",
@@ -127,11 +128,9 @@ export default function InformationComponent({ project, projectURL, token }) {
       });
       const data = await result.json();
 
-      //if success
       if (data.status) {
         toast.success("Information Updated  ");
         setInformation(data.result);
-        console.log(data);
       } else {
         toast.error(data.msg);
       }
@@ -153,10 +152,10 @@ export default function InformationComponent({ project, projectURL, token }) {
         <Card.Header className="d-flex justify-content-between align-items-center">
           <h5 className="section-title">Project Information</h5>
           <div className="ms-auto d-flex align-items-center">
-            <Button variant="link" onClick={() => handleRefresh()}>
+            <Button variant="link" onClick={handleRefresh}>
               <i className="fas fa-arrows-rotate"></i>
             </Button>
-            <Button variant="link" onClick={() => handleEditToggle()}>
+            <Button variant="link" onClick={handleEditToggle}>
               <i className="fas fa-pen"></i>
             </Button>
           </div>
@@ -172,7 +171,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                   <Form.Control
                     type="text"
                     name="title"
-                    defaultValue={project?.title}
+                    defaultValue={information.title}
                     readOnly={!isEditing}
                     disabled={!isEditing}
                   />
@@ -186,7 +185,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                   <Form.Control
                     as="select"
                     name="projectStatus"
-                    defaultValue={project?.projectStatus}
+                    defaultValue={information.projectStatus}
                     readOnly={!isEditing}
                     disabled={!isEditing}
                   >
@@ -200,21 +199,33 @@ export default function InformationComponent({ project, projectURL, token }) {
               </Col>
             </Row>
 
+            {/* Description Field with CKEditor */}
             <Form.Group controlId="projectDescription">
               <Form.Label>
                 <strong>Description</strong>
               </Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                name="description"
-                defaultValue={project?.description}
-                readOnly={!isEditing}
-                disabled={!isEditing}
-              />
+              {isEditing ? (
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={information.description}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setInformation((prevInformation) => ({
+                      ...prevInformation,
+                      description: data,
+                    }));
+                  }}
+                />
+              ) : (
+                <div
+                  className="form-control"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(information.description || ""),
+                  }}
+                />
+              )}
             </Form.Group>
 
-            {/* Architecture Style and Project Type */}
             <Row>
               <Col sm={6}>
                 <Form.Group controlId="architectureStyle">
@@ -224,7 +235,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                   <Form.Control
                     type="text"
                     name="architectureStyle"
-                    defaultValue={project?.architectureStyle || ""}
+                    defaultValue={information.architectureStyle || ""}
                     readOnly={!isEditing}
                     disabled={!isEditing}
                   />
@@ -238,7 +249,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                   <Form.Control
                     as="select"
                     name="projectType"
-                    defaultValue={project?.projectType}
+                    defaultValue={information.projectType}
                     readOnly={!isEditing}
                     disabled={!isEditing}
                   >
@@ -250,6 +261,7 @@ export default function InformationComponent({ project, projectURL, token }) {
               </Col>
             </Row>
 
+            {/* Site and Built-up Area Details */}
             <Card.Header as="h5" className="section-title">
               Area Details
             </Card.Header>
@@ -266,7 +278,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                           type="text"
                           name="siteAreaValue"
                           placeholder="value"
-                          defaultValue={project.siteArea?.value || ""}
+                          defaultValue={information.siteArea.value || ""}
                           readOnly={!isEditing}
                           disabled={!isEditing}
                         />
@@ -276,7 +288,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                           type="text"
                           name="siteAreaUnit"
                           placeholder="Unit"
-                          defaultValue={project.siteArea?.unit || ""}
+                          defaultValue={information.siteArea.unit || ""}
                           readOnly={!isEditing}
                           disabled={!isEditing}
                         />
@@ -292,10 +304,10 @@ export default function InformationComponent({ project, projectURL, token }) {
                     <Row>
                       <Col>
                         <Form.Control
-                          name="builtUpAreaValue"
                           type="text"
+                          name="builtUpAreaValue"
                           placeholder="value"
-                          defaultValue={project.builtUpArea?.value || ""}
+                          defaultValue={information.builtUpArea.value || ""}
                           readOnly={!isEditing}
                           disabled={!isEditing}
                         />
@@ -305,7 +317,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                           type="text"
                           name="builtUpAreaUnit"
                           placeholder="Unit"
-                          defaultValue={project.builtUpArea?.unit || ""}
+                          defaultValue={information.builtUpArea.unit || ""}
                           readOnly={!isEditing}
                           disabled={!isEditing}
                         />
@@ -318,11 +330,11 @@ export default function InformationComponent({ project, projectURL, token }) {
 
             {isEditing && (
               <>
-                <Button variant="primary" onClick={() => handleSave()}>
+                <Button variant="primary" onClick={handleSave}>
                   Update
                 </Button>
                 &nbsp;
-                <Button variant="secondary" onClick={() => handleDiscard()}>
+                <Button variant="secondary" onClick={handleDiscard}>
                   Discard
                 </Button>
               </>

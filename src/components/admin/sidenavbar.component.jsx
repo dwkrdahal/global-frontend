@@ -22,8 +22,20 @@ const SideNavbar = () => {
               Dashboard
             </NavLink>
 
-            {/* CONTENT MANAGEMENT */}
+            {/* MESSAGE */}
 
+            {user.role == "admin" ? (
+              <NavLink className="nav-link" to="/admin/message">
+                <div className="sb-nav-link-icon">
+                  <i class="fa-solid fa-message"></i>
+                </div>
+                Message
+              </NavLink>
+            ) : (
+              ""
+            )}
+
+            {/* CONTENT MANAGEMENT */}
             <NavLink
               className="nav-link collapsed"
               to="/admin/user"
@@ -39,7 +51,9 @@ const SideNavbar = () => {
               <div className="sb-sidenav-collapse-arrow">
                 <i className="fas fa-angle-down"></i>
               </div>
-            </NavLink>
+            </NavLink> 
+
+            {/* collapse Menu */}
             <div
               className="collapse"
               id="collapseContent"
@@ -50,8 +64,7 @@ const SideNavbar = () => {
                 className="sb-sidenav-menu-nested nav accordion"
                 id="sidenavAccordionPages"
               >
-                {/* PAGES */}
-
+                {/* pages */}
                 <NavLink
                   className="nav-link collapsed"
                   to="#"

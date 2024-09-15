@@ -5,11 +5,36 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// css
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
+
 //layout
 import { AdminLayout, HomeLayout, Customerlayout } from "./layout";
 
-//pages
+// Components
+import { ScrollUpButton } from "./components";
+
+// PAGES
+
+// Error page
+import ErrorPage from "./pages/ErrorPage";
+
+//Home Pages
+import {
+  HomePage,
+  Project,
+  AboutUsPage,
+  BlogPage,
+  ServicePage,
+  ContactPage,
+  ProjectDescription,
+} from "./pages/HomePage";
+
+// Authentication
 import { LoginPage, RegisterPage } from "./pages/auth";
+
+// Admin Pages
 import { Dashboard, Users, Tables } from "./pages/AdminPage";
 import { Services } from "./pages/AdminPage/services";
 import {
@@ -26,23 +51,10 @@ import {
   CreateProject,
 } from "./pages/AdminPage/projects";
 
-import ErrorPage from "./pages/ErrorPage";
-
-// css
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.css";
-import {
-  HomePage,
-  Project,
-  AboutUsPage,
-  BlogPage,
-  ServicePage,
-  ContactPage,
-  ProjectDescription,
-} from "./pages/HomePage";
-import { ScrollUpButton } from "./components";
 import { AboutPage, FeaturePage } from "./pages/AdminPage/about";
+import { MessagePage } from "./pages/AdminPage/message";
 
+// Private Routes
 function AdminPrivateRoutes({ component: Component }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
@@ -96,10 +108,9 @@ function App() {
           }
         >
           <Route index element={<Dashboard />} />
-          <Route path="user" element={<Users />} />
 
-          {/* About Page */}
-          {/* TODO */}
+          {/* User Page */}
+          <Route path="user" element={<Users />} />
 
           {/* Team Page */}
           <Route path="team" element={<TeamPage />}>
@@ -116,12 +127,14 @@ function App() {
           </Route>
 
           {/* About Page */}
-          <Route path="about" element={<AboutPage/>}>
-            <Route path="feature" element={<FeaturePage/>} ></Route>
+          <Route path="about" element={<AboutPage />}>
+            <Route path="feature" element={<FeaturePage />}></Route>
+            {/* TODO */}
           </Route>
 
+          {/* Single Pages */}
+          <Route path="message" element={<MessagePage />} />
 
-          <Route path="service" element={<Services />} />
           <Route path="table" element={<Tables />} />
         </Route>
 

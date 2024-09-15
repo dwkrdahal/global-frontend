@@ -7,7 +7,7 @@ import "./auth.css"
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const URL = "http://localhost:3000";
+  const URL = import.meta.env.VITE_APP_URL;
   const RegisterURL = URL + "/auth/register";
 
   const [user, setUser] = useState({

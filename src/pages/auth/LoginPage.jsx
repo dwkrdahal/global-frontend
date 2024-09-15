@@ -13,7 +13,7 @@ function LoginPage() {
     remember_me: "",
   });
 
-  const URL = "http://localhost:3000";
+  const URL = import.meta.env.VITE_APP_URL;
   const LoginURL = URL + "/auth/login";
 
   const storeItemInLS = (token, loggedInUser) => {   
