@@ -27,7 +27,7 @@ const SideNavbar = () => {
             {user.role == "admin" ? (
               <NavLink className="nav-link" to="/admin/message">
                 <div className="sb-nav-link-icon">
-                  <i class="fa-solid fa-message"></i>
+                  <i className="fa-solid fa-message"></i>
                 </div>
                 Message
               </NavLink>
@@ -260,10 +260,10 @@ const SideNavbar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
+                <NavLink className="nav-link" to="/admin/service">
                   View Services
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="/admin/service/create">
                   Add Services
                 </NavLink>
               </nav>

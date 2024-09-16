@@ -36,7 +36,11 @@ import { LoginPage, RegisterPage } from "./pages/auth";
 
 // Admin Pages
 import { Dashboard, Users, Tables } from "./pages/AdminPage";
-import { Services } from "./pages/AdminPage/services";
+import {
+  ListService,
+  AdminServicePage,
+  CreateService,
+} from "./pages/AdminPage/services";
 import {
   CreateTeam,
   ListTeam,
@@ -124,6 +128,12 @@ function App() {
             <Route index element={<ListProject />} />
             <Route path="create" element={<CreateProject />} />
             <Route path=":id" element={<ProjectDetail />} />
+          </Route>
+
+          {/* Service Page */}
+          <Route path="service" element={<AdminServicePage />}>
+            <Route index element={<ListService />} />
+            <Route path="create" element={<CreateService />} />
           </Route>
 
           {/* About Page */}

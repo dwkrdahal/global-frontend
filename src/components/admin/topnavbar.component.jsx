@@ -28,7 +28,7 @@ const TopNavbar = () => {
     <>
       <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <NavLink className="navbar-brand ps-3" to="/admin">
-          Diwar Estate
+          Global Admin
         </NavLink>
 
         <button
