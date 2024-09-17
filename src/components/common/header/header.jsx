@@ -33,7 +33,7 @@ const Header = () => {
       <Container>
         <Navbar.Brand className="d-flex align-items-center">
           <Link to={"/"}>
-          <img src="/images/global-logo.png" height={"50px"} alt="logo" />
+            <img src="/images/global-logo.png" height={"50px"} alt="logo" />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -42,22 +42,28 @@ const Header = () => {
           className={`navbar-collapse ${expanded ? "show" : ""}`}
         >
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-            <NavLink className="nav-link" smooth to="/about-us">
+            <NavLink className="nav-link" to="/about-us">
               About
             </NavLink>
-            <NavLink className="nav-link" smooth to="project">
+            <NavLink className="nav-link" to="project">
               Projects
             </NavLink>
-            <NavLink className="nav-link" smooth to="/services">
+            <NavLink className="nav-link" to="/services">
               Services
             </NavLink>
-            <NavLink className="nav-link" smooth to="/blogs">
+            <NavLink className="nav-link" to="/blogs">
               Blogs
             </NavLink>
-            <NavHashLink className="nav-link" smooth to="/contact-us">
+            <NavHashLink
+              className="nav-link"
+              to="/contact-us"
+              // Callback function to handle the active state
+              activeClassName="active"
+              isActive={(match, location) => !!match} // Determine if active
+            >
               Contact Us
             </NavHashLink>
-            <NavLink className="nav-link" smooth to="/login">
+            <NavLink className="nav-link" to="/login">
               Log In
             </NavLink>
           </Nav>

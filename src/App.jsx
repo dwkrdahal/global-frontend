@@ -101,7 +101,7 @@ function App() {
           <Route path="services" element={<ServicePage />} />
           <Route path="blogs" element={<BlogPage />} />
           <Route path="contact-us" element={<ContactPage />} />
-          <Route path="project/detail" element={<ProjectDescription />} />
+          <Route path="project/:id" element={<ProjectDescription />} />
         </Route>
 
         {/* ADMIN LAYOUT  */}

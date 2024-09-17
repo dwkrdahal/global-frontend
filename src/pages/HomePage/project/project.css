@@ -183,3 +183,23 @@
 .project-page .shadow-sm {
   box-shadow: 0 0 0.125rem rgba(0,0,0,0.1);
 }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
+  width: 80%;
+  max-width: 400px;
+  margin-right: 10px;
+}
+
+.clear-search {
+  visibility: hidden;
+}
+
+.search-input:focus + .clear-search {
+  visibility: visible;
+}

@@ -14,7 +14,7 @@ const OurProjects = () => {
           </Col>
         </Row>
 
-        <Projects />
+        <Projects featured={true} />
 
         <div className="text-center mt-4">
         <Link to="/project">

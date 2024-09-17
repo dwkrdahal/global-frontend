@@ -13,6 +13,8 @@ export default function InformationComponent({ project, projectURL, token }) {
     title: "",
     description: "",
     architectureStyle: "",
+    isFeatured: "",
+    isActive: "",
     projectType: "",
     projectStatus: "",
     siteArea: {
@@ -38,55 +40,59 @@ export default function InformationComponent({ project, projectURL, token }) {
 
   const handleChange = (e) => {
     setIsFormChanged(true);
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    switch (name) {
-      case "siteAreaValue":
-        setInformation({
-          ...information,
-          siteArea: {
-            ...information.siteArea,
-            value: value,
-          },
-        });
-        break;
+    if (type === "checkbox") {
+      setInformation({ ...information, [name]: checked });
+    } else {
+      switch (name) {
+        case "siteAreaValue":
+          setInformation({
+            ...information,
+            siteArea: {
+              ...information.siteArea,
+              value: value,
+            },
+          });
+          break;
 
-      case "siteAreaUnit":
-        setInformation({
-          ...information,
-          siteArea: {
-            ...information.siteArea,
-            unit: value,
-          },
-        });
-        break;
+        case "siteAreaUnit":
+          setInformation({
+            ...information,
+            siteArea: {
+              ...information.siteArea,
+              unit: value,
+            },
+          });
+          break;
 
-      case "builtUpAreaValue":
-        setInformation({
-          ...information,
-          builtUpArea: {
-            ...information.builtUpArea,
-            value: value,
-          },
-        });
-        break;
+        case "builtUpAreaValue":
+          setInformation({
+            ...information,
+            builtUpArea: {
+              ...information.builtUpArea,
+              value: value,
+            },
+          });
+          break;
 
-      case "builtUpAreaUnit":
-        setInformation({
-          ...information,
-          builtUpArea: {
-            ...information.builtUpArea,
-            unit: value,
-          },
-        });
-        break;
+        case "builtUpAreaUnit":
+          setInformation({
+            ...information,
+            builtUpArea: {
+              ...information.builtUpArea,
+              unit: value,
+            },
+          });
+          break;
 
-      default:
-        setInformation({
-          ...information,
-          [name]: value,
-        });
-        break;
+        default:
+          setInformation({
+            ...information,
+            [name]: value,
+          });
+          break;
+      }
     }
   };
 
@@ -129,7 +135,7 @@ export default function InformationComponent({ project, projectURL, token }) {
       const data = await result.json();
 
       if (data.status) {
-        toast.success("Information Updated  ");
+        toast.success("Information Updated");
         setInformation(data.result);
       } else {
         toast.error(data.msg);
@@ -149,19 +155,50 @@ export default function InformationComponent({ project, projectURL, token }) {
   return (
     <>
       <Card className="project-detail-card mb-4">
-        <Card.Header className="d-flex justify-content-between align-items-center">
-          <h5 className="section-title">Project Information</h5>
+        <Card.Header
+          as="h5"
+          className="d-flex justify-content-between align-items-center"
+        >
+          <div className="d-flex align-items-center">
+            <span>Project Information</span>
+          </div>
           <div className="ms-auto d-flex align-items-center">
-            <Button variant="link" onClick={handleRefresh}>
+            <Button variant="link" onClick={() => handleRefresh()}>
               <i className="fas fa-arrows-rotate"></i>
             </Button>
-            <Button variant="link" onClick={handleEditToggle}>
+            <Button variant="link" onClick={() => handleEditToggle()}>
               <i className="fas fa-pen"></i>
             </Button>
           </div>
         </Card.Header>
         <Card.Body>
           <Form onChange={handleChange}>
+            <Row>
+              <Col md={6}>
+                <Form.Group controlId="isFeaturedCheckbox" className="me-3">
+                  <Form.Check
+                    type="checkbox"
+                    label="Featured"
+                    name="isFeatured"
+                    checked={information.isFeatured}
+                    onChange={handleChange}
+                    disabled={!isEditing}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group controlId="isActiveCheckbox" className="me-3">
+                  <Form.Check
+                    type="checkbox"
+                    label="Active"
+                    name="isActive"
+                    checked={information.isActive}
+                    onChange={handleChange}
+                    disabled={!isEditing}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
             <Row>
               <Col md={6}>
                 <Form.Group controlId="projectTitle">
@@ -200,31 +237,37 @@ export default function InformationComponent({ project, projectURL, token }) {
             </Row>
 
             {/* Description Field with CKEditor */}
-            <Form.Group controlId="projectDescription">
-              <Form.Label>
-                <strong>Description</strong>
-              </Form.Label>
-              {isEditing ? (
-                <CKEditor
-                  editor={ClassicEditor}
-                  data={information.description}
-                  onChange={(event, editor) => {
-                    const data = editor.getData();
-                    setInformation((prevInformation) => ({
-                      ...prevInformation,
-                      description: data,
-                    }));
-                  }}
-                />
-              ) : (
-                <div
-                  className="form-control"
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(information.description || ""),
-                  }}
-                />
-              )}
-            </Form.Group>
+            <Row>
+              <Col className="mb-3">
+                <Form.Group controlId="projectDescription">
+                  <Form.Label>
+                    <strong>Description</strong>
+                  </Form.Label>
+                  {isEditing ? (
+                    <CKEditor
+                      editor={ClassicEditor}
+                      data={information.description}
+                      onChange={(event, editor) => {
+                        const data = editor.getData();
+                        setInformation((prevInformation) => ({
+                          ...prevInformation,
+                          description: data,
+                        }));
+                      }}
+                    />
+                  ) : (
+                    <div
+                      className="form-control"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          information.description || ""
+                        ),
+                      }}
+                    />
+                  )}
+                </Form.Group>
+              </Col>
+            </Row>
 
             <Row>
               <Col sm={6}>
@@ -253,9 +296,10 @@ export default function InformationComponent({ project, projectURL, token }) {
                     readOnly={!isEditing}
                     disabled={!isEditing}
                   >
-                    <option value="architecture">Architecture</option>
-                    <option value="construction">Construction</option>
-                    <option value="structure">Structure</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="industrial">Industrial</option>
+                    <option value="mixed-use">Mixed-use</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -327,20 +371,19 @@ export default function InformationComponent({ project, projectURL, token }) {
                 </Col>
               </Row>
             </Card.Body>
-
-            {isEditing && (
-              <>
-                <Button variant="primary" onClick={handleSave}>
-                  Update
-                </Button>
-                &nbsp;
-                <Button variant="secondary" onClick={handleDiscard}>
-                  Discard
-                </Button>
-              </>
-            )}
           </Form>
         </Card.Body>
+
+        {isEditing && (
+          <Card.Footer className="d-flex justify-content-end">
+            <Button variant="primary" className="me-2" onClick={handleSave}>
+              Save
+            </Button>
+            <Button variant="secondary" onClick={handleDiscard}>
+              Discard
+            </Button>
+          </Card.Footer>
+        )}
       </Card>
     </>
   );

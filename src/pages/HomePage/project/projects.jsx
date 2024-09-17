@@ -1,119 +1,169 @@
-import React, { useEffect, useState } from 'react'
-import "./project.css"; // Ensure this file contains the CSS for styling
-import { Card, Col, Nav, Row } from 'react-bootstrap';
-import { Button } from '../../../components';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import "./project.css";
+import { Card, Col, Nav, Row, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Service from "../../../service/ImageService";
 
+const myService = new Service();
 
-const projects = [
-  {
-    id: 1,
-    image: "images/image-6.jpg",
-    title: "Project Title 1",
-    location: "Location 1",
-    category: "Residential",
-  },
-  {
-    id: 2,
-    image: "images/image-5.jpg",
-    title: "Project Title 2",
-    location: "Location 2",
-    category: "Commercial",
-  },
-  {
-    id: 3,
-    image: "images/image-7.jpg",
-    title: "Project Title 2",
-    location: "Location 2",
-    category: "Industrial",
-  },
-  {
-    id: 4,
-    image: "images/image-5.jpg",
-    title: "Project Title 2",
-    location: "Location 2",
-    category: "Commercial",
-  },
-  {
-    id: 5,
-    image: "images/image-7.jpg",
-    title: "Project Title 2",
-    location: "Location 2",
-    category: "Residential",
-  },
-  {
-    id: 6,
-    image: "images/image-6.jpg",
-    title: "Project Title 2",
-    location: "Location 2",
-    category: "Residential",
-  },
-  {
-    id: 7,
-    image: "images/image-5.jpg",
-    title: "Project Title 2",
-    location: "Location 2",
-    category: "Residential",
-  },
+const styles = [
+  "All",
+  "Residential",
+  "Commercial",
+  "Industrial",
+  "Construction",
 ];
+const URL = import.meta.env.VITE_APP_URL;
 
-const categories = ["All", "Residential", "Commercial", "Industrial"];
-
-function Projects() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+function Projects({ featured }) {
+  const [projects, setProjects] = useState([]);
+  const [selectedStyle, setSelectedStyle] = useState("All");
   const [displayedProjects, setDisplayedProjects] = useState([]);
   const [fadeOut, setFadeOut] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  // Fetch projects based on the selected style
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch(
+        `${URL}/project${featured ? "/featured" : ""}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+
+      if (data.status) {
+        // Filter results to include only those with isActive: true
+        const activeProjects = data.result.filter(
+          (project) => project.isActive
+        );
+
+        // If featured is true, take only the first 8 projects
+        const displayedProjects = featured
+          ? activeProjects.slice(0, 8)
+          : activeProjects;
+
+        // Set the projects and displayed projects state
+        setProjects(activeProjects);
+        setDisplayedProjects(displayedProjects);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Fetch projects when component mounts or style changes
   useEffect(() => {
-    setFadeOut(true);
-    const timer = setTimeout(() => {
-      const filteredProjects =
-        selectedCategory === "All"
-          ? projects.slice(0, 6) // Show up to 6 projects for 'All'
-          : projects
-              .filter((project) => project.category === selectedCategory)
-              .slice(0, 3); // Show up to 3 projects per category
-      setDisplayedProjects(filteredProjects);
-      setFadeOut(false);
-    }, 500); // Match the duration of the fade-out transition
+    fetchProjects(selectedStyle);
+  }, [selectedStyle, featured]);
 
-    return () => clearTimeout(timer);
-  }, [selectedCategory]);
+  // Handle filtering and transitions
+  useEffect(() => {
+    if (projects.length > 0) {
+      setFadeOut(true);
+      const timer = setTimeout(() => {
+        const filteredProjects =
+          selectedStyle === "All"
+            ? projects
+            : projects.filter(
+                (project) =>
+                  project.projectType && // Ensure projectType exists
+                  project.projectType.toLowerCase() ===
+                    selectedStyle.toLowerCase()
+              );
+
+        // Apply search filter to multiple fields
+        const searchedProjects = filteredProjects.filter(
+          (project) =>
+            project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (project.description &&
+              project.description
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())) ||
+            (project.location &&
+              project.location
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())) ||
+            (project.client &&
+              project.client.name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())) ||
+            (project.architectureStyle &&
+              project.architectureStyle
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())) ||
+            (project.projectType &&
+              project.projectType
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())) ||
+            (project.projectStatus &&
+              project.projectStatus
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()))
+        );
+
+        setDisplayedProjects(searchedProjects);
+        setFadeOut(false);
+      }, 300); // Shortened to 300ms for a quicker response
+
+      return () => clearTimeout(timer);
+    }
+  }, [selectedStyle, projects, searchTerm]);
+
   return (
     <>
       <div className="filter text-center mb-4">
-          <Nav variant="tabs" className="justify-content-center">
-            {categories.map((category) => (
-              <Nav.Item key={category}>
-                <Nav.Link
-                  className={`filter-btn ${
-                    selectedCategory === category ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </Nav.Link>
-              </Nav.Item>
-            ))}
-          </Nav>
-        </div>
-        <Row>
-          {displayedProjects.map((project) => (
-            <Col
-              xl={3}
-              lg={4}
-              md={6}
-              sm={12}
-              key={project.id}
-              className={`mb-4 project-card-container ${
-                fadeOut ? "fade-out" : "fade-in"
-              }`}
-            >
-              <Link to="/project/detail">
+        <Nav variant="tabs" className="justify-content-center">
+          {styles.map((style) => (
+            <Nav.Item key={style}>
+              <Nav.Link
+                className={`filter-btn ${
+                  selectedStyle === style ? "active" : ""
+                }`}
+                onClick={() => setSelectedStyle(style)}
+              >
+                {style}
+              </Nav.Link>
+            </Nav.Item>
+          ))}
+        </Nav>
+      </div>
+      <div className="search-container text-center mb-4">
+        <Form.Control
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+        {searchTerm && (
+          <Button
+            variant="secondary"
+            onClick={() => setSearchTerm("")}
+            className="clear-search"
+          >
+            Clear
+          </Button>
+        )}
+      </div>
+      <Row>
+        {displayedProjects.map((project) => (
+          <Col
+            xl={3}
+            lg={4}
+            md={6}
+            sm={12}
+            key={project._id} // Ensure you use a unique key
+            className={`mb-4 project-card-container ${
+              fadeOut ? "fade-out" : "fade-in"
+            }`}
+          >
+            <Link to={`/project/${project._id}`}>
               <Card className="project-card">
                 <Card.Img
                   variant="top"
-                  src={project.image}
+                  src={myService.getRelativePath(project?.images[0]?.url)} // Assume the first image is the main one
                   alt={project.title}
                   className="project-img"
                 />
@@ -125,13 +175,13 @@ function Projects() {
                     </Card.Text>
                   </Card.Body>
                 </div>
-              </Card></Link>
-              
-            </Col>
-          ))}
-        </Row>
+              </Card>
+            </Link>
+          </Col>
+        ))}
+      </Row>
     </>
-  )
+  );
 }
 
-export default Projects
+export default Projects;

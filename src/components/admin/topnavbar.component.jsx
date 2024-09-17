@@ -1,26 +1,39 @@
 import "@fortawesome/fontawesome-free/js/all.js";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const TopNavbar = () => {
-  useEffect(() => {
-    const sidebarToggle = document.body.querySelector("#sidebarToggle");
-    if (sidebarToggle) {
-      //remember toogle state while refreshing
-      if (localStorage.getItem("sb|sidebar-toggle") === "true") {
-        document.body.classList.toggle("sb-sidenav-toggled");
-      }
+  // State to manage sidebar toggle
+  const [sidebarToggled, setSidebarToggled] = useState(false);
 
-      sidebarToggle.addEventListener("click", (event) => {
-        event.preventDefault();
-        document.body.classList.toggle("sb-sidenav-toggled");
-        localStorage.setItem(
-          "sb|sidebar-toggle",
-          document.body.classList.contains("sb-sidenav-toggled")
-        );
-      });
+  useEffect(() => {
+    // On component mount, check localStorage for sidebar state
+    const storedSidebarToggle = localStorage.getItem("sb|sidebar-toggle");
+    if (storedSidebarToggle === "true") {
+      setSidebarToggled(true);
+      document.body.classList.add("sb-sidenav-toggled");
     }
+
+    return () => {
+      // Clean up - remove class when unmounted if needed
+      document.body.classList.remove("sb-sidenav-toggled");
+    };
   }, []);
+
+  const handleSidebarToggle = () => {
+    const newToggleState = !sidebarToggled;
+    setSidebarToggled(newToggleState);
+    
+    // Toggle the sidebar class
+    if (newToggleState) {
+      document.body.classList.add("sb-sidenav-toggled");
+    } else {
+      document.body.classList.remove("sb-sidenav-toggled");
+    }
+
+    // Persist the state in localStorage
+    localStorage.setItem("sb|sidebar-toggle", newToggleState);
+  };
 
   const navigate = useNavigate();
 
@@ -34,7 +47,7 @@ const TopNavbar = () => {
         <button
           className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
           id="sidebarToggle"
-          to="#!"
+          onClick={handleSidebarToggle} // Toggle function on click
         >
           <i className="fas fa-bars"></i>
         </button>
@@ -90,7 +103,7 @@ const TopNavbar = () => {
               <li>
                 <button
                   className="dropdown-item"
-                  onClick={(e) => {
+                  onClick={() => {
                     localStorage.removeItem("user_token");
                     localStorage.removeItem("user");
                     navigate("/login");

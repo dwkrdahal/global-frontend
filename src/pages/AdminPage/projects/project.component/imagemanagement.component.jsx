@@ -5,7 +5,11 @@ import { toast } from "react-toastify";
 import Service from "../../../../service/ImageService";
 const myService = new Service();
 
-export default function ImageManagementComponent({ project, projectURL, token }) {
+export default function ImageManagementComponent({
+  project,
+  projectURL,
+  token,
+}) {
   const [images, setImages] = useState(project.images || []);
   const [isEditing, setIsEditing] = useState(false);
   const [newImages, setNewImages] = useState([]);
@@ -35,7 +39,9 @@ export default function ImageManagementComponent({ project, projectURL, token })
 
   // Handle deleting a newly uploaded image before submitting
   const handleDeleteNewImage = (index) => {
-    const updatedNewImages = newImages.filter((_, imgIndex) => imgIndex !== index);
+    const updatedNewImages = newImages.filter(
+      (_, imgIndex) => imgIndex !== index
+    );
     setNewImages(updatedNewImages);
   };
 
@@ -89,14 +95,28 @@ export default function ImageManagementComponent({ project, projectURL, token })
 
   return (
     <Card className="project-detail-card mb-4">
-      <Card.Header as="h5" className="section-title">
+      <Card.Header
+          as="h5"
+          className="d-flex justify-content-between align-items-center"
+        >
         Project Images
+        <div className="ms-auto d-flex align-items-center">
+          {!isEditing && (
+            <Button variant="link" onClick={() => setIsEditing(true)}>
+              <i className="fas fa-pen"></i>
+            </Button>
+          )}
+        </div>
       </Card.Header>
       <Card.Body>
         <Carousel>
           {images?.map((image, index) => (
             <Carousel.Item key={index}>
-              <img className="d-block w-100" src={myService.getRelativePath(image.url)} alt={`Slide ${index}`} />
+              <img
+                className="d-block w-100"
+                src={myService.getRelativePath(image.url)}
+                alt={`Slide ${index}`}
+              />
               <Carousel.Caption>
                 <p>{image.caption}</p>
                 {isEditing && (
@@ -119,7 +139,11 @@ export default function ImageManagementComponent({ project, projectURL, token })
             <Carousel>
               {newImages.map((image, index) => (
                 <Carousel.Item key={index}>
-                  <img className="d-block w-100" src={image.url} alt={`New Image ${index}`} />
+                  <img
+                    className="d-block w-100"
+                    src={image.url}
+                    alt={`New Image ${index}`}
+                  />
                   <Carousel.Caption>
                     <Button
                       variant="danger"
@@ -137,12 +161,10 @@ export default function ImageManagementComponent({ project, projectURL, token })
         {isEditing && (
           <>
             <Form.Group controlId="imageUpload">
-              <Form.Label>Upload New Images</Form.Label>
-              <Form.Control
-                type="file"
-                multiple
-                onChange={handleImageUpload}
-              />
+              <Form.Label className="mt-3">
+                <strong>Add New Images</strong>
+              </Form.Label>
+              <Form.Control type="file" multiple onChange={handleImageUpload} />
             </Form.Group>
             <Button variant="primary" onClick={handleSave}>
               Save Changes
@@ -152,12 +174,6 @@ export default function ImageManagementComponent({ project, projectURL, token })
               Discard Changes
             </Button>
           </>
-        )}
-
-        {!isEditing && (
-          <Button variant="link" onClick={() => setIsEditing(true)}>
-            Edit Images
-          </Button>
         )}
       </Card.Body>
     </Card>

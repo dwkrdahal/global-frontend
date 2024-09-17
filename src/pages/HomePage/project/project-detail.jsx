@@ -1,87 +1,57 @@
-import React from "react";
-import { Container, Row, Col, Card, Carousel, Badge } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Badge } from "react-bootstrap";
 import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
-import "./project.css";
 import { BreadCrumb } from "../../../components";
+import { useParams } from "react-router-dom";
+import Slider from "react-slick";
+import "./project.css"; // Ensure this imports the slick-carousel CSS
 
-const project = {
-  id: "66ab5ba85fdad30c7ac59901",
-  title: "Global Project",
-  architectureStyle: "Modern",
-  projectType: "Architecture",
-  buildingType: "Residential",
-  description: "Modern Design",
-  projectStatus: "in-progress",
-  location: {
-    address: "123 Street Name",
-    city: "Kathmandu",
-    district: "Kathmandu",
-    state: "Bagmati",
-    country: "Nepal",
-    coordinates: {
-      longitude: "",
-      latitude: "",
-    },
-  },
-  siteArea: {
-    value: 2000,
-    unit: "sqft",
-  },
-  builtUpArea: {
-    value: 1500,
-    unit: "sqft",
-  },
-  year: {
-    start: "2024-01-01T00:00:00.000+00:00",
-    completion: "2024-12-31T00:00:00.000+00:00",
-  },
-  designArchitect: {
-    userId: "60d0fe4f5311236168a109ca",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    position: "Junior Architect",
-  },
-  images: [
-    {
-      url: "/images/banner1.jpg",
-      caption: "Alternative text",
-    },
-    {
-      url: "/images/banner1.jpg",
-      caption: "Another image",
-    },
-    {
-      url: "/images/banner1.jpg",
-      caption: "Third image",
-    },
-    {
-      url: "/images/banner1.jpg",
-      caption: "Fourth image",
-    },
-    {
-      url: "/images/banner1.jpg",
-      caption: "Fifth image",
-    },
-    {
-      url: "/images/banner1.jpg",
-      caption: "Sixth image",
-    },
-  ],
-  client: {
-    name: "Jane Doe",
-    contact: {
-      email: "jane.doe@example.com",
-      phone: ["9876543210", "9876543213"],
-    },
-  },
-  materialsUsed: ["Brick", "Concrete", "Steel"],
-  features: ["Solar Panels", "Rainwater Harvesting"],
-  createdBy: "66ab14385d7be48f79ee5ec1",
-  createdAt: "2024-08-01T09:55:52.363+00:00",
-  updatedAt: "2024-08-05T08:17:38.366+00:00",
-};
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Service from "../../../service/ImageService";
+
+const myService = new Service();
+const URL = import.meta.env.VITE_APP_URL;
 
 function ProjectDescription() {
+  const { id } = useParams(); // Get the project ID from URL parameters
+  const [project, setProject] = useState(null);
+
+  // Fetch project data based on ID
+  const fetchProject = async () => {
+    try {
+      const response = await fetch(`${URL}/project/${id}`);
+      const data = await response.json();
+      if (data.status) {
+        setProject(data.result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProject();
+  }, [id]);
+
+  // Check if project data is loaded
+  if (!project) {
+    return <p>Loading...</p>;
+  }
+
+  // Slider settings
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+  };
+
   return (
     <>
       <BreadCrumb args="Project Description"></BreadCrumb>
@@ -89,97 +59,49 @@ function ProjectDescription() {
         {/* Project Header */}
         <Row>
           <Col md={8} className="project-header">
-            <h1>{project.title}</h1>
+            <h1>{project?.title}</h1>
             <Badge bg="secondary" className="me-2">
-              {project.projectType}
+              {project?.projectType}
             </Badge>
-            <Badge bg="info">{project.architectureStyle}</Badge>
+            <Badge bg="info">{project?.architectureStyle}</Badge>
             <Badge bg="success" className="ms-2">
-              {project.projectStatus}
+              {project?.projectStatus}
             </Badge>
           </Col>
           <Col md={4} className="text-md-end project-header-info">
             <p>
-              <FaMapMarkerAlt /> {project.location.address},{" "}
-              {project.location.city}
+              <FaMapMarkerAlt /> {project?.location}
             </p>
             <p>
               <FaCalendarAlt />{" "}
-              {new Date(project.year.start).toLocaleDateString()} -{" "}
-              {new Date(project.year.completion).toLocaleDateString()}
+              {new Date(project?.year.started).toLocaleDateString()} -{" "}
+              {project?.year.completion
+                ? new Date(project?.year.completion).toLocaleDateString()
+                : "TBD"}
             </p>
           </Col>
         </Row>
 
-        {/* Project Images Carousel */}
-        <Carousel className="my-4 project-carousel">
-          {project.images.map((img, index) => (
-            <Carousel.Item key={index}>
+        {/* Project Images Slider */}
+        <Slider {...sliderSettings} className="my-4 project-slider">
+          {project?.images.map((img, index) => (
+            <div key={index}>
               <img
                 className="d-block w-100"
-                src={img.url}
+                src={myService.getRelativePath(img.url)}
                 alt={img.caption}
                 style={{ height: "500px", objectFit: "cover" }}
               />
-              <Carousel.Caption>
-                <h5>{img.caption}</h5>
-              </Carousel.Caption>
-            </Carousel.Item>
+            </div>
           ))}
-        </Carousel>
+        </Slider>
 
         {/* Project Description and Details */}
         <Row>
           <Col md={8} className="project-details">
-            <p>
-              The "Global Project" exemplifies modern residential architecture
-              with an emphasis on sustainability and efficiency. Designed with
-              cutting-edge eco-friendly technologies, this project features a
-              striking modern design that seamlessly blends functionality with
-              aesthetics. The building's innovative use of materials and
-              incorporation of green technologies, such as solar panels and
-              rainwater harvesting systems, not only contribute to its
-              environmental sustainability but also enhance its energy
-              efficiency.
-            </p>
-
-            <p>
-              Located in the heart of Kathmandu, this project occupies a
-              spacious 2000 sqft site and boasts a built-up area of 1500 sqft.
-              The building's sleek design is complemented by its
-              well-thought-out layout, which maximizes natural light and
-              provides a comfortable living environment. With its completion
-              slated for the end of 2024, the "Global Project" is set to become
-              a benchmark for modern residential architecture in the region,
-              reflecting both the cutting-edge design of its architects and the
-              high standards of contemporary construction practices.
-            </p>
-
-            <Col md={8}>
-              {/* Card for Materials & Features */}
-              <Card className="my-4 shadow-sm center">
-                <Card.Body>
-                  <Card.Title className="text-center">
-                    Materials & Features
-                  </Card.Title>
-                  <Card.Text>
-                    <strong>Materials Used</strong>
-                    <ul>
-                      {project.materialsUsed.map((material, index) => (
-                        <li key={index}>{material}</li>
-                      ))}
-                    </ul>
-
-                    <strong>Features</strong>
-                    <ul>
-                      {project.features.map((feature, index) => (
-                        <li key={index}>{feature}</li>
-                      ))}
-                    </ul>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
+            <div
+              dangerouslySetInnerHTML={{ __html: project?.description }}
+            ></div>
           </Col>
 
           {/* Sidebar: Client and Architect Details */}
@@ -188,13 +110,13 @@ function ProjectDescription() {
               <Card.Body>
                 <Card.Text>
                   <p>
-                    <strong>Site Area :</strong> {project.siteArea.value}{" "}
-                    {project.siteArea.unit}
+                    <strong>Site Area :</strong> {project?.siteArea?.value}{" "}
+                    {project?.siteArea?.unit}
                   </p>
 
                   <p>
-                    <strong>Built-Up Area: </strong> {project.builtUpArea.value}{" "}
-                    {project.builtUpArea.unit}
+                    <strong>Built-Up Area: </strong> {project?.builtUpArea?.value}{" "}
+                    {project?.builtUpArea?.unit}
                   </p>
                 </Card.Text>
               </Card.Body>
@@ -203,35 +125,35 @@ function ProjectDescription() {
               <Card.Body>
                 <Card.Title className="text-center">Client</Card.Title>
                 <Card.Text>
-                  <strong> {project.client.name}</strong>
+                  <strong>{project?.client?.name}</strong>
                 </Card.Text>
                 <Card.Text>
                   <strong>
-                    <a href={`mailto:${project.client.contact.email}`}>
-                      {project.client.contact.email}
+                    <a href={`mailto:${project?.client?.email}`}>
+                      {project?.client?.email}
                     </a>
                   </strong>
                 </Card.Text>
                 <Card.Text>
-                  <strong>{project.client.contact.phone.join(", ")}</strong>
+                  <strong>{project?.client?.contact}</strong>
                 </Card.Text>
               </Card.Body>
             </Card>
 
             <Card className="mb-4 p-3 shadow-sm">
               <Card.Body>
-                <Card.Title className="text-center"> Designer</Card.Title>
+                <Card.Title className="text-center">Designer</Card.Title>
                 <Card.Text>
-                  <strong>Name:</strong> {project.designArchitect.name}
+                  <strong>Name:</strong> {project?.designArchitect?.name}
                 </Card.Text>
                 <Card.Text>
                   <strong>Email:</strong>{" "}
-                  <a href={`mailto:${project.designArchitect.email}`}>
-                    {project.designArchitect.email}
+                  <a href={`mailto:${project?.designArchitect?.email}`}>
+                    {project?.designArchitect?.email}
                   </a>
                 </Card.Text>
                 <Card.Text>
-                  <strong>Position:</strong> {project.designArchitect.position}
+                  <strong>Position:</strong> {project?.designArchitect?.position}
                 </Card.Text>
               </Card.Body>
             </Card>

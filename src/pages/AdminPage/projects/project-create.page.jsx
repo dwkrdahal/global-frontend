@@ -4,10 +4,13 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateProject() {
   const URL = import.meta.env.VITE_APP_URL;
   const projectURL = URL + "/project";
+
+  const navigate = useNavigate();
 
   const [projectData, setProjectData] = useState({
     title: "",
@@ -35,6 +38,8 @@ export default function CreateProject() {
       completion: "",
     },
     images: [],
+    isFeatured: "",
+    isActive: "",
   });
 
   const architectureStyles = [
@@ -159,6 +164,7 @@ export default function CreateProject() {
 
       if (data.status) {
         toast.success(data.msg);
+        navigate(`/admin/project/${data.result._id}`);
       } else {
         toast.error(data.msg);
       }
@@ -185,6 +191,38 @@ export default function CreateProject() {
       />
 
       <Form onSubmit={handleSubmit}>
+        <Form.Group as={Row} className="mb-3" controlId="formFeatured">
+          <Col sm="2"></Col>
+          <Col sm="3">
+            <Form.Check
+              type="checkbox"
+              name="isFeatured"
+              label=" Featured"
+              checked={projectData.isFeatured}
+              onChange={(e) =>
+                setProjectData({
+                  ...projectData,
+                  isFeatured: e.target.checked, // Update the boolean value
+                })
+              }
+            />
+          </Col>
+          <Col sm="3">
+            <Form.Check
+              type="checkbox"
+              name="isActive"
+              label=" Active"
+              checked={projectData.isActive}
+              onChange={(e) =>
+                setProjectData({
+                  ...projectData,
+                  isActive: e.target.checked, // Update the boolean value
+                })
+              }
+            />
+          </Col>
+        </Form.Group>
+
         <Form.Group as={Row} className="mb-3" controlId="formTitle">
           <Form.Label column sm="2">
             Title
@@ -295,7 +333,7 @@ export default function CreateProject() {
           <Form.Label column sm="2">
             Project Type
           </Form.Label>
-          <Col sm="10">
+          <Col sm="4">
             <select
               name="projectType"
               value={projectData.projectType}

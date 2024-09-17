@@ -19,6 +19,7 @@ import {
   ClientComponent,
   ImageManagementComponent,
   InformationComponent,
+  MainImageComponent,
   TimelineComponent,
 } from "./project.component";
 
@@ -127,6 +128,13 @@ export default function ProjectDetail() {
           {/* Project Images */}
           <Col lg={4}>
             
+            {/* Main Image component */}
+            <MainImageComponent
+             project={project}
+             projectURL={projectURL}
+             token={token}
+            />
+
             {/* Project Timeline */}
             <TimelineComponent
               project={project}

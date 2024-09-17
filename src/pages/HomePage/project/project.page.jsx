@@ -20,7 +20,7 @@ export default function ProjectPage() {
 
       {/* Projects Section */}
       <Container className="projects-section" style={{ marginTop: '40px' }}>
-        <Projects />
+        <Projects featured={false} />
       </Container>
     </div>
   );
