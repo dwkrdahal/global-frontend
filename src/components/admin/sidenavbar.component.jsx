@@ -229,8 +229,8 @@ const SideNavbar = () => {
                 <NavLink className="nav-link" to="/admin/about/feature">
                   Features
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/about/create">
-                  Add Items
+                <NavLink className="nav-link" to="/admin/about/logo">
+                  Client Logo
                 </NavLink>
               </nav>
             </div>

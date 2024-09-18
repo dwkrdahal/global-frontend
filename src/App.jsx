@@ -55,7 +55,7 @@ import {
   CreateProject,
 } from "./pages/AdminPage/projects";
 
-import { AboutPage, FeaturePage } from "./pages/AdminPage/about";
+import { AboutPage, FeaturePage, ClientLogoPage } from "./pages/AdminPage/about";
 import { MessagePage } from "./pages/AdminPage/message";
 
 // Private Routes
@@ -139,6 +139,7 @@ function App() {
           {/* About Page */}
           <Route path="about" element={<AboutPage />}>
             <Route path="feature" element={<FeaturePage />}></Route>
+            <Route path="logo" element={<ClientLogoPage />}></Route>
             {/* TODO */}
           </Route>
 
