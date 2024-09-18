@@ -309,6 +309,19 @@ const SideNavbar = () => {
               </nav>
             </div>
 
+            {/* TESTIMONY */}
+
+            {user.role == "admin" ? (
+              <NavLink className="nav-link" to="/admin/testimony">
+                <div className="sb-nav-link-icon">
+                  <i className="fa-solid fa-quote-left"></i>
+                </div>
+                Testimonials
+              </NavLink>
+            ) : (
+              ""
+            )}
+
             {/* GALLERY */}
 
             <NavLink

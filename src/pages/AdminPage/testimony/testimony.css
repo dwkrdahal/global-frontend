@@ -1,0 +1,59 @@
+.testimony-card-section {
+  padding: 20px;
+}
+
+.testimony-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.testimony-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.img-preview {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.testimony-text {
+  font-style: italic;
+}
+
+.btn-edit, .btn-delete {
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+.badge {
+  font-size: 12px;
+}
