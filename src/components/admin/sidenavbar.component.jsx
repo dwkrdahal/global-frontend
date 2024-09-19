@@ -51,7 +51,7 @@ const SideNavbar = () => {
               <div className="sb-sidenav-collapse-arrow">
                 <i className="fas fa-angle-down"></i>
               </div>
-            </NavLink> 
+            </NavLink>
 
             {/* collapse Menu */}
             <div
@@ -64,106 +64,31 @@ const SideNavbar = () => {
                 className="sb-sidenav-menu-nested nav accordion"
                 id="sidenavAccordionPages"
               >
-                {/* pages */}
-                <NavLink
-                  className="nav-link collapsed"
-                  to="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#pagesCollapse"
-                  aria-expanded="false"
-                  aria-controls="pagesCollapse"
-                >
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-file-alt"></i>
-                  </div>
-                  Pages
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i className="fas fa-angle-down"></i>
-                  </div>
-                </NavLink>
-                <div
-                  className="collapse"
-                  id="pagesCollapse"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordionPages"
-                >
-                  <nav className="sb-sidenav-menu-nested nav">
-                    <NavLink className="nav-link" to="login.html">
-                      Create Pages
-                    </NavLink>
-                    <NavLink className="nav-link" to="register.html">
-                      Manage Pages
-                    </NavLink>
-                  </nav>
-                </div>
+                {/* TESTIMONY */}
 
-                {/* POSTS  */}
+                {user.role == "admin" ? (
+                  <NavLink className="nav-link" to="/admin/testimony">
+                    <div className="sb-nav-link-icon">
+                      <i className="fa-solid fa-quote-left"></i>
+                    </div>
+                    Testimonials
+                  </NavLink>
+                ) : (
+                  ""
+                )}
 
-                <NavLink
-                  className="nav-link collapsed"
-                  to="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#pagesCollapsePosts"
-                  aria-expanded="false"
-                  aria-controls="pagesCollapsePosts"
-                >
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-newspaper"></i>
-                  </div>
-                  Posts
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i className="fas fa-angle-down"></i>
-                  </div>
-                </NavLink>
-                <div
-                  className="collapse"
-                  id="pagesCollapsePosts"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordionPages"
-                >
-                  <nav className="sb-sidenav-menu-nested nav">
-                    <NavLink className="nav-link" to="401.html">
-                      Create Post
-                    </NavLink>
-                    <NavLink className="nav-link" to="404.html">
-                      Manage Posts
-                    </NavLink>
-                  </nav>
-                </div>
+                {/* Banner */}
 
-                {/* MEDIA LIBRARY */}
-
-                <NavLink
-                  className="nav-link collapsed"
-                  to="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#pagesCollapseMediaLibrary"
-                  aria-expanded="false"
-                  aria-controls="pagesCollapseMediaLibrary"
-                >
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-photo-video"></i>
-                  </div>
-                  Media Library
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i className="fas fa-angle-down"></i>
-                  </div>
-                </NavLink>
-                <div
-                  className="collapse"
-                  id="pagesCollapseMediaLibrary"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordionPages"
-                >
-                  <nav className="sb-sidenav-menu-nested nav">
-                    <NavLink className="nav-link" to="401.html">
-                      Upload Files
-                    </NavLink>
-                    <NavLink className="nav-link" to="404.html">
-                      Manage Files
-                    </NavLink>
-                  </nav>
-                </div>
+                {user.role == "admin" ? (
+                  <NavLink className="nav-link" to="/admin/banner">
+                    <div className="sb-nav-link-icon">
+                      <i className="fa-solid fa-film"></i>
+                    </div>
+                    Banners
+                  </NavLink>
+                ) : (
+                  ""
+                )}
               </nav>
             </div>
 
@@ -212,7 +137,7 @@ const SideNavbar = () => {
               aria-controls="collapseAbout"
             >
               <div className="sb-nav-link-icon">
-                <i className="fas fa-users"></i>
+                <i className="fas fa-address-card"></i>
               </div>
               About
               <div className="sb-sidenav-collapse-arrow">
@@ -308,19 +233,6 @@ const SideNavbar = () => {
                 </NavLink>
               </nav>
             </div>
-
-            {/* TESTIMONY */}
-
-            {user.role == "admin" ? (
-              <NavLink className="nav-link" to="/admin/testimony">
-                <div className="sb-nav-link-icon">
-                  <i className="fa-solid fa-quote-left"></i>
-                </div>
-                Testimonials
-              </NavLink>
-            ) : (
-              ""
-            )}
 
             {/* GALLERY */}
 

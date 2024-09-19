@@ -1,16 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { Button } from "../../../components";
 import "./hero.css";
 import ScrollAnimation from "react-animate-on-scroll";
 
-function Hero({ backgroundImage, title, subtitle }) {
-  const isVideo =
-    backgroundImage.endsWith(".mp4") || backgroundImage.endsWith(".webm");
-
+function Hero({ backgroundImage, title, subtitle, media }) {
   return (
     <>
+    {console.log(backgroundImage, title, subtitle, media)    }
       <div className="hero">
-        {isVideo ? (
+        {media === "video" ? (
           <video
             autoPlay
             loop
@@ -25,28 +22,30 @@ function Hero({ backgroundImage, title, subtitle }) {
               top: 0,
               left: 0,
               zIndex: -1,
-              filter: "brightness(90%)"
+              filter: "brightness(90%)",
             }}
           >
             <source src={backgroundImage} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         ) : (
-          <div
-            className="hero-background"
-            style={{
-              backgroundImage: `url(${backgroundImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: -1,
-              filter: "brightness(90%)"
-            }}
-          />
+          <>
+            <div
+              className="hero-background"
+              style={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: -1,
+                filter: "brightness(90%)",
+              }}
+            />
+          </>
         )}
         <div className="hero-overlay" />
         <Container className="hero-content">
@@ -58,9 +57,7 @@ function Hero({ backgroundImage, title, subtitle }) {
                 duration={4}
                 delay={600}
               >
-                <h1 className="hero-heading">
-                  {title}
-                </h1>
+                <h1 className="hero-heading">{title}</h1>
               </ScrollAnimation>
 
               <ScrollAnimation
@@ -69,9 +66,7 @@ function Hero({ backgroundImage, title, subtitle }) {
                 duration={4}
                 delay={600}
               >
-                <p>
-                  {subtitle}
-                </p>
+                <p>{subtitle}</p>
               </ScrollAnimation>
 
               <div className="button-container">
@@ -80,8 +75,7 @@ function Hero({ backgroundImage, title, subtitle }) {
                   animateOut="slideOut"
                   duration={4}
                   delay={900}
-                >
-                </ScrollAnimation>
+                ></ScrollAnimation>
               </div>
             </Col>
           </Row>

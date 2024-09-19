@@ -63,7 +63,7 @@ const LogoSlider = () => {
 
   useEffect(() => {
     fetchLogo();
-  });
+  }, []);
 
   return (
     <section className="logo-slider">

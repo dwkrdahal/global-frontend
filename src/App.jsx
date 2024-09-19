@@ -35,7 +35,7 @@ import {
 import { LoginPage, RegisterPage } from "./pages/auth";
 
 // Admin Pages
-import { Dashboard, Users, Tables, Testimony } from "./pages/AdminPage";
+import { Dashboard, Users, Tables, Testimony, Banner } from "./pages/AdminPage";
 import {
   ListService,
   AdminServicePage,
@@ -146,6 +146,7 @@ function App() {
           {/* Single Pages */}
           <Route path="message" element={<MessagePage />} />
           <Route path="testimony" element={<Testimony />} />
+          <Route path="banner" element={<Banner />} />
 
           <Route path="table" element={<Tables />} />
         </Route>

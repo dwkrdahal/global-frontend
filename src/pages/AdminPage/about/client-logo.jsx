@@ -33,7 +33,7 @@ const ClientLogoPage = () => {
       // console.error("Error fetching logos:", error);
       toast.error("Error fetching logos");
     }
-  };
+  };  
 
   // Handle changes in the form inputs
   const handleChange = (e) => {

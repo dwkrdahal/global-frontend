@@ -10,10 +10,14 @@ import Tables from "./table";
 //testimony
 import Testimony from "./testimony/testimony";
 
+//banner
+import Banner from "./banner/banner";
+
 
 export {
   Dashboard,
   Users,
   Tables,
-  Testimony
+  Testimony,
+  Banner
 };
