@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 
 const URL = import.meta.env.VITE_APP_URL;
 const token = localStorage.getItem("user_token");
@@ -31,6 +31,12 @@ function MessagePage() {
   };
   return (
     <>
+      <AdminHelmet
+        title="Message"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/message"
+      />
+
       <div className="container px-4">
         <PageTitle title="Messages" breadCrumbs={[{ name: "messages" }]} />
 
@@ -53,7 +59,7 @@ function MessagePage() {
               <tbody>
                 {message.map((msg, i) => (
                   <tr key={i}>
-                    <td>{i+1}</td>
+                    <td>{i + 1}</td>
                     <td>{msg.senderName}</td>
                     <td> {msg.senderPhone} </td>
                     <td> {msg.senderEmail} </td>

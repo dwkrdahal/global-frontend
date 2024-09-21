@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Container, Button, Form, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-import {BreadCrumb} from "../../components";
-import "./auth.css"
+import { BreadCrumb } from "../../components";
+import "./auth.css";
+import { Helmet } from "react-helmet";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -16,15 +17,18 @@ function LoginPage() {
   const URL = import.meta.env.VITE_APP_URL;
   const LoginURL = URL + "/auth/login";
 
-  const storeItemInLS = (token, loggedInUser) => {   
+  const storeItemInLS = (token, loggedInUser) => {
     localStorage.setItem("user_token", token);
-    localStorage.setItem("user", JSON.stringify({
-      id: loggedInUser?._id,
-      name: loggedInUser?.profile?.fullName,
-      email: loggedInUser?.email,
-      role: loggedInUser?.role
-    }))
-  }
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        id: loggedInUser?._id,
+        name: loggedInUser?.profile?.fullName,
+        email: loggedInUser?.email,
+        role: loggedInUser?.role,
+      })
+    );
+  };
 
   const handleChange = (e) => {
     let { name, value, checked } = e.target;
@@ -47,7 +51,6 @@ function LoginPage() {
         },
         body: JSON.stringify(user),
       });
-      
 
       const response_data = await response.json();
       const msg = await response_data.msg;
@@ -58,16 +61,15 @@ function LoginPage() {
         toast.success(msg);
         storeItemInLS(token, loggedInUser);
 
-        if(loggedInUser.role == 'admin'){
-          navigate('/admin')
-        }else if(loggedInUser.role == 'customer'){
-          navigate('/customer')
-        } else if (loggedInUser.role == 'project_manager'){
-          navigate('/project-manager')
-        } else{
-          navigate('/')
+        if (loggedInUser.role == "admin") {
+          navigate("/admin");
+        } else if (loggedInUser.role == "customer") {
+          navigate("/customer");
+        } else if (loggedInUser.role == "project_manager") {
+          navigate("/project-manager");
+        } else {
+          navigate("/");
         }
-        
       } else {
         // console.log("failure",response_data);
         toast.error(msg);
@@ -79,121 +81,162 @@ function LoginPage() {
   };
 
   return (
-    <Container className="" >
-      <BreadCrumb args="Log In"></BreadCrumb>
-      <Row className=" align-items-center justify-content-center p-5">
-        {/* Left Side Image */}
-        <Col md={6} className="d-none d-md-block">
-          <div className="login-image">
-            <img
-              src="images/banner1.jpg"
-              alt="Login Illustration"
-              className="img-fluid"
-            />
-          </div>
-        </Col>
+    <>
+      <Helmet>
+        {/* Page Title */}
+        <title>Login | Global Construction & Engineering</title>
 
-        {/* Right Side Form */}
-        <Col xs={12} md={6}>
-          <div className="login-form">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder=""
-                  name="username"
-                  minLength={6}
-                  required
-                  autoComplete="off"
-                  value={user.username}
-                  onChange={handleChange}
-                />
-              </Form.Group>
+        {/* Meta Description */}
+        <meta
+          name="description"
+          content="Login to your Global Construction account to manage projects, view updates, and track progress. Secure login for customers, admins, and project managers."
+        />
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  minLength={8}
-                  placeholder=""
-                  required
-                  autoComplete="off"
-                  value={user.password}
-                  onChange={handleChange}
-                />
-              </Form.Group>
+        {/* Meta Keywords */}
+        <meta
+          name="keywords"
+          content="login, global construction login, customer login, project management, secure access"
+        />
 
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check
-                  type="checkbox"
-                  name="remember_me"
-                  label="Remember Me"
-                  onChange={handleChange}
-                />
-              </Form.Group>
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Login | Global Construction" />
+        <meta
+          property="og:description"
+          content="Access your Global Construction account for managing and tracking projects."
+        />
+        <meta
+          property="og:url"
+          content="https://globalconstruction.com.np/login"
+        />
+        <meta property="og:type" content="website" />
 
-              <Button variant="primary" type="submit" className="w-100">
-                Submit
-              </Button>
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Login | Global Construction" />
+        <meta
+          name="twitter:description"
+          content="Login to Global Construction to manage and track projects securely."
+        />
 
-              <div className="login-links mt-3">
-                <Link to="/forgot-password" className="d-block text-center">
-                  Forgot Password?
-                </Link>
-                <p className="text-center mt-2">
-                  Don't have an account?{' '}
-                  <Link to="/register">Register</Link>
-                </p>
-              </div>
-            </Form>
-          </div>
-        </Col>
-      </Row>
-      {/* <Form onSubmit={handleSubmit} className="m-4 pb-5 ">
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://globalconstruction.com.np/login" />
+      </Helmet>
+
+      <Container className="">
+        <BreadCrumb args="Log In"></BreadCrumb>
+        <Row className=" align-items-center justify-content-center p-5">
+          {/* Left Side Image */}
+          <Col md={6} className="d-none d-md-block">
+            <div className="login-image">
+              <img
+                src="images/banner1.jpg"
+                alt="Login Illustration"
+                className="img-fluid"
+              />
+            </div>
+          </Col>
+
+          {/* Right Side Form */}
+          <Col xs={12} md={6}>
+            <div className="login-form">
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    name="username"
+                    minLength={6}
+                    required
+                    autoComplete="off"
+                    value={user.username}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    minLength={8}
+                    placeholder=""
+                    required
+                    autoComplete="off"
+                    value={user.password}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    name="remember_me"
+                    label="Remember Me"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <Button variant="primary" type="submit" className="w-100">
+                  Submit
+                </Button>
+
+                <div className="login-links mt-3">
+                  <Link to="/forgot-password" className="d-block text-center">
+                    Forgot Password?
+                  </Link>
+                  <p className="text-center mt-2">
+                    Don't have an account? <Link to="/register">Register</Link>
+                  </p>
+                </div>
+              </Form>
+            </div>
+          </Col>
+        </Row>
+        {/* <Form onSubmit={handleSubmit} className="m-4 pb-5 ">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Enter username"
-            name="username"
-            minLength={6}
-            required
-            autoComplete="off"
-            value={user.username}
-            onChange={handleChange}
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          minLength={6}
+          required
+          autoComplete="off"
+          value={user.username}
+          onChange={handleChange}
           />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type="password"
-            name="password"
-            minLength={8}
-            placeholder="Password"
-            required
-            autoComplete="off"
-            value={user.password}
-            onChange={handleChange}
+          type="password"
+          name="password"
+          minLength={8}
+          placeholder="Password"
+          required
+          autoComplete="off"
+          value={user.password}
+          onChange={handleChange}
           />
-        </Form.Group>
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
-            type="checkbox"
-            name="remember_me"
-            label="Remember Me"
-            onChange={handleChange}
+          type="checkbox"
+          name="remember_me"
+          label="Remember Me"
+          onChange={handleChange}
           />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
+          </Form.Group>
+          
+          <Button variant="primary" type="submit">
           Submit
-        </Button>
-      </Form> */}
-    </Container>
+          </Button>
+          </Form> */}
+      </Container>
+    </>
   );
 }
 

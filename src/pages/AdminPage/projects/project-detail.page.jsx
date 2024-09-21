@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -22,7 +22,6 @@ import {
   MainImageComponent,
   TimelineComponent,
 } from "./project.component";
-
 
 export default function ProjectDetail() {
   const [project, setProject] = useState(null);
@@ -78,6 +77,12 @@ export default function ProjectDetail() {
 
   return (
     <>
+      <AdminHelmet
+        title={project?.title}
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/project/create"
+      />
+      
       <PageTitle
         title="Project Detail Page"
         breadCrumbs={[
@@ -127,12 +132,11 @@ export default function ProjectDetail() {
 
           {/* Project Images */}
           <Col lg={4}>
-            
             {/* Main Image component */}
             <MainImageComponent
-             project={project}
-             projectURL={projectURL}
-             token={token}
+              project={project}
+              projectURL={projectURL}
+              token={token}
             />
 
             {/* Project Timeline */}
@@ -176,13 +180,12 @@ export default function ProjectDetail() {
         </Row>
 
         {/* Full-width Main Image */}
-        
+
         <ImageManagementComponent
-              project={project}
-              projectURL={projectURL}
-              token={token}
-            />
-  
+          project={project}
+          projectURL={projectURL}
+          token={token}
+        />
       </Container>
     </>
   );

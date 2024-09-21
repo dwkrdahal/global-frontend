@@ -2,10 +2,84 @@ import { BreadCrumb, FeatureCard, FeatureCounters } from "../../../components";
 import { Container, Row, Col } from "react-bootstrap";
 import "./about-us.css";
 import TeamSection from "../team-section/team-section";
+import {Helmet} from "react-helmet";
 
 const AboutUsPage = () => {
   return (
     <>
+      {/* SEO with React Helmet */}
+      <Helmet>
+        {/* Basic Meta Tags */}
+        <meta charSet="utf-8" />
+        <title>About Us | Global Construction & Engineering</title>
+        <meta
+          name="description"
+          content="Learn about Global Construction & Engineering Pvt. Ltd., a leading construction company in Nepal offering quality, innovative solutions for residential, commercial, and infrastructure projects since 2018."
+        />
+        {/* Keywords for SEO */}
+        <meta
+          name="keywords"
+          content="About Global Construction, Construction Company Nepal, Engineering Services Nepal, Quality Construction Nepal, Residential Projects Nepal, Commercial Projects Nepal, Infrastructure Development Nepal, building the future in Nepal, Global Construction team, construction experts Nepal, innovative engineering Nepal"
+        />
+        {/* Open Graph Meta Tags for Social Sharing */}
+        <meta
+          property="og:title"
+          content="About Us - Global Construction & Engineering"
+        />
+        <meta
+          property="og:description"
+          content="Discover how Global Construction & Engineering Pvt. Ltd. is shaping the future of construction in Nepal with innovative, high-quality projects."
+        />
+        <meta
+          property="og:image"
+          content="path-to-your-social-share-image.jpg"
+        />{" "}
+        {/* Ensure to use an appropriate image path */}
+        <meta property="og:url" content="https://globalconstruction.com.np/about-us" />
+        <meta property="og:type" content="website" />
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="About Us - Global Construction & Engineering"
+        />
+        <meta
+          name="twitter:description"
+          content="Learn about the mission, vision, and values of Global Construction & Engineering Pvt. Ltd., a leading construction company in Nepal."
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.globalconstruction.com.np/images/logo.jpg"
+        />
+        {/* Robots Meta Tag */}
+        <meta name="robots" content="index, follow" />
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://www.globalconstruction.com.np/about-us" />
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Global Construction & Engineering Pvt. Ltd.",
+            "url": "https://www.globalconstruction.com.np",
+            "logo": "https://www.globalconstruction.com.np/image/logo.jpg",
+            "sameAs": [
+              "https://facebook.com/globalconstructionofficial",
+              "https://instagram.com/globalconstruction_group",
+            ],
+            "description": "Global Construction & Engineering is a leading construction company based in Nepal, specializing in residential, commercial, and infrastructure development projects.",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "New Baneshwor",
+              "addressLocality": "Kathmandu",
+              "addressCountry": "NP"
+            }
+          }
+          `}
+        </script>
+      </Helmet>
+
       <BreadCrumb args="About Us" />
 
       <section className="about-us">
@@ -73,7 +147,6 @@ const AboutUsPage = () => {
       <TeamSection />
 
       <FeatureCounters />
-
     </>
   );
 };

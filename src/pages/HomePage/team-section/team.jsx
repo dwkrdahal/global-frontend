@@ -2,6 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import "./team.css";
 import { useEffect, useState } from "react";
 import Service from "../../../service/ImageService";
+import { Helmet } from "react-helmet";
 const myService = new Service();
 
 const URL = import.meta.env.VITE_APP_URL;
@@ -45,6 +46,19 @@ function Team() {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="Meet the talented team behind Global Construction & Engineering. Our experts bring innovation, expertise, and commitment to every project."
+        />
+        {/* Meta Keywords */}
+        <meta
+          name="keywords"
+          content="our team, construction professionals, engineering experts, project managers, architects, skilled workers, construction team, Nepal construction, team expertise, construction solutions, About Global Construction, Construction Company Nepal, Engineering Services Nepal, Quality Construction Nepal, Residential Projects Nepal, Commercial Projects Nepal, Infrastructure Development Nepal, building the future in Nepal, Global Construction team, construction experts Nepal, innovative engineering Nepal"
+        />
+      </Helmet>
+
       <section className="team-section">
         <Row>
           {teams.map((member, index) => (

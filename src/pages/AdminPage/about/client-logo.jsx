@@ -1,6 +1,6 @@
 import { Button, Table, Modal, Form, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 import Service from "../../../service/ImageService";
 import Swal from "sweetalert2";
@@ -9,7 +9,6 @@ const myService = new Service();
 const URL = import.meta.env.VITE_APP_URL;
 
 const ClientLogoPage = () => {
-  
   const [logos, setLogos] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentLogo, setCurrentLogo] = useState(null);
@@ -33,7 +32,7 @@ const ClientLogoPage = () => {
       // console.error("Error fetching logos:", error);
       toast.error("Error fetching logos");
     }
-  };  
+  };
 
   // Handle changes in the form inputs
   const handleChange = (e) => {
@@ -52,7 +51,6 @@ const ClientLogoPage = () => {
         setImagePreview(reader.result); // Base64 encoded image
       };
       reader.readAsDataURL(file); // Read file as data URL
-
     } else {
       setCurrentLogo({
         ...currentLogo,
@@ -67,7 +65,6 @@ const ClientLogoPage = () => {
     const endpoint = currentLogo?._id
       ? `${URL}/logo/${currentLogo._id}`
       : `${URL}/logo`;
-
 
     const formData = new FormData();
     formData.append("companyName", currentLogo?.companyName || "");
@@ -145,6 +142,12 @@ const ClientLogoPage = () => {
 
   return (
     <>
+      <AdminHelmet
+        title="Logo Slider"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/about/logo"
+      />
+
       <PageTitle
         title="Client Logo Page"
         breadCrumbs={[

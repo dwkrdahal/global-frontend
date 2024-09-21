@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
+
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -121,7 +123,30 @@ export default function Users() {
     // }
   };
 
+  const handleAdd = async () => {
+    // TODO: LOGIC
+  }
+
   return (
+    <>
+    <AdminHelmet
+        title={`Users `}
+        description="Admin panel for Global Construction & Engineering."
+        url={`https://globalconstruction.com.np/admin/users`}
+      />
+      <PageTitle
+          title="User Management Page"
+          breadCrumbs={[
+            { name: "About", path: "/admin/users" },
+            { name: "users" },
+          ]}
+          link={{
+            to: "#",
+            label: "Add User",
+            icon: "fas fa-paper-plane",
+            onClick: handleAdd,
+          }}
+        />
     <div className="container">
       <h1 className="text-center m-3 ">User Info</h1>
       {users && users.length > 0 ? (
@@ -182,5 +207,6 @@ export default function Users() {
         <h3>No users found</h3>
       )}
     </div>
+    </>
   );
 }

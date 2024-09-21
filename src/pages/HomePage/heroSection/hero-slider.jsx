@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Hero from "./hero";
 import Service from "../../../service/ImageService";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 const myService = new Service();
 const URL = import.meta.env.VITE_APP_URL;
@@ -12,7 +13,6 @@ const URL = import.meta.env.VITE_APP_URL;
 const HeroSlider = () => {
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBanner = async () => {
@@ -29,8 +29,7 @@ const HeroSlider = () => {
           setBanners(activeBanner);
         }
       } catch (err) {
-        console.error("Fetch error: ", err); // Log error to console
-        setError(err.message);
+        // console.error("Fetch error: ", err);
       } finally {
         setLoading(false);
       }
@@ -50,10 +49,63 @@ const HeroSlider = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <>
+      <Helmet>
+        {/* Page Title */}
+        <title>Home | Global Construction & Engineering</title>
+
+        {/* Meta Description */}
+        <meta
+          name="description"
+          content="Global Construction & Engineering - Delivering innovative construction solutions and transforming ideas into reality with precision and quality."
+        />
+
+        {/* Meta Keywords */}
+        <meta
+          name="keywords"
+          content="construction, engineering, project management, architecture, construction solutions, innovative design, quality construction, Nepal construction, Kathmandu builders, residential construction, commercial construction, civil engineering, construction services in Nepal, sustainable building, infrastructure development, architectural design, home renovation, construction contractors in Nepal"
+        />
+
+        {/* Open Graph Meta Tags */}
+        <meta
+          property="og:title"
+          content="Home | Global Construction & Engineering"
+        />
+        <meta
+          property="og:description"
+          content="Explore innovative construction solutions and projects at Global Construction & Engineering."
+        />
+        <meta property="og:url" content="https://globalconstruction.com.np/" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://globalconstruction.com.np/images/logo.jpg"
+        />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Home | Global Construction & Engineering"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover quality construction services and innovative solutions with Global Construction & Engineering."
+        />
+        <meta
+          name="twitter:image"
+          content="https://globalconstruction.com.np/images/logo.jpg"
+        />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://globalconstruction.com.np/" />
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+      </Helmet>
+
       {banners.length > 0 ? (
         <Slider {...settings}>
           {banners.map((banner, index) => (

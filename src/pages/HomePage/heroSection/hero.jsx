@@ -5,7 +5,6 @@ import ScrollAnimation from "react-animate-on-scroll";
 function Hero({ backgroundImage, title, subtitle, media }) {
   return (
     <>
-    {console.log(backgroundImage, title, subtitle, media)    }
       <div className="hero">
         {media === "video" ? (
           <video

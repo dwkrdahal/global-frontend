@@ -68,8 +68,8 @@ const LogoSlider = () => {
   return (
     <section className="logo-slider">
       <Container>
-        <p className="text-center"><strong><h3>WE ARE PROUD</h3> </strong>
-        working with</p>
+        <div className="text-center"><strong><h3>WE ARE PROUD</h3> </strong>
+        working with</div>
         <Slider {...settings}>
           {logos.map((logo, index) => (
             <div key={index} className="logo-item">

@@ -1,7 +1,15 @@
 // list-service.jsx
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Button, Badge, Dropdown } from "react-bootstrap";
-import { PageTitle } from "../../../components/admin";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Badge,
+  Dropdown,
+} from "react-bootstrap";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ServiceEdit from "./service-edit";
@@ -16,7 +24,7 @@ export default function ListService() {
   const [services, setServices] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
   const [filterStatus, setFilterStatus] = useState("All");
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const [currentService, setCurrentService] = useState(null);
 
   const fetchServices = async () => {
@@ -31,7 +39,7 @@ export default function ListService() {
 
       if (data.status) {
         setServices(data.result);
-        setFilteredServices(data.result); 
+        setFilteredServices(data.result);
       } else {
         toast.error(data.msg);
       }
@@ -73,7 +81,9 @@ export default function ListService() {
       setFilteredServices(services);
     } else {
       const filtered = services.filter(
-        (service) => (status === "Active" && service.status) || (status === "Inactive" && !service.status)
+        (service) =>
+          (status === "Active" && service.status) ||
+          (status === "Inactive" && !service.status)
       );
       setFilteredServices(filtered);
     }
@@ -86,6 +96,12 @@ export default function ListService() {
 
   return (
     <>
+      <AdminHelmet
+        title="Services"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/service"
+      />
+
       <PageTitle
         title="List Service Page"
         breadCrumbs={[
@@ -106,9 +122,15 @@ export default function ListService() {
               Filter: {filterStatus}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => filterServices("All")}>All</Dropdown.Item>
-              <Dropdown.Item onClick={() => filterServices("Active")}>Active</Dropdown.Item>
-              <Dropdown.Item onClick={() => filterServices("Inactive")}>Inactive</Dropdown.Item>
+              <Dropdown.Item onClick={() => filterServices("All")}>
+                All
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterServices("Active")}>
+                Active
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterServices("Inactive")}>
+                Inactive
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -116,24 +138,44 @@ export default function ListService() {
         <Row>
           {filteredServices && filteredServices.length > 0 ? (
             filteredServices.map((service) => (
-              <Col key={service._id} xs={12} sm={12} md={6} lg={6} xl={3} className="mb-4">
+              <Col
+                key={service._id}
+                xs={12}
+                sm={12}
+                md={6}
+                lg={6}
+                xl={3}
+                className="mb-4"
+              >
                 <Card className="service-card h-100 position-relative">
                   <Card.Body className="d-flex flex-column">
-                    <Badge pill bg={service?.status ? "success" : "secondary"} className="position-absolute top-0 end-0 m-2">
+                    <Badge
+                      pill
+                      bg={service?.status ? "success" : "secondary"}
+                      className="position-absolute top-0 end-0 m-2"
+                    >
                       {service?.status ? "Active" : "Inactive"}
                     </Badge>
                     <div className="icon-container mb-2">
-                      {service?.icon && <i className={`${service.icon} fa-2x`}></i>}
+                      {service?.icon && (
+                        <i className={`${service.icon} fa-2x`}></i>
+                      )}
                     </div>
                     <Card.Title className="service-title">
                       {service?.title}
                     </Card.Title>
                     <Card.Text>{service?.description}</Card.Text>
                     <div className="mt-auto d-flex justify-content-between">
-                      <Button variant="warning" onClick={() => handleEdit(service)}>
+                      <Button
+                        variant="warning"
+                        onClick={() => handleEdit(service)}
+                      >
                         Edit
                       </Button>
-                      <Button variant="danger" onClick={() => handleDelete(service._id)}>
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDelete(service._id)}
+                      >
                         Delete
                       </Button>
                     </div>

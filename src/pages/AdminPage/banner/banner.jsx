@@ -1,6 +1,6 @@
 import { Button, Card, Modal, Form, Row, Col, NavLink } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 import Service from "../../../service/ImageService";
 
@@ -170,6 +170,12 @@ const Banner = () => {
 
   return (
     <>
+      <AdminHelmet
+        title="Home Banner"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/banner"
+      />
+
       <div className="px-4">
         <PageTitle
           title="Banners Page"
@@ -208,8 +214,8 @@ const Banner = () => {
                       />
                     ) : (
                       <video
-                      src={myService.getRelativePath(banner?.video?.url)}
-                      controls
+                        src={myService.getRelativePath(banner?.video?.url)}
+                        controls
                         style={{
                           width: "100%",
                           height: "250px",

@@ -5,7 +5,6 @@ import { useInView } from "react-intersection-observer";
 import "./features.css";
 
 const URL = import.meta.env.VITE_APP_URL;
-const featureURL = URL + "/feature";
 
 const FeatureCounters = () => {
   const [features, setFeatures] = useState([]);
@@ -27,7 +26,7 @@ const FeatureCounters = () => {
 
       setFeatures(processedFeatures);
     } catch (error) {
-      console.error("Failed to fetch feature data", error);
+      // console.error("Failed to fetch feature data", error);
     }
   };
 

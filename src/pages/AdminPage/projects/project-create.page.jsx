@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -177,6 +177,11 @@ export default function CreateProject() {
 
   return (
     <>
+      <AdminHelmet
+        title="Create Project"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/project/create"
+      />
       <PageTitle
         title="Create Project Page"
         breadCrumbs={[

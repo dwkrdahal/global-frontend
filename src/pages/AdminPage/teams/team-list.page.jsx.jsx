@@ -5,7 +5,7 @@ import Service from "../../../service/ImageService";
 const myService = new Service();
 
 import Swal from "sweetalert2";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { NavLink } from "react-router-dom";
 
 export default function ListTeam() {
@@ -85,6 +85,12 @@ export default function ListTeam() {
 
   return (
     <>
+      <AdminHelmet
+        title="Teams"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/team"
+      />
+
       <PageTitle
         title="List Team Page"
         breadCrumbs={[

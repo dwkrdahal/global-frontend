@@ -1,6 +1,6 @@
 import { Button, Table, Modal, Form, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 
 const FeaturePage = () => {
@@ -96,6 +96,11 @@ const FeaturePage = () => {
 
   return (
     <>
+      <AdminHelmet
+        title="Features"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/about/feature"
+      />
       <PageTitle
         title="Feature Page"
         breadCrumbs={[

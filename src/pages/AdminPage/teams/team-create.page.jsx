@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import TeamFormComponent from "./team-form.component";
 import { toast } from "react-toastify";
 
@@ -45,6 +45,12 @@ function CreateTeam() {
 
   return (
     <>
+      <AdminHelmet
+        title="Create Team Member"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/team/create"
+      />
+
       <PageTitle
         title="Create Team Page"
         breadCrumbs={[

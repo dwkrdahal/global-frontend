@@ -1,6 +1,6 @@
 import { Button, Card, Modal, Form, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 import Service from "../../../service/ImageService";
 const myService = new Service();
@@ -146,6 +146,11 @@ const Testimony = () => {
 
   return (
     <>
+      <AdminHelmet
+        title={`Testimonials `}
+        description="Admin panel for Global Construction & Engineering."
+        url={`https://globalconstruction.com.np/admin/testimony`}
+      />
       <div className=" px-4">
         <PageTitle
           title="Testimonials Page"

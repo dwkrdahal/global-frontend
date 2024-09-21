@@ -1,10 +1,15 @@
 import React from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 
 export default function Dashboard() {
 
   return (
     <main>
+      <AdminHelmet
+        title="Dashboard"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin"
+      />
       <div className="container px-4">
         <PageTitle
         title="Diwar Estate Admin Dashboard"

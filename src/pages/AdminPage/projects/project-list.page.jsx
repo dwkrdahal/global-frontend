@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -137,6 +137,12 @@ export default function ListProject() {
 
   return (
     <>
+      <AdminHelmet
+        title="Projects"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/project"
+      />
+
       <PageTitle
         title="List Project Page"
         breadCrumbs={[

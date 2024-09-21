@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -54,6 +54,12 @@ export default function CreateService() {
 
   return (
     <>
+      <AdminHelmet
+        title=" Create Service"
+        description="admin panel for Global Construction & Engineering."
+        url="https://globalconstruction.com.np/admin/service/create"
+      />
+      
       <PageTitle
         title="Create Service Page"
         breadCrumbs={[
@@ -89,8 +95,8 @@ export default function CreateService() {
           </Form.Label>
           <Col sm="10">
             <Form.Control
-              as="textarea" 
-              rows={3} 
+              as="textarea"
+              rows={3}
               name="description"
               value={serviceData.description}
               onChange={handleChange}

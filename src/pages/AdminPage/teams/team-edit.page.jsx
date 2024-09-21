@@ -1,4 +1,4 @@
-import { PageTitle } from "../../../components/admin";
+import { AdminHelmet, PageTitle } from "../../../components/admin";
 import TeamFormComponent from "./team-form.component";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
@@ -88,6 +88,12 @@ function EditTeam() {
 
   return (
     <>
+      <AdminHelmet
+        title={`Edit Team | ${teamData?.name}`}
+        description="Admin panel for Global Construction & Engineering."
+        url={`https://globalconstruction.com.np/admin/team/${teamData?._id}`}
+      />
+
       <PageTitle
         title="Edit Team Page"
         breadCrumbs={[
