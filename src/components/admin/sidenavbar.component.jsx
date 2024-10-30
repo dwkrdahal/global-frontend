@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 const SideNavbar = () => {
+  //retrieving data of user from the local storage and prasing it in variable user
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
@@ -27,9 +28,9 @@ const SideNavbar = () => {
             {user.role == "admin" ? (
               <NavLink className="nav-link" to="/admin/message">
                 <div className="sb-nav-link-icon">
-                  <i className="fa-solid fa-message"></i>
+                  <i className="fas fa-comments"></i>
                 </div>
-                Message
+                Messages
               </NavLink>
             ) : (
               ""
@@ -38,7 +39,7 @@ const SideNavbar = () => {
             {/* CONTENT MANAGEMENT */}
             <NavLink
               className="nav-link collapsed"
-              to="/admin/user"
+              to="/admin/content"
               data-bs-toggle="collapse"
               data-bs-target="#collapseContent"
               aria-expanded="false"
@@ -234,45 +235,21 @@ const SideNavbar = () => {
               </nav>
             </div>
 
-            {/* GALLERY */}
+            {/* USER MANAGEMENT */}
 
-            <NavLink
-              className="nav-link collapsed"
-              to="/admin/service"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseGallery"
-              aria-expanded="false"
-              aria-controls="collapseGallery"
-            >
+            
+            <NavLink className="nav-link" to="/admin/users">
               <div className="sb-nav-link-icon">
-                <i className="fas fa-images"></i>
+                <i className="fas fa-user-cog"></i>
               </div>
-              Gallery
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down"></i>
-              </div>
+              User Management
             </NavLink>
-            <div
-              className="collapse"
-              id="collapseGallery"
-              aria-labelledby="headingOne"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
-                  Upload Photos
-                </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
-                  Manage Albums
-                </NavLink>
-              </nav>
-            </div>
 
             {/* VACANCIES */}
 
             <NavLink
               className="nav-link collapsed"
-              to="/admin/service"
+              to="/admin/vacancy"
               data-bs-toggle="collapse"
               data-bs-target="#collapseVacancies"
               aria-expanded="false"
@@ -293,60 +270,22 @@ const SideNavbar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
+                <NavLink className="nav-link" to="">
                   Post Vacancies
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="">
                   Manage Applications
                 </NavLink>
               </nav>
             </div>
 
-            {/* USER MANAGEMENT */}
-
-            <NavLink
-              className="nav-link collapsed"
-              to="/admin/service"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseUsers"
-              aria-expanded="false"
-              aria-controls="collapseUsers"
-            >
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-user-cog"></i>
-              </div>
-              User Management
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down"></i>
-              </div>
-            </NavLink>
-            <div
-              className="collapse"
-              id="collapseUsers"
-              aria-labelledby="headingOne"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
-                  Post Users
-                </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
-                  Manage Users
-                </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-user-shield"></i>
-                  </div>
-                  Roles & Permissions
-                </NavLink>
-              </nav>
-            </div>
+            
 
             {/* SETTINGS */}
 
             <NavLink
               className="nav-link collapsed"
-              to="/admin/service"
+              to="/admin/setting"
               data-bs-toggle="collapse"
               data-bs-target="#collapseSettings"
               aria-expanded="false"
@@ -367,22 +306,22 @@ const SideNavbar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
+                <NavLink className="nav-link" to="">
                   General Settings
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="">
                   <div className="sb-nav-link-icon">
                     <i className="fas fa-search"></i>
                   </div>
                   SEO Settings
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="">
                   <div className="sb-nav-link-icon">
                     <i className="fas fa-share-alt"></i>
                   </div>
                   Social Media
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="">
                   <div className="sb-nav-link-icon">
                     <i className="fas fa-address-book"></i>
                   </div>
@@ -391,54 +330,11 @@ const SideNavbar = () => {
               </nav>
             </div>
 
-            {/* FEEDBACK AND MESSAGES */}
-
-            <NavLink
-              className="nav-link collapsed"
-              to="/admin/service"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseMessages"
-              aria-expanded="false"
-              aria-controls="collapseMessages"
-            >
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-comments"></i>
-              </div>
-              Messages
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down"></i>
-              </div>
-            </NavLink>
-            <div
-              className="collapse"
-              id="collapseMessages"
-              aria-labelledby="headingOne"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team">
-                  Messages
-                </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-search"></i>
-                  </div>
-                  Reviews
-                </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-share-alt"></i>
-                  </div>
-                  Testimony
-                </NavLink>
-              </nav>
-            </div>
-
             {/* REPORTS AND LOGS */}
 
             <NavLink
               className="nav-link collapsed"
-              to="/admin/service"
+              to="/admin/reports"
               data-bs-toggle="collapse"
               data-bs-target="#collapseReports"
               aria-expanded="false"
@@ -459,13 +355,13 @@ const SideNavbar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="">
                   <div className="sb-nav-link-icon">
                     <i className="fas fa-history"></i>
                   </div>
                   Activity Logs
                 </NavLink>
-                <NavLink className="nav-link" to="/admin/team/add">
+                <NavLink className="nav-link" to="">
                   <div className="sb-nav-link-icon">
                     <i className="fas fa-file-export"></i>
                   </div>

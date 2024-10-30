@@ -1,42 +1,51 @@
 /* Slick Slider Dots */
 .slick-dots {
-  z-index: 1;
   position: absolute;
-  bottom: 60px; /* Position the dots inside the image */
+  bottom: 60px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: auto;
+  z-index: 1000;
+}
+
+.slick-dots li {
+  margin: 0 5px;
+}
+
+.slick-dots li button {
+  width: 14px;
+  height: 14px;
 }
 
 .slick-dots li button:before {
-  font-size: 14px; /* Increase dot size */
-  color: #f37021  /* Dot color */
+  font-size: 14px;
+  color: #f37021; /* Dot color */
+  opacity: 0.75;
 }
 
 .slick-dots li.slick-active button:before {
   color: #0069a5; /* Active dot color */
+  opacity: 1;
 }
 
 /* Slick Slider Arrows */
 .slick-prev, .slick-next {
-  z-index: 1; /* Make sure arrows are above the image */
-  top: 50%; /* Center the arrows vertically */
-  width: 40px; /* Increase arrow size */
+  z-index: 1000; /* Ensure arrows are above images */
+  top: 50%;
+  width: 40px;
   height: 40px;
   transform: translateY(-50%);
 }
 
 .slick-prev:before, .slick-next:before {
-  font-size: 20px; /* Increase arrow icon size */
-  color: white; /* Arrow color */
+  font-size: 20px;
+  color: white;
 }
 
-/* Custom arrow positioning */
 .slick-prev {
-  left: 10px; /* Position left arrow inside image */
+  left: 10px;
 }
 
 .slick-next {
-  right: 10px; /* Position right arrow inside image */
+  right: 10px;
 }

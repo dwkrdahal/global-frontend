@@ -38,8 +38,8 @@ export default function CreateProject() {
       completion: "",
     },
     images: [],
-    isFeatured: "",
-    isActive: "",
+    isFeatured: "false",
+    isActive: "false",
   });
 
   const architectureStyles = [
@@ -117,7 +117,7 @@ export default function CreateProject() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(projectData);
+    // console.log(projectData);
 
     const formData = new FormData();
     try {
@@ -160,7 +160,7 @@ export default function CreateProject() {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (data.status) {
         toast.success(data.msg);
@@ -169,7 +169,7 @@ export default function CreateProject() {
         toast.error(data.msg);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       toast.error(error.message);
     }
@@ -449,7 +449,7 @@ export default function CreateProject() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Submit
+          Save Project
         </Button>
       </Form>
     </>

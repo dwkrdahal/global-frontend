@@ -10,6 +10,19 @@
   z-index: 10;
 }
 
+/* Remove blue underline for links inside feature cards */
+.overlap-features a {
+  color: inherit; /* Inherit the text color from the parent */
+  text-decoration: none; /* Remove the underline */
+  display: block; /* Make the entire card clickable */
+  transition: color 0.3s ease; /* Add a smooth transition for hover effects */
+}
+
+/* Optional: Add hover effect for better UX */
+.overlap-features a:hover {
+  color: #f37021; /* Change to the desired hover color */
+}
+
 /* Media query for tablets and smaller screens */
 @media (max-width: 992px) {
   .overlap-features {

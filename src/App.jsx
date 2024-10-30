@@ -41,6 +41,7 @@ import {
   AdminServicePage,
   CreateService,
 } from "./pages/AdminPage/services";
+
 import {
   CreateTeam,
   ListTeam,
@@ -141,12 +142,14 @@ function App() {
             <Route path="feature" element={<FeaturePage />}></Route>
             <Route path="logo" element={<ClientLogoPage />}></Route>
             {/* TODO */}
+
           </Route>
 
           {/* Single Pages */}
           <Route path="message" element={<MessagePage />} />
           <Route path="testimony" element={<Testimony />} />
           <Route path="banner" element={<Banner />} />
+          <Route path="users" element={<Users />} />
 
           <Route path="table" element={<Tables />} />
         </Route>

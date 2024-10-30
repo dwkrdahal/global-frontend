@@ -1,4 +1,3 @@
-import "./hero-slider.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,6 +5,8 @@ import Hero from "./hero";
 import Service from "../../../service/ImageService";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import "./hero-slider.css";
+
 
 const myService = new Service();
 const URL = import.meta.env.VITE_APP_URL;

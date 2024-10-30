@@ -1,22 +1,35 @@
 import { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Dropdown,
+  Row,
+  Col,
+  Badge,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
-
 
 export default function Users() {
   const [users, setUsers] = useState([]);
-  const URL = "http://localhost:3000";
-  const UserURL = URL + "/user";
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [filterRole, setFilterRole] = useState("all");
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [filterApprovalStatus, setFilterApprovalStatus] = useState("All");
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showApproveModal, setShowApproveModal] = useState(false);
   const token = localStorage.getItem("user_token");
+  const URL = import.meta.env.VITE_APP_URL;
+  const UserURL = `${URL}/user`;
 
-  //fetch user list at first when page load
+  // Fetch user list when the page loads
   useEffect(() => {
     fetchUsers();
   }, [token]);
 
-  //fetchUsers
+  // Fetch user data from the API
   const fetchUsers = async () => {
     try {
       const response = await fetch(UserURL, {
@@ -29,184 +42,371 @@ export default function Users() {
 
       if (data.status) {
         setUsers(data.result);
+        setFilteredUsers(data.result);
       }
     } catch (error) {
-      toast.error("frontend error");
+      toast.error("Failed to fetch users.");
       console.log(error);
     }
   };
 
-  //editOne
-  const editOne = async (id) => {
-    //TODO: edit logic
+  // Function to filter users
+  const filterUsers = () => {
+    let filtered = users;
+
+    // Filter by role if not set to 'All'
+    if (filterRole !== "all") {
+      filtered = filtered.filter((user) => user.role === filterRole);
+    }
+
+    // Filter by status if not set to 'All'
+    if (filterStatus !== "All") {
+      filtered = filtered.filter((user) => user.status === filterStatus);
+    }
+
+    // Filter by approval status if not set to 'All'
+    if (filterApprovalStatus !== "All") {
+      filtered = filtered.filter(
+        (user) => user.approvalStatus === filterApprovalStatus
+      );
+    }
+
+    setFilteredUsers(filtered);
   };
 
-  const deleteOne = async (id) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
-    });
+  // Handle deleting a user
+  const handleDelete = async (userId) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        const result = await fetch(`${UserURL}/${userId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+          },
+        });
+        const data = await result.json();
 
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then( async (result) => {
-        if (result.isConfirmed) {
-          const result = await fetch(`${URL}/user/${id}`, {
-            method: "DELETE",
-            headers: {
-              Authorization: token,
-            },
-          })
-          const data = await result.json();
-          console.log(data);
-          
-
-          if(data.status){
-            swalWithBootstrapButtons.fire({
-              title: "Deleted!",
-              text: data.msg,
-              icon: "success",
-            });
-            fetchUsers();
-          } else{
-            swalWithBootstrapButtons.fire({
-              title: "Error!",
-              text: data.msg,
-              icon: "error",
-            });
-          }  
-                    
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "Your file is safe :)",
-            icon: "error",
-          });
+        if (data.status) {
+          setUsers(users.filter((user) => user._id !== userId));
+          setFilteredUsers(filteredUsers.filter((user) => user._id !== userId));
+          toast.success("User deleted successfully");
+        } else {
+          toast.error(data.msg);
         }
-      });
-
-      //changed with sweet alert
-    // try {
-    //   const response = await fetch(`${URL}/user/${id}`, {
-    //     method: "DELETE",
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   });
-    //   const data = await response.json();
-
-    //   if (data.status) {
-    //     toast.success(data?.msg);
-    //   } else {
-    //     toast.error(data?.msg);
-    //   }
-
-    //   //refresh list
-    //   fetchUsers();
-    // } catch (error) {
-    //   toast.error("frontend error");
-    //   console.log(error);
-    // }
+      } catch (error) {
+        toast.error("Failed to delete the user.");
+      }
+    }
   };
 
-  const handleAdd = async () => {
-    // TODO: LOGIC
-  }
+  // Handle opening the modal for editing a user
+  const handleEdit = (user) => {
+    setSelectedUser(user);
+    setShowApproveModal(true);
+  };
+
+  // Handle updating user details (modal form)
+  const handleApproveUser = async () => {
+    try {
+      // Set approval_status to "approved" in selectedUser
+      const updatedUser = {
+        ...selectedUser,
+        approval_status: "approved",
+      };
+
+      const response = await fetch(`${UserURL}/${selectedUser._id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedUser),
+      });
+      const data = await response.json();
+
+      if (data.status) {
+        fetchUsers(); // Refresh user list
+        toast.success("Permission Granted!");
+        setShowApproveModal(false);
+      } else {
+        toast.error(data.msg);
+      }
+    } catch (error) {
+      toast.error("Failed to update the user.");
+    }
+  };
+
+  // Update filter states and apply filters
+  const updateFilterRole = (role) => {
+    setFilterRole(role);
+    filterUsers();
+  };
+
+  const updateFilterStatus = (status) => {
+    setFilterStatus(status);
+    filterUsers();
+  };
+
+  const updateFilterApprovalStatus = (approvalStatus) => {
+    setFilterApprovalStatus(approvalStatus);
+    filterUsers();
+  };
 
   return (
     <>
-    <AdminHelmet
-        title={`Users `}
+      <AdminHelmet
+        title="Users"
         description="Admin panel for Global Construction & Engineering."
-        url={`https://globalconstruction.com.np/admin/users`}
+        url="https://globalconstruction.com.np/admin/users"
       />
-      <PageTitle
-          title="User Management Page"
-          breadCrumbs={[
-            { name: "About", path: "/admin/users" },
-            { name: "users" },
-          ]}
-          link={{
-            to: "#",
-            label: "Add User",
-            icon: "fas fa-paper-plane",
-            onClick: handleAdd,
-          }}
-        />
-    <div className="container">
-      <h1 className="text-center m-3 ">User Info</h1>
-      {users && users.length > 0 ? (
-        <Table striped responsive hover>
-          <thead>
-            <tr>
-              <th rowSpan={2}>#</th>
-              <th rowSpan={2}>Username</th>
-              <th rowSpan={2}>Email</th>
-              <th rowSpan={2}>Status</th>
-              <th rowSpan={2}>Role</th>
-              <th colSpan={3} className="text-center">
-                Profile
-              </th>
-              <th rowSpan={2}>Action</th>
-            </tr>
-            <tr>
-              <th>Name</th>
-              <th>Number</th>
-              <th>Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{user?.username}</td>
-                <td>{user?.email}</td>
-                <td>{user?.status}</td>
-                <td>{user?.role}</td>
-                <td>{user?.profile.fullName}</td>
-                <td>{user?.profile.contactNumber}</td>
-                <td>{user?.profile.address}</td>
 
-                <td>
-                  <Button
-                    className="btn-primary"
-                    onClick={() => {
-                      editOne(user?._id);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    className="btn-danger"
-                    onClick={() => {
-                      deleteOne(user?._id);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : (
-        <h3>No users found</h3>
-      )}
-    </div>
+      <div className="container">
+        <PageTitle
+          title="User Management Page"
+          breadCrumbs={[{ name: "User", path: "/admin/users" }]}
+        />
+
+        {/* Combined Dropdown Filters */}
+        <div className="d-flex mb-3 ">
+          {/* Dropdown for Role Filtering */}
+          <Dropdown className="mr-2">
+            <Dropdown.Toggle
+              variant="light"
+              id="role-dropdown"
+              className="w-100"
+            >
+              Role: {filterRole}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => updateFilterRole("all")}>
+                All
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => updateFilterRole("admin")}>
+                Admin
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => updateFilterRole("customer")}>
+                Customer
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => updateFilterRole("project_manager")}
+              >
+                Project Manager
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => updateFilterRole("architect")}>
+                Architect
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          {/* Dropdown for Status Filtering */}
+          {/* <Dropdown className="mr-2" style={{ flex: 1 }}>
+            <Dropdown.Toggle
+              variant={
+                filterStatus === "active"
+                  ? "info"
+                  : filterStatus === "inactive"
+                  ? "secondary"
+                  : "light"
+              }
+              id="status-dropdown"
+              className="w-100"
+            >
+              {filterStatus}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => updateFilterStatus("all")}>
+                All
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => updateFilterStatus("active")}>
+                Active
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => updateFilterStatus("inactive")}>
+                Inactive
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown> */}
+
+          {/* Dropdown for Approval Status Filtering */}
+          {/* <Dropdown style={{ flex: 1 }}>
+            <Dropdown.Toggle
+              variant={
+                filterApprovalStatus === "approved"
+                  ? "success"
+                  : filterApprovalStatus === "pending"
+                  ? "warning"
+                  : filterApprovalStatus === "rejected"
+                  ? "danger"
+                  : "light"
+              }
+              id="approval-status-dropdown"
+              className="w-100"
+            >
+              {filterApprovalStatus}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => updateFilterApprovalStatus("all")}>
+                All
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => updateFilterApprovalStatus("pending")}
+              >
+                Pending
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => updateFilterApprovalStatus("approved")}
+              >
+                Approved
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => updateFilterApprovalStatus("rejected")}
+              >
+                Rejected
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown> */}
+        </div>
+
+        {/* Display Users in Cards */}
+        <Row className="mt-4">
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
+              <Col key={user._id} xs={12} sm={6} md={6} lg={4} className="mb-4">
+                <Card className="user-card h-100">
+                  <Card.Body className="d-flex flex-column">
+                    <Badge
+                      pill
+                      bg={user.status === "active" ? "success" : "secondary"}
+                      className="position-absolute top-0 end-0 m-2"
+                    >
+                      {user.status === "active"
+                        ? "Active"
+                        : user?.approval_status}
+                    </Badge>
+                    <Card.Title>{user?.profile?.fullName}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      {user.role}
+                    </Card.Subtitle>
+                    <Card.Text>
+                      uname: <strong>{user?.username}</strong>
+                      <br />
+                      email: <strong>{user?.email}</strong>
+                    </Card.Text>
+                    <Card.Text>{user?.profile?.address}</Card.Text>
+
+                    {user.approval_status === "pending" ? (
+                      <div className="mt-auto d-flex justify-content-between">
+                        <Button
+                          variant="warning"
+                          onClick={() => handleEdit(user)}
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => handleDelete(user._id)}
+                        >
+                          Reject
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="mt-auto d-flex justify-content-center">
+                        <Button
+                          variant="primary"
+                          onClick={() => handleEdit(user)}
+                        >
+                          Change Status
+                        </Button>
+                      </div>
+                    )}
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <p>No users found</p>
+          )}
+        </Row>
+      </div>
+
+      {/* Approve User Modal */}
+      <Modal show={showApproveModal} onHide={() => setShowApproveModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Approve New User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            {/* Name Field */}
+            <Form.Group controlId="userName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={selectedUser?.profile?.fullName || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    profile: {
+                      ...selectedUser.profile,
+                      fullName: e.target.value,
+                    },
+                  })
+                }
+              />
+            </Form.Group>
+
+            {/* Role Dropdown */}
+            <Form.Group controlId="userRole">
+              <Form.Label>Role</Form.Label>
+              <Form.Control
+                as="select"
+                value={selectedUser?.role || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    role: e.target.value,
+                  })
+                }
+              >
+                <option value="admin">Admin</option>
+                <option value="customer">Customer</option>
+                <option value="project_manager">Project Manager</option>
+                <option value="architect">Architect</option>
+              </Form.Control>
+            </Form.Group>
+
+            {/* Status Dropdown */}
+            <Form.Group controlId="userRole">
+              <Form.Label>Status</Form.Label>
+              <Form.Control
+                as="select"
+                value={selectedUser?.status || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    status: e.target.value,
+                  })
+                }
+              >
+                <option value="active">Active</option>
+                <option value="inactive">In Active</option>
+              </Form.Control>
+            </Form.Group>
+
+            {/* Add more form fields as needed */}
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowApproveModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleApproveUser}>
+            Approve
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
+``;

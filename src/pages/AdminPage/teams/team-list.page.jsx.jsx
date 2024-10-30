@@ -116,7 +116,6 @@ export default function ListTeam() {
                 <th rowSpan={2}>Position</th>
                 <th rowSpan={2}>Phone</th>
                 <th colSpan={1}>Avatar</th>
-                <th colSpan={1}>Cover</th>
                 <th rowSpan={2}>Display</th>
                 <th rowSpan={2}>Action</th>
               </tr>
@@ -152,23 +151,7 @@ export default function ListTeam() {
                       }}
                     />
                   </td>
-                  <td>
-                    <img
-                      src={myService.getRelativePath(user?.cover?.url)}
-                      alt={user?.cover?.caption || "no image"}
-                      height="auto"
-                      width="100px"
-                      onClick={() => {
-                        Swal.fire({
-                          title: user?.name,
-                          text: user?.position,
-                          imageUrl: myService.getRelativePath(user?.cover?.url),
-                          imageWidth: 400,
-                          imageAlt: "Custom image",
-                        });
-                      }}
-                    />
-                  </td>
+                  
                   <td>{user?.display}</td>
                   <td>
                     <NavLink

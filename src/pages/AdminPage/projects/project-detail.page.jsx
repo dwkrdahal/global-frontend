@@ -75,6 +75,38 @@ export default function ProjectDetail() {
     setIsEditing(false);
   };
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this project?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`${projectURL}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Project deleted successfully.");
+        // Optionally, redirect to the projects list page or handle other actions after deletion
+        // e.g., navigate to the main projects page
+        window.location.href = "/admin/project"; // or use a React router redirect if available
+      } else {
+        toast.error(data.message || "Failed to delete the project.");
+      }
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      toast.error("An error occurred while deleting the project.");
+    }
+  };
+
   return (
     <>
       <AdminHelmet
@@ -82,7 +114,7 @@ export default function ProjectDetail() {
         description="admin panel for Global Construction & Engineering."
         url="https://globalconstruction.com.np/admin/project/create"
       />
-      
+
       <PageTitle
         title="Project Detail Page"
         breadCrumbs={[
@@ -107,9 +139,17 @@ export default function ProjectDetail() {
             </Button>
           </div>
         ) : (
-          <Button variant="primary" className="mb-4" onClick={handleEditToggle}>
-            Edit Project
-          </Button>
+          <div className="mb-4 d-flex justify-content-between">
+            <Button variant="primary" onClick={handleEditToggle}>
+              Edit Project
+            </Button>
+            <Button
+              variant="danger"
+              onClick={handleDelete} // Make sure this calls the delete function
+            >
+              Delete Project
+            </Button>
+          </div>
         )}
 
         {/* Sectioned Information */}
