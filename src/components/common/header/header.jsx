@@ -43,7 +43,7 @@ const Header = () => {
         >
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
             <NavLink className="nav-link" to="/about-us">
-              About
+              About Us
             </NavLink>
             <NavLink className="nav-link" to="project">
               Projects
@@ -64,7 +64,7 @@ const Header = () => {
               Contact Us
             </NavHashLink>
             <NavLink className="nav-link" to="/login">
-              Log In
+              
             </NavLink>
           </Nav>
           <div className="social-icons-container">

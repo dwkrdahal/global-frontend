@@ -181,20 +181,16 @@ function ProjectDescription() {
             </Card>
             <Card className="mb-4 p-3 shadow-sm">
               <Card.Body>
-                <Card.Title className="text-center">for</Card.Title>
+                <Card.Title className="text-center"><i>DESIGNED FOR</i></Card.Title>
                 <Card.Text>
-                  <strong>{project?.client?.name}</strong>
+                  <strong> {project?.client?.name || ""}</strong>
                 </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card className="mb-4 p-3 shadow-sm">
-              <Card.Body>
-                <Card.Title className="text-center">by</Card.Title>
+                <Card.Title className="text-center"><i>& BY</i></Card.Title>
                 <Card.Text>
                   <strong>
-                    {project?.designArchitect?.name} <br />
-                    {project?.designArchitect?.position}
+                    {project?.designer?.name || "Global Construction & Engineering Pvt. Ltd."}
+                    <br />
+                    {project?.designer?.position || ""}
                   </strong>
                 </Card.Text>
               </Card.Body>

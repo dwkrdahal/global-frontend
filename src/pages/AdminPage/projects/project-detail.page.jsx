@@ -7,14 +7,9 @@ import {
   Row,
   Col,
   Card,
-  Carousel,
-  Form,
   Button,
 } from "react-bootstrap";
 import "./project.css";
-
-import Service from "../../../service/ImageService";
-const myService = new Service();
 import {
   ClientComponent,
   ImageManagementComponent,
@@ -23,9 +18,11 @@ import {
   TimelineComponent,
 } from "./project.component";
 import URL from "../../../config";
+import DesignerComponent from "./project.component/designer.component";
 
 export default function ProjectDetail() {
   const [project, setProject] = useState(null);
+  const [createdByUser, setCreatedByUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // Toggle between view and edit mode
   const token = localStorage.getItem("user_token");
 
@@ -47,6 +44,31 @@ export default function ProjectDetail() {
 
       if (data.status) {
         setProject(data.result);
+      } else {
+        toast.error(data.msg);
+      }
+
+      if(data.result?.createdBy){
+        fetchCreater(data.result.createdBy);
+      }
+    } catch (error) {
+      toast.error("Network Error!");
+    }
+  };
+
+  const fetchCreater = async (userId) => {
+    try {
+      const result = await fetch(`${URL}/user/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      const data = await result.json();
+
+      if (data.status) {
+        setCreatedByUser(data.result);        
       } else {
         toast.error(data.msg);
       }
@@ -168,6 +190,13 @@ export default function ProjectDetail() {
               projectURL={projectURL}
               token={token}
             />
+
+            {/* Designer Information */}
+            <DesignerComponent
+              project={project}
+              projectURL={projectURL}
+              token={token}
+            />
           </Col>
 
           {/* Project Images */}
@@ -186,19 +215,19 @@ export default function ProjectDetail() {
               token={token}
             />
 
-            {/* Created By Section */}
-            <Card className="project-detail-card mb-4">
-              <Card.Header as="h5" className="section-title">
-                Created By
-              </Card.Header>
-              <Card.Body className="d-flex align-items-center">
-                <i className="fas fa-user-circle fa-2x me-3"></i>
-                <div>
-                  <strong>{project.createdBy?.name || "Designer"}</strong>
-                  <p className="mb-0 text-muted">Architect</p>
-                </div>
-              </Card.Body>
-            </Card>
+              {/* Created By Section */}
+              <Card className="project-detail-card mb-4">
+                <Card.Header as="h5" className="section-title">
+                  Created By
+                </Card.Header>
+                <Card.Body className="d-flex align-items-center">
+                  <i className="fas fa-user-circle fa-2x me-3"></i>
+                  <div>
+                    <strong>{createdByUser?.username || "Designer"}</strong>
+                    <p className="mb-0 text-muted">{createdByUser?.role || "Architect"}</p>
+                  </div>
+                </Card.Body>
+              </Card>
 
             {/* Timestamps */}
             <Card className="project-detail-card mb-4">

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import URL from "../../../config";
 
 export default function CreateProject() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const projectURL = URL + "/project";
 
   const navigate = useNavigate();
@@ -104,6 +105,22 @@ export default function CreateProject() {
           contact: value,
         },
       });
+    } else if (name === "designerName") {
+      setProjectData({
+        ...projectData,
+        designer: {
+          ...projectData?.designer,
+          name: value,
+        },
+      });
+    } else if (name === "designerPosition") {
+      setProjectData({
+        ...projectData,
+        designer: {
+          ...projectData?.designer,
+          position: value,
+        },
+      });
     } else if (type === "file") {
       const selectedFiles = Array.from(e.target.files);
       setProjectData((prevState) => ({
@@ -117,6 +134,7 @@ export default function CreateProject() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     // console.log(projectData);
 
     const formData = new FormData();
@@ -418,7 +436,7 @@ export default function CreateProject() {
               value={projectData?.client?.name}
               onChange={handleChange}
               required
-              placeholder="Name"
+              placeholder="Client Name"
             />
           </Col>
           <Col sm="4" className="mb-3">
@@ -430,6 +448,33 @@ export default function CreateProject() {
               min="1"
               required
               placeholder="Number"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formDesigner">
+          <Form.Label column sm="2">
+            Designer
+          </Form.Label>
+          <Col sm="4">
+            <Form.Control
+              type="text"
+              name="designerName"
+              value={projectData?.designer?.name}
+              onChange={handleChange}
+              required
+              placeholder="Designer Name"
+            />
+          </Col>
+          <Col sm="4" className="mb-3">
+            <Form.Control
+              type="text"
+              name="designerPosition"
+              value={projectData?.designer?.position}
+              onChange={handleChange}
+              min="1"
+              required
+              placeholder="Position"
             />
           </Col>
         </Form.Group>
@@ -448,8 +493,8 @@ export default function CreateProject() {
           </Col>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Save Project
+        <Button variant="primary" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Saving..." : "Save Project"}
         </Button>
       </Form>
     </>
