@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa"; // Import icons for the new cards
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import axios for making API requests
+import URL from "../../../config";
 
 export default function Dashboard() {
   const [projectCount, setProjectCount] = useState(0);
@@ -20,7 +21,6 @@ export default function Dashboard() {
   const [clientCount, setClientCount] = useState(0);
 
   // Base URL from environment variables
-  const API_BASE_URL = import.meta.env.VITE_APP_URL;
 
   useEffect(() => {
     const fetchCounts = async () => {
@@ -34,12 +34,12 @@ export default function Dashboard() {
           messageRes,
           clientRes,
         ] = await Promise.all([
-          axios.get(`${API_BASE_URL}/project/count`),
-          axios.get(`${API_BASE_URL}/service/count`),
-          axios.get(`${API_BASE_URL}/team/count`),
-          axios.get(`${API_BASE_URL}/testimony/count`),
-          axios.get(`${API_BASE_URL}/message/count`),
-          axios.get(`${API_BASE_URL}/logo/count`),
+          axios.get(`${URL}/project/count`),
+          axios.get(`${URL}/service/count`),
+          axios.get(`${URL}/team/count`),
+          axios.get(`${URL}/testimony/count`),
+          axios.get(`${URL}/message/count`),
+          axios.get(`${URL}/logo/count`),
         ]);
 
         // Update state with the counts from API responses
@@ -55,7 +55,7 @@ export default function Dashboard() {
     };
 
     fetchCounts();
-  }, [API_BASE_URL]); // Include API_BASE_URL as a dependency
+  }, [URL]); // Include URL as a dependency
 
   return (
     <main>

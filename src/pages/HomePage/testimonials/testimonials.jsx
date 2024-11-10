@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "./testimonials.css";
-import Service from "../../../service/ImageService";
-
-const myService = new Service();
-
-const URL = import.meta.env.VITE_APP_URL;
+import URL from "../../../config";
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -55,7 +51,7 @@ const Testimonials = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>No Data Available ...</p>;
 
   return (
     <section className="testimonials-section">
@@ -76,9 +72,7 @@ const Testimonials = () => {
                       <Card.Body>
                         <div className="testimonial-image-wrapper">
                           <img
-                            src={myService.getRelativePath(
-                              testimonial?.image?.url
-                            )}
+                            src={(testimonial?.image?.url)}
                             alt={testimonial?.name}
                             className="testimonial-image"
                           />

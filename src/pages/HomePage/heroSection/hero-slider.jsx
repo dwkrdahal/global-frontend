@@ -6,10 +6,9 @@ import Service from "../../../service/ImageService";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import "./hero-slider.css";
-
+import URL from "../../../config";
 
 const myService = new Service();
-const URL = import.meta.env.VITE_APP_URL;
 
 const HeroSlider = () => {
   const [banners, setBanners] = useState([]);
@@ -114,8 +113,8 @@ const HeroSlider = () => {
               key={index} // Add a unique key
               backgroundImage={
                 banner?.media === "image"
-                  ? myService.getRelativePath(banner?.image?.url)
-                  : myService.getRelativePath(banner?.video?.url)
+                  ? (banner?.image?.url)
+                  : (banner?.video?.url)
               }
               title={banner?.title}
               subtitle={banner?.subtitle}

@@ -3,9 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./services.css";
 import { Button, ServiceCard } from "../../../components";
 import { toast } from "react-toastify";
+import URL from "../../../config";
 
 const OurServices = () => {
-  const URL = import.meta.env.VITE_APP_URL;
   const serviceURL = URL + "/service";
 
   const [showMore, setShowMore] = useState(false);

@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
+import URL from "../../../config";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -21,7 +22,6 @@ export default function Users() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const token = localStorage.getItem("user_token");
-  const URL = import.meta.env.VITE_APP_URL;
   const UserURL = `${URL}/user`;
 
   // Fetch user list when the page loads

@@ -18,7 +18,7 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
   const [coverPreview, setCoverPreview] = useState(null);
 
   if (team.avatar) {
-    const avatarURL = myService.getRelativePath(team.avatar.url);
+    const avatarURL = (team.avatar.url);
   }
 
   useEffect(() => {
@@ -297,7 +297,7 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
                   src={
                     avatarPreview
                       ? avatarPreview
-                      : myService.getRelativePath(team?.avatar?.url)
+                      : (team?.avatar?.url)
                   }
                   alt="Avatar Preview"
                   height="500px"
@@ -323,7 +323,7 @@ export default function TeamFormComponent({ onHandleSubmit, data }) {
                   src={
                     coverPreview
                       ? coverPreview
-                      : myService.getRelativePath(team?.cover?.url)
+                      : (team?.cover?.url)
                   }
                   alt="Cover Preview"
                   height="500px"

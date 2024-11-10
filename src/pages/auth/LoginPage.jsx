@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { BreadCrumb } from "../../components";
 import "./auth.css";
 import { Helmet } from "react-helmet";
+import URL from "../../config";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -14,8 +15,7 @@ function LoginPage() {
     remember_me: "",
   });
 
-  const URL = import.meta.env.VITE_APP_URL;
-  const LoginURL = URL + "/auth/login";
+  const LoginURL = `${URL}/auth/login`;
 
   const storeItemInLS = (token, loggedInUser) => {
     localStorage.setItem("user_token", token);

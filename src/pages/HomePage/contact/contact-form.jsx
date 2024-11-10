@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "../../../components";
-
-const URL = import.meta.env.VITE_APP_URL
+import URL from "../../../config";
 
 function ContactForm() {
   const [formData, setFormData] = useState({

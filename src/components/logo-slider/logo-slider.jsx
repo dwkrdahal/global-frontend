@@ -4,10 +4,7 @@ import { Container } from "react-bootstrap";
 import "./logo-slider.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Service from "../../service/ImageService";
-
-const myService = new Service();
-const URL = import.meta.env.VITE_APP_URL;
+import URL from "../../config";
 
 // Slider settings
 const settings = {
@@ -15,7 +12,7 @@ const settings = {
   arrows: false,
   infinite: true,
   speed: 1500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 1000,
@@ -74,7 +71,7 @@ const LogoSlider = () => {
           {logos.map((logo, index) => (
             <div key={index} className="logo-item">
               <img
-                src={myService.getRelativePath(logo?.image?.url)}
+                src={(logo?.image?.url)}
                 alt={logo?.image?.caption}
                 className="img-fluid"
               />

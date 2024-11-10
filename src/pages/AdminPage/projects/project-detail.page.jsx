@@ -22,6 +22,7 @@ import {
   MainImageComponent,
   TimelineComponent,
 } from "./project.component";
+import URL from "../../../config";
 
 export default function ProjectDetail() {
   const [project, setProject] = useState(null);
@@ -31,7 +32,6 @@ export default function ProjectDetail() {
   const params = useParams();
   const id = params.id;
 
-  const URL = import.meta.env.VITE_APP_URL;
   const projectURL = URL + "/project/" + id;
 
   const fetchProject = async () => {

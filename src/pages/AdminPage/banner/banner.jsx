@@ -2,10 +2,7 @@ import { Button, Card, Modal, Form, Row, Col, NavLink } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
-import Service from "../../../service/ImageService";
-
-const myService = new Service();
-const URL = import.meta.env.VITE_APP_URL;
+import URL from "../../../config";
 
 const Banner = () => {
   const [banners, setBanners] = useState([]);
@@ -130,8 +127,8 @@ const Banner = () => {
     setShowModal(true);
     setMediaPreview(
       banner.media === "image"
-        ? myService.getRelativePath(banner?.image?.url)
-        : myService.getRelativePath(banner?.video?.url) || null
+        ? (banner?.image?.url)
+        : (banner?.video?.url) || null
     );
   };
 
@@ -140,7 +137,7 @@ const Banner = () => {
       title: "",
       subtitle: "",
       isActive: false,
-      media: "image", // Default to image
+      media: "", // Default to image
     });
     setIsEditMode(false);
     setShowModal(true);
@@ -208,13 +205,13 @@ const Banner = () => {
                     {/* Display mainImage if available, otherwise display the first image from the list */}
                     {banner.image ? (
                       <img
-                        src={myService.getRelativePath(banner?.image?.url)}
+                        src={(banner?.image?.url)}
                         className="d-block w-100 banner-image"
                         alt={banner.title}
                       />
                     ) : (
                       <video
-                        src={myService.getRelativePath(banner?.video?.url)}
+                        src={(banner?.video?.url)}
                         controls
                         style={{
                           width: "100%",

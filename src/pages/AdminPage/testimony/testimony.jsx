@@ -2,9 +2,7 @@ import { Button, Card, Modal, Form, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
-import Service from "../../../service/ImageService";
-const myService = new Service();
-const URL = import.meta.env.VITE_APP_URL;
+import URL from "../../../config";
 
 const Testimony = () => {
   const [testimonies, setTestimonies] = useState([]);
@@ -114,7 +112,7 @@ const Testimony = () => {
     setCurrentTestimony(testimony);
     setIsEditMode(true);
     setShowModal(true);
-    setImagePreview(myService.getRelativePath(testimony?.image?.url));
+    setImagePreview((testimony?.image?.url));
   };
 
   const handleAdd = () => {
@@ -175,9 +173,7 @@ const Testimony = () => {
                       <div className="d-flex align-items-center mb-3">
                         <div className="me-3">
                           <img
-                            src={myService.getRelativePath(
-                              testimony?.image?.url
-                            )}
+                            src={(testimony?.image?.url)}
                             alt={testimony?.image?.caption || "no-image"}
                             className="img-fluid"
                             style={{

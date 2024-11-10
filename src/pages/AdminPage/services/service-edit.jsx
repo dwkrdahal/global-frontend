@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import URL from "../../../config";
 
 export default function ServiceEdit({
   show,
@@ -14,7 +15,6 @@ export default function ServiceEdit({
   const [link, setLink] = useState("");
   const [status, setStatus] = useState(false);
 
-  const URL = import.meta.env.VITE_APP_URL;
   const serviceURL = URL + "/service";
 
   // Set the current service details in the form fields when the modal is opened

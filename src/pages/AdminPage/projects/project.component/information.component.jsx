@@ -300,6 +300,7 @@ export default function InformationComponent({ project, projectURL, token }) {
                     <option value="commercial">Commercial</option>
                     <option value="industrial">Industrial</option>
                     <option value="mixed-use">Mixed-use</option>
+                    <option value="mixed-use">Mixed-use</option>
                   </Form.Control>
                 </Form.Group>
               </Col>

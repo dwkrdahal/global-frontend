@@ -3,8 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import "./features.css";
-
-const URL = import.meta.env.VITE_APP_URL;
+import URL from "../../config";
 
 const FeatureCounters = () => {
   const [features, setFeatures] = useState([]);

@@ -56,8 +56,13 @@ import {
   CreateProject,
 } from "./pages/AdminPage/projects";
 
-import { AboutPage, FeaturePage, ClientLogoPage } from "./pages/AdminPage/about";
+import {
+  AboutPage,
+  FeaturePage,
+  ClientLogoPage,
+} from "./pages/AdminPage/about";
 import { MessagePage } from "./pages/AdminPage/message";
+import Profile from "./pages/AdminPage/me/profile";
 
 // Private Routes
 function AdminPrivateRoutes({ component: Component }) {
@@ -142,7 +147,6 @@ function App() {
             <Route path="feature" element={<FeaturePage />}></Route>
             <Route path="logo" element={<ClientLogoPage />}></Route>
             {/* TODO */}
-
           </Route>
 
           {/* Single Pages */}
@@ -150,6 +154,7 @@ function App() {
           <Route path="testimony" element={<Testimony />} />
           <Route path="banner" element={<Banner />} />
           <Route path="users" element={<Users />} />
+          <Route path="me" element={<Profile />} />
 
           <Route path="table" element={<Tables />} />
         </Route>

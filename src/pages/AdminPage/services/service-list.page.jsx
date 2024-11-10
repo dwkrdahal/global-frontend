@@ -13,12 +13,12 @@ import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ServiceEdit from "./service-edit";
+import URL from "../../../config";
 
 export default function ListService() {
   const token = localStorage.getItem("user_token");
   const navigate = useNavigate();
 
-  const URL = import.meta.env.VITE_APP_URL;
   const serviceURL = URL + "/service";
 
   const [services, setServices] = useState([]);

@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
 import TeamFormComponent from "./team-form.component";
 import { toast } from "react-toastify";
+import URL from "../../../config";
 
 function CreateTeam() {
-  const URL = import.meta.env.VITE_APP_URL;
   const teamURL = URL + "/team";
 
   const navigate = useNavigate();

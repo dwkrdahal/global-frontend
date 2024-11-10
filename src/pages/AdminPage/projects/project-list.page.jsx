@@ -8,12 +8,12 @@ import "./project.css"; // Custom CSS file for additional styles
 import Service from "../../../service/ImageService";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+import URL from "../../../config";
 
 const myService = new Service();
 
 export default function ListProject() {
   const token = localStorage.getItem("user_token");
-  const URL = import.meta.env.VITE_APP_URL;
   const projectURL = URL + "/project";
 
   const [projects, setProjects] = useState([]);
@@ -227,13 +227,13 @@ export default function ListProject() {
                     {/* Display mainImage if available, otherwise display the first image from the list */}
                     {project.mainImage ? (
                       <img
-                        src={myService.getRelativePath(project.mainImage.url)}
+                        src={(project.mainImage.url)}
                         className="d-block w-100 project-image"
                         alt={project.title}
                       />
                     ) : project.images && project.images.length > 0 ? (
                       <img
-                        src={myService.getRelativePath(project.images[0].url)}
+                        src={(project.images[0].url)}
                         className="d-block w-100 project-image"
                         alt={project.title}
                       />

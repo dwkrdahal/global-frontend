@@ -63,7 +63,7 @@ export default function MainImageComponent({ project, projectURL, token }) {
       <Card.Body>
         <img
           className="d-block w-100"
-          src={myService.getRelativePath(selectedMainImage?.url)}
+          src={(selectedMainImage?.url)}
           alt="Main Image"
         />
 
@@ -75,7 +75,7 @@ export default function MainImageComponent({ project, projectURL, token }) {
                   <Card onClick={() => handleMainImageChange(image)}>
                     <Card.Img
                       variant="top"
-                      src={myService.getRelativePath(image.url)}
+                      src={(image.url)}
                       alt={`Thumbnail for ${image.caption}`}
                       style={{ height: "100px", objectFit: "cover" }}
                     />

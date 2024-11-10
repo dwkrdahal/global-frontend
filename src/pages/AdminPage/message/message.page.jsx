@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
+import URL from "../../../config";
 
-const URL = import.meta.env.VITE_APP_URL;
 const token = localStorage.getItem("user_token");
 
 function MessagePage() {

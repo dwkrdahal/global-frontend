@@ -94,7 +94,7 @@ const TopNavbar = () => {
               </li>
               <li>
                 <NavLink className="dropdown-item" to="/admin/me">
-                  Profile
+                  Change Password
                 </NavLink>
               </li>
               <li>

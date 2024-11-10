@@ -109,28 +109,32 @@ export default function ImageManagementComponent({
         </div>
       </Card.Header>
       <Card.Body>
-        <Carousel>
-          {images?.map((image, index) => (
-            <Carousel.Item key={index}>
-              <img
-                className="d-block w-100"
-                src={myService.getRelativePath(image.url)}
-                alt={`Slide ${index}`}
-              />
-              <Carousel.Caption>
-                <p>{image.caption}</p>
-                {isEditing && (
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDeleteImage(index)}
-                  >
-                    Delete
-                  </Button>
-                )}
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+      <Carousel>
+  {images?.map((image, index) => (
+    <Carousel.Item key={index}>
+      {/* Render the image or a placeholder */}
+      <img
+        className="d-block w-100"
+        src={image?.url || "images/corrupted-file-icon.jpg"}  // Add a placeholder image
+        alt={`Slide ${index}`}
+      />
+      <Carousel.Caption>
+        <p>{image?.caption || "No caption available"}</p>
+        
+        {/* Delete button is always visible when editing */}
+        {isEditing && (
+          <Button
+            variant="danger"
+            onClick={() => handleDeleteImage(index)}
+          >
+            Delete
+          </Button>
+        )}
+      </Carousel.Caption>
+    </Carousel.Item>
+  ))}
+</Carousel>
+
 
         {/* Display newly uploaded images */}
         {newImages.length > 0 && (

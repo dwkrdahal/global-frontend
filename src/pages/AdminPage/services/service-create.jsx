@@ -3,9 +3,9 @@ import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import URL from "../../../config";
 
 export default function CreateService() {
-  const URL = import.meta.env.VITE_APP_URL;
   const serviceURL = URL + "/service";
   const navigate = useNavigate();
 

@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { BreadCrumb } from "../../components";
 import "./auth.css";
 import { Helmet } from "react-helmet";
+import URL from "../../config";
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const URL = import.meta.env.VITE_APP_URL;
-  const RegisterURL = URL + "/auth/register";
+  const RegisterURL = `${URL}/auth/register`;
 
   const [user, setUser] = useState({
     username: "",

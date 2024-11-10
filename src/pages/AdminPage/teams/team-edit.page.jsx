@@ -3,12 +3,12 @@ import TeamFormComponent from "./team-form.component";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import URL from "../../../config";
 
 function EditTeam() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const URL = import.meta.env.VITE_APP_URL;
   const fetchURL = URL + "/team/" + params.id;
 
   const token = localStorage.getItem("user_token");

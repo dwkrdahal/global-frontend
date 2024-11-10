@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Service from "../../../service/ImageService";
 import { Helmet } from "react-helmet";
 const myService = new Service();
+import URL from "../../../config";
 
-const URL = import.meta.env.VITE_APP_URL;
 const teamURL = URL + "/team";
 
 function Team() {
@@ -66,7 +66,7 @@ function Team() {
               <div className="team-card">
                 <div className="team-image-wrapper">
                   <img
-                    src={myService.getRelativePath(member?.avatar?.url)}
+                    src={(member?.avatar?.url)}
                     alt={member.name}
                     className="team-image"
                   />

@@ -5,9 +5,9 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import URL from "../../../config";
 
 export default function CreateProject() {
-  const URL = import.meta.env.VITE_APP_URL;
   const projectURL = URL + "/project";
 
   const navigate = useNavigate();

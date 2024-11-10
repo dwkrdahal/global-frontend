@@ -13,7 +13,7 @@ import Service from "../../../service/ImageService";
 import { Helmet } from "react-helmet";
 
 const myService = new Service();
-const URL = import.meta.env.VITE_APP_URL;
+import URL from "../../../config";
 
 function ProjectDescription() {
   const { id } = useParams(); // Get the project ID from URL parameters
@@ -86,10 +86,7 @@ function ProjectDescription() {
           property="og:description"
           content={`Check out ${project?.title}, a ${project?.projectType} in ${project?.location} built with ${project?.architectureStyle}.`}
         />
-        <meta
-          property="og:image"
-          content={myService.getRelativePath(project?.images[0]?.url)}
-        />
+        <meta property="og:image" content={project?.images[0]?.url} />
         <meta
           property="og:url"
           content={`https://globalconstruction.com.np/project/${id}`}
@@ -106,10 +103,7 @@ function ProjectDescription() {
           name="twitter:description"
           content={`Explore the details of ${project?.title}, a ${project?.projectType} located in ${project?.location}.`}
         />
-        <meta
-          name="twitter:image"
-          content={myService.getRelativePath(project?.mainImage?.url)}
-        />
+        <meta name="twitter:image" content={project?.mainImage?.url} />
 
         {/* Canonical URL */}
         <link
@@ -152,7 +146,7 @@ function ProjectDescription() {
             <div key={index}>
               <img
                 className="d-block w-100"
-                src={myService.getRelativePath(img.url)}
+                src={img.url}
                 alt={img.caption}
                 style={{ height: "500px", objectFit: "cover" }}
               />
@@ -187,38 +181,21 @@ function ProjectDescription() {
             </Card>
             <Card className="mb-4 p-3 shadow-sm">
               <Card.Body>
-                <Card.Title className="text-center">Client</Card.Title>
+                <Card.Title className="text-center">for</Card.Title>
                 <Card.Text>
                   <strong>{project?.client?.name}</strong>
-                </Card.Text>
-                <Card.Text>
-                  <strong>
-                    <a href={`mailto:${project?.client?.email}`}>
-                      {project?.client?.email}
-                    </a>
-                  </strong>
-                </Card.Text>
-                <Card.Text>
-                  <strong>{project?.client?.contact}</strong>
                 </Card.Text>
               </Card.Body>
             </Card>
 
             <Card className="mb-4 p-3 shadow-sm">
               <Card.Body>
-                <Card.Title className="text-center">Designer</Card.Title>
+                <Card.Title className="text-center">by</Card.Title>
                 <Card.Text>
-                  <strong>Name:</strong> {project?.designArchitect?.name}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Email:</strong>{" "}
-                  <a href={`mailto:${project?.designArchitect?.email}`}>
-                    {project?.designArchitect?.email}
-                  </a>
-                </Card.Text>
-                <Card.Text>
-                  <strong>Position:</strong>{" "}
-                  {project?.designArchitect?.position}
+                  <strong>
+                    {project?.designArchitect?.name} <br />
+                    {project?.designArchitect?.position}
+                  </strong>
                 </Card.Text>
               </Card.Body>
             </Card>

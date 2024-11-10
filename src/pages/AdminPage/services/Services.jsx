@@ -73,7 +73,7 @@ function Services() {
               <Card border="dark">
                 <Card.Img
                   variant="top"
-                  src={myService.getRelativePath(service?.image.url)}
+                  src={(service?.image.url)}
                 />
                 <Card.Body>
                   <Card.Title className="text-center">

@@ -4,9 +4,9 @@ import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
 import Service from "../../../service/ImageService";
 import Swal from "sweetalert2";
+import URL from "../../../config";
 
 const myService = new Service();
-const URL = import.meta.env.VITE_APP_URL;
 
 const ClientLogoPage = () => {
   const [logos, setLogos] = useState([]);
@@ -122,7 +122,7 @@ const ClientLogoPage = () => {
     setCurrentLogo(logo);
     setIsEditMode(true);
     setShowModal(true);
-    setImagePreview(myService.getRelativePath(logo?.image?.url)); // Set image preview for existing logo
+    setImagePreview((logo?.image?.url)); // Set image preview for existing logo
   };
 
   // Open modal for adding new logo
@@ -182,7 +182,7 @@ const ClientLogoPage = () => {
                   <td>{logo?.companyName}</td>
                   <td>
                     <img
-                      src={myService.getRelativePath(logo?.image?.url)}
+                      src={(logo?.image?.url)}
                       height="auto"
                       width="100px"
                       alt={logo?.image?.caption || "no-image"}
@@ -190,7 +190,7 @@ const ClientLogoPage = () => {
                         Swal.fire({
                           title: logo?.companyName,
                           text: logo?.link,
-                          imageUrl: myService.getRelativePath(logo?.image?.url),
+                          imageUrl: (logo?.image?.url),
                           imageHeight: 400,
                           imageAlt: "Custom image",
                         });

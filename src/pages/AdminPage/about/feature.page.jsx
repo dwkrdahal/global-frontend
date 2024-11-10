@@ -2,9 +2,9 @@ import { Button, Table, Modal, Form, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { AdminHelmet, PageTitle } from "../../../components/admin";
 import { toast } from "react-toastify";
+import URL from "../../../config";
 
 const FeaturePage = () => {
-  const URL = import.meta.env.VITE_APP_URL;
   const [features, setFeatures] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentFeature, setCurrentFeature] = useState(null);

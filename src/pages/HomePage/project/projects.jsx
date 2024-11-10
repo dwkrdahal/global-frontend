@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./project.css";
 import { Card, Col, Nav, Row, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Service from "../../../service/ImageService";
-
-const myService = new Service();
+import URL from "../../../config";
 
 const styles = [
   "All",
@@ -13,7 +11,6 @@ const styles = [
   "Industrial",
   "Construction",
 ];
-const URL = import.meta.env.VITE_APP_URL;
 
 function Projects({ featured }) {
   const [projects, setProjects] = useState([]);
@@ -163,7 +160,7 @@ function Projects({ featured }) {
               <Card className="project-card">
                 <Card.Img
                   variant="top"
-                  src={myService.getRelativePath(project?.images[0]?.url)} // Assume the first image is the main one
+                  src={(project?.images[0]?.url)} // Assume the first image is the main one
                   alt={project.title}
                   className="project-img"
                 />
